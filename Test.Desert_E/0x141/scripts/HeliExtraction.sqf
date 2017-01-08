@@ -5,6 +5,7 @@
 ** Website.....: Http://github.com/ei
 ** Release Date: September 2, 2014
 ** Update Date.: Jan 8, 2017
+** License.....: MIT
 **  
 ** -- File must be saved as .sqf --
 */

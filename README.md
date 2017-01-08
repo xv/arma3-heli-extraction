@@ -1,6 +1,6 @@
 Synopsis 📜
 ===========
-This is my little neat helicopter extraction script for ArmA II/OA. What makes this script different than any other extraction script ever released for the ArmA series is that it applies a bit more realism and complexity. Extraction requests are called via smoke grenade after triggering the script from the radio menu. The spawned helicopter is also dependent on the player's side and faction. Once the helicopter lands at the requested grid position, you can board it and select a drop off location by clicking on the map.
+This is my neat little helicopter extraction script for ArmA II/OA. What makes this script different than any other extraction script ever released for the ArmA series is that it applies a bit more realism and complexity. Extraction requests are called via smoke grenade after triggering the script from the radio menu. The spawned helicopter is also dependent on the player's side and faction. Once the helicopter lands at the requested grid position, you can board it and select a drop off location by clicking on the map.
 
 Helicopter + crew invincibility is also optional. However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed; however, you will not be able to request another one.
 

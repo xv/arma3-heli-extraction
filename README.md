@@ -10,7 +10,7 @@ Well, actually, this script was originally written for ArmA III, but I decided t
 
 Usage
 -----
-I have included a sample mission with everything set and ready for usability. The long way:
+I have included a sample mission with everything set and ready for usability.<br/>The long way:
 
 1. Copy `description.ext`, `stringtable.csv` and `0x141 folder` to your custom mission folder.
 2. Go in-game and create a new `trigger`. Set the activation to Radio Alpha. In the activation field, add this line:

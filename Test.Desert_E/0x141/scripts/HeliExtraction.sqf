@@ -109,7 +109,7 @@ FNC_Spawn=[] spawn
 waitUntil {BIS_fnc_init};
 
 _SpawnDirection = random 360; // spawn the helicopter at a random direction
-_SpawnRange = 2500;            // time it will take until the helicopter arrives at the marked location
+_SpawnRange = 2500;           // time it will take until the helicopter arrives at the marked location
 _SpawnPos = [
     (_TargetPos select 0) + (_SpawnRange * sin(_SpawnDirection)), 
     (_TargetPos select 1) + (_SpawnRange * cos(_SpawnDirection)), 
@@ -121,14 +121,13 @@ _VectorDirection = [_SpawnPos, _TargetPos] call BIS_fnc_dirTo;
 ** playerSide can be added as well; however, the script will not function
 ** correctly. This seems to be a problem with ArmA itself, not the script.
 **
-** you can modify "B_Heli_Transport_01_F", "O_Heli_Light_02_unarmed_F",
-** "I_Heli_light_03_unarmed_F" to any helicopter model you want, whether it's
-** official or user-made.
+** you can modify the helicopter class names to any helicopter model you want,
+** whether it's official or user-made.
 */
 _VehicleArray = switch (playerSide) do
 {
     case west:
-    {
+    {   // return the player faction and spawn a helicopter based on it
         switch (faction player) do
         {
             case "USMC"   : { [_SpawnPos, _VectorDirection, "UH1Y",                   WEST] call BIS_fnc_spawnVehicle; };
@@ -197,8 +196,7 @@ _Vehicle setCombatMode "BLUE";
 ** helicopter gets destroyed, you will not be able to request another. This is
 ** NOT a bug. The script was written to function this way. Use at your own risk!
 */
-
-// { _x allowDamage false; } foreach [_Vehicle] + crew _Vehicle;
+{ _x allowDamage false; } foreach [_Vehicle] + crew _Vehicle;
 //_Vehicle setCaptive true; // uncomment to make enemy AI ignore the helicopter and not shoot at it
 
 // set the altitude, direction and speed of the helicopter

@@ -18,7 +18,7 @@
 
 if (faction player == "GUE" || faction player == "BIS_TK_CIV") exitWith
 {
-	hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
+    hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };
 
 virtual_target = false;
@@ -44,18 +44,18 @@ player addMagazine "SmokeShellRed";
 // create a marker where the smoke grenade lands
 CheckForSmoke = player addEventHandler ["Fired",
 {
-	if ((_this select 5) != "SmokeShellRed") exitWith {};
-	_null = (_this select 6) spawn
+    if ((_this select 5) != "SmokeShellRed") exitWith {};
+    _null = (_this select 6) spawn
     {
-		_SmokePos = getPos _this;
-		sleep 1;
-		while {(_SmokePos distance (getPos _this)) > 0} do {
-			_SmokePos = getPos _this;
-			virtual_target = true;
-			"extraction_marker" setMarkerPosLocal _SmokePos;
-			sleep 1;
-		};
-	};
+        _SmokePos = getPos _this;
+        sleep 1;
+        while {(_SmokePos distance (getPos _this)) > 0} do {
+            _SmokePos = getPos _this;
+            virtual_target = true;
+            "extraction_marker" setMarkerPosLocal _SmokePos;
+            sleep 1;
+        };
+    };
 }];
 
 1 setRadioMsg "NULL"; // "1" depends on your chosen radio slot. Check: setRadioMsg help URL
@@ -85,16 +85,16 @@ sleep 1;
 
 private
 [
-	"_SpawnDirection",
-	"_SpawnRange",
-	"_SpawnPos",
-	"_VectorDirection",
-	"_VehicleArray",
-	"_Vehicle",
-	"_Pilot",
-	"_Dir",
-	"_WP1",
-	"_WP2"
+    "_SpawnDirection",
+    "_SpawnRange",
+    "_SpawnPos",
+    "_VectorDirection",
+    "_VehicleArray",
+    "_Vehicle",
+    "_Pilot",
+    "_Dir",
+    "_WP1",
+    "_WP2"
 ];
 
 FNC_Spawn=[] spawn
@@ -216,50 +216,50 @@ sleep 1;
 // deploy countermeasures in case the helicopter gets fired at with AA missiles
 _Vehicle addEventHandler ["IncomingMissile",
 {
-	cmflare = {
-		_dropTime = 0;
+    cmflare = {
+        _dropTime = 0;
 
-		while {alive _Vehicle && _dropTime < 20} do
+        while {alive _Vehicle && _dropTime < 20} do
         {
-			sleep 0.4;
-			_Vehicle action ["useWeapon", _Vehicle, driver _Vehicle, 0];
-			_dropTime = _dropTime + 1;
-		};
-	};
+            sleep 0.4;
+            _Vehicle action ["useWeapon", _Vehicle, driver _Vehicle, 0];
+            _dropTime = _dropTime + 1;
+        };
+    };
 call cmflare;
 }];
 
 while { ((alive _Vehicle) && !(unitReady _Vehicle)) } do
 {
-	sleep 1;
+    sleep 1;
 };
 
 if (alive _Vehicle) then
 {
-	// order the helicopter to land after reaching its designated coordinates
-	_Vehicle land "GET IN";
-	
-	// precisely check if the helicopter landed and came to a complete stop    
+    // order the helicopter to land after reaching its designated coordinates
+    _Vehicle land "GET IN";
+    
+    // precisely check if the helicopter landed and came to a complete stop    
     waitUntil{(velocity _Vehicle select 2) > -0.2 && (getPosATL _Vehicle select 2) < 0.5};
-	
-	sleep 0.7;
-	
-	// make sure that the player and all associated units have boarded the helicopter
-	waitUntil{{_x in _Vehicle} count units group player == count units group player};
-	
-	// lock the doors to prevent the player from ejecting and going off the script scenario
-	_Vehicle lock true; 
-	
-	sleep 0.3;
-	
-	deleteMarkerLocal "extraction_marker";
-	[playerSide,"HQ"] sideRadio "radio_beep_to";
-	[playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
-	
-	sleep 1.7;
-	
-	// open the map to mark a drop off location
-	openMap true;
+    
+    sleep 0.7;
+    
+    // make sure that the player and all associated units have boarded the helicopter
+    waitUntil{{_x in _Vehicle} count units group player == count units group player};
+    
+    // lock the doors to prevent the player from ejecting and going off the script scenario
+    _Vehicle lock true; 
+    
+    sleep 0.3;
+    
+    deleteMarkerLocal "extraction_marker";
+    [playerSide,"HQ"] sideRadio "radio_beep_to";
+    [playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
+    
+    sleep 1.7;
+    
+    // open the map to mark a drop off location
+    openMap true;
 };
 
 VT = false;
@@ -269,9 +269,9 @@ sleep 0.1;
 // if invincibility is disabled and the helicopter gets destroyed, script ends here
 if (!alive _Vehicle || (damage _Vehicle) > 0.5) exitWith
 {
-	player removeEventHandler ['Fired', 0];
-	deleteMarkerLocal 'extraction_marker';
-	hint parsetext format ["<t align='left' color='#C10005' size='1'>The extraction helicopter has been destroyed.</t>"];
+    player removeEventHandler ['Fired', 0];
+    deleteMarkerLocal 'extraction_marker';
+    hint parsetext format ["<t align='left' color='#C10005' size='1'>The extraction helicopter has been destroyed.</t>"];
 };
 
 _Marker_2 = createMarkerLocal ["dropoff_marker", [0,0]];
@@ -324,31 +324,31 @@ sleep 1;
 // check if the helicopter has reached the drop off location
 while { ( (alive _Vehicle) && !(unitReady _Vehicle) ) } do
 {
-	sleep 1;
+    sleep 1;
 };
 
 // order the helicopter to land
 if (alive _Vehicle) then
 {
-	_Vehicle land "GET OUT";
-	
-	// waitUntil{(velocity _Vehicle) select 2 > -0.2 && (getPosATL _Vehicle) select 2 < 0.5};
-	
-	waitUntil{(velocity _Vehicle select 2) > -0.2 && (getPosATL _Vehicle select 2) < 0.5};
-	
-	[playerSide,"HQ"] sideRadio "radio_beep_to";
-	[playerSide,"HQ"] sideChat "Touchdown!";
-	
-	// unlock the helicopter doors
-	_Vehicle lock false;	
-	
-	// make sure that the player and all associated units have left the helicopter
-	waitUntil{{_x in _Vehicle} count units group player == 0};
-	
-	// lock the doors
-	_Vehicle lock true;
-	
-	sleep 0.5;
+    _Vehicle land "GET OUT";
+    
+    // waitUntil{(velocity _Vehicle) select 2 > -0.2 && (getPosATL _Vehicle) select 2 < 0.5};
+    
+    waitUntil{(velocity _Vehicle select 2) > -0.2 && (getPosATL _Vehicle select 2) < 0.5};
+    
+    [playerSide,"HQ"] sideRadio "radio_beep_to";
+    [playerSide,"HQ"] sideChat "Touchdown!";
+    
+    // unlock the helicopter doors
+    _Vehicle lock false;    
+    
+    // make sure that the player and all associated units have left the helicopter
+    waitUntil{{_x in _Vehicle} count units group player == 0};
+    
+    // lock the doors
+    _Vehicle lock true;
+    
+    sleep 0.5;
 };
 
 sleep 3;
@@ -362,7 +362,7 @@ _WP3 setWaypointStatements
 [
     "true",
     "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
-	 deleteMarkerLocal 'dropoff_marker';
-	 1 setRadioMsg 'Request Extraction';
-	 player removeEventHandler ['Fired', 0];"
+     deleteMarkerLocal 'dropoff_marker';
+     1 setRadioMsg 'Request Extraction';
+     player removeEventHandler ['Fired', 0];"
 ];

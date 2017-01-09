@@ -152,8 +152,6 @@ _VehicleArray = switch (playerSide) do
             case "INS"       : { [_SpawnPos, _VectorDirection, "Mi17_INS",        EAST] call BIS_fnc_spawnVehicle; };
             case "BIS_TK"    : { [_SpawnPos, _VectorDirection, "Mi17_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
             case "BIS_TK_INS": { [_SpawnPos, _VectorDirection, "UH1H_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
-            case "BIS_GER"   : { [_SpawnPos, _VectorDirection, "MH6J_EP1",        EAST] call BIS_fnc_spawnVehicle; };
-            case "BIS_BAF"   : { [_SpawnPos, _VectorDirection, "AW159_Lynx_BAF",  EAST] call BIS_fnc_spawnVehicle; };
         };
     };
     

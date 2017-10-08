@@ -29,7 +29,7 @@ This should be fairly easy for anyone to do.
 ```SQF
 script = [] execVM "Core\scripts\HeliExtraction.sqf"
 ```
-3. Launch your mission and dial 0-0-1. The script will begin. Follow the its given instructions. Voila!
+3. Launch your mission and dial 0-0-1. The script will begin. Follow its given on-screen instructions. Voila!
 
 Contact
 -------

@@ -33,10 +33,10 @@ script = [] execVM "Core\scripts\HeliExtraction.sqf"
 
 Contact
 -------
-Your love letters &nbsp;&nbsp;&nbsp;> xviyy@aol.ca
+[Email me your love letters](mailto:xviyy@aol.ca)
 <br/>
-Tweet me maybe?   > [xviyy](https://twitter.com/xviyy)
+[Tweet me maybe?](https://twitter.com/xviyy)
 
 Legal
 -----
-This project is distributed under the [MIT License](https://opensource.org/licenses/MIT).
+This project is distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT).

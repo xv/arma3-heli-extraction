@@ -4,7 +4,7 @@ This is my neat little helicopter extraction script for Arma III. What makes thi
 
 The helicopter spawn position is random. It can arrive from any direction.
 
-Helicopter + crew invincibility is also optional (enabled by default; can be changed by modifying the script). However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed; however, you will not be able to request another one.
+Helicopter + crew invincibility is also optional (enabled by default; can be changed by modifying the script). However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
 
 Porting to Arma II/OA
 ---------------------

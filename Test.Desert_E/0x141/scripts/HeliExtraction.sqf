@@ -1,43 +1,37 @@
-/* GENERAL INFORMATION
-** Game........: ArmA II
+/*
+** Game........: ArmA III
 ** Script Type.: Helicopter Extraction 
-** Developer...: 0x141
-** Website.....: Http://github.com/ei
-** Release Date: September 2, 2014
-** Update Date.: Jan 8, 2017
+** Developer...: Jad Altahan (0x141)
+** Website.....: Http://github.com/xv
 ** License.....: MIT
-**  
-** -- File must be saved as .sqf --
 */
 
-/* HELP URLS
-** setRadioMsg: https://community.bistudio.com/wiki/setRadioMsg
-** Vehicle class names ArmA II: https://community.bistudio.com/wiki/ArmA_2:_Vehicles
-** Vehicle class names ArmA IIOA: https://community.bistudio.com/wiki/ArmA_2_OA:_Vehicles
-** Faction class names: https://community.bistudio.com/wiki/faction
-*/
-
-if (faction player == "GUE" || faction player == "BIS_TK_CIV") exitWith
+// No transport for Gendarmerie, Horizon Islands Defence Force (RHS), 
+// USA Navy (RHS), USAF (RHS)
+if (faction player == "BLU_GEN_F"            ||
+    faction player == "rhsgref_faction_hidf" ||
+    faction player == "rhs_faction_usn"      ||
+    faction player == "rhs_faction_usaf") exitWith
 {
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };
 
-virtual_target = false;
+virtual_target_state = false;
 
 sleep 0.1;
 
-_Marker = createMarkerLocal ["extraction_marker", [0,0]];
-_gridPos = mapGridPosition getPos player;
+_Marker = createMarkerLocal ["extraction_marker", [0, 0]];
+gridPos = mapGridPosition getPos player;
 
 sleep 0.3;
 
 player sideRadio "radio_beep_from";
-player sideChat format["Valor-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, _gridPos];
+player sideChat format ["Valor-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, gridPos];
 
 sleep 10;
 
-[PlayerSide,"HQ"] sideRadio "radio_beep_to";
-[PlayerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with red smoke, over.", name player];
+[playerSide,"HQ"] sideRadio "radio_beep_to";
+[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with red smoke, over.", name player];
 
 playerMags = magazines player;
 if ("SmokeShellRed" in playerMags) then
@@ -47,31 +41,33 @@ if ("SmokeShellRed" in playerMags) then
 else
 {
     hint parsetext format ["<t align='left' color='#FFF'>A <t color='#DA525C'>red smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
-    player addMagazine "SmokeShellRed";
+	player addMagazine "SmokeShellRed";
 };
 
-// create a marker where the smoke grenade lands
+// Create a marker where the smoke grenade lands
 CheckForSmoke = player addEventHandler ["Fired",
 {
     if ((_this select 5) != "SmokeShellRed") exitWith {};
     _null = (_this select 6) spawn
     {
-        _SmokePos = getPos _this;
+        smokePos = getPos _this;
         sleep 1;
-        while {(_SmokePos distance (getPos _this)) > 0} do {
-            _SmokePos = getPos _this;
-            virtual_target = true;
-            "extraction_marker" setMarkerPosLocal _SmokePos;
+        while { (smokePos distance (getPos _this)) > 0 } do
+        {
+            smokePos = getPos _this;
+            virtual_target_state = true;
+            "extraction_marker" setMarkerPosLocal smokePos;
             sleep 1;
         };
     };
 }];
 
-1 setRadioMsg "NULL"; // "1" depends on your chosen radio slot. Check: setRadioMsg help URL
+// "1" depends on your chosen radio slot. Check: setRadioMsg help URL
+1 setRadioMsg "NULL";
 
-waitUntil {virtual_target};
+waitUntil { virtual_target_state };
 
-// create a marker icon on the map to identify the extraction point
+// Create a marker icon on the map to identify the extraction point
 _Marker setMarkerShapelocal "ICON";
 "extraction_marker" setMarkerTypelocal "MIL_PICKUP";
 "extraction_marker" setMarkerColorlocal "ColorBlack";
@@ -80,74 +76,69 @@ _Marker setMarkerShapelocal "ICON";
 sleep 0.05;
 
 pos_x = getMarkerPos "extraction_marker" select 0;
-publicVariable "pos_x";
 pos_y = getMarkerPos "extraction_marker" select 1;
-publicVariable "pos_y";
 
-SVT = "HeliHEmpty" createVehicle [0,0];
-SVT setPos [pos_x,pos_y];
+virtual_target = "HeliHEmpty" createVehicle [0, 0];
+virtual_target setPos [pos_x, pos_y];
+virtual_target_state = false;
 
-virtual_target = false;
-_TargetPos = getPosASL SVT;
+targetPos = getPosASL virtual_target;
 
 sleep 1;
 
-private
+/* LEGACY ARMA II CODE. NOT REQUIRED IN ARMA 3
+** ===========================================
+**
+** FNC_Spawn=[] spawn
+** {
+**     if (isNil "BIS_fnc_init") then
+**     {
+**         _side  = createCenter sideLogic;
+**         _group = createGroup _side;
+**         _logic = _group createUnit ["FunctionsManager", [0, 0, 0], [], 0, "NONE"];
+**     };
+** };
+** waitUntil { BIS_fnc_init };
+*/
+
+spawnDir = random 360; // Spawn the helicopter at a random direction
+spawnRange = 500;      // Time it will take until the helicopter arrives at the marked location
+spawnPos =
 [
-    "_SpawnDirection",
-    "_SpawnRange",
-    "_SpawnPos",
-    "_VectorDirection",
-    "_VehicleArray",
-    "_Vehicle",
-    "_Pilot",
-    "_Dir",
-    "_WP1",
-    "_WP2"
+	(targetPos select 0) + (spawnRange * sin(spawnDir)), 
+    (targetPos select 1) + (spawnRange * cos(spawnDir)), 
+    (targetPos select 2) + 40
 ];
 
-FNC_Spawn=[] spawn
-{
-    if (isNil "BIS_fnc_init") then
-    {
-        _side = createCenter sideLogic;
-        _group = createGroup _side;
-        _logic = _group createUnit ["FunctionsManager", [0,0,0], [], 0, "NONE"];
-    };
-};
-waitUntil {BIS_fnc_init};
+vecDir = [spawnPos, targetPos] call BIS_fnc_dirTo;
 
-_SpawnDirection = random 360; // spawn the helicopter at a random direction
-_SpawnRange = 2500;           // time it will take until the helicopter arrives at the marked location
-_SpawnPos = [
-    (_TargetPos select 0) + (_SpawnRange * sin(_SpawnDirection)), 
-    (_TargetPos select 1) + (_SpawnRange * cos(_SpawnDirection)), 
-    (_TargetPos select 2) + 40];
-
-_VectorDirection = [_SpawnPos, _TargetPos] call BIS_fnc_dirTo;
-
-/* spawn a different helicopter depending on the player's faction. A civilian
+/* Spawn a different helicopter depending on the player's faction. A civilian
 ** playerSide can be added as well; however, the script will not function
 ** correctly. This seems to be a problem with ArmA itself, not the script.
 **
-** you can modify the helicopter class names to any helicopter model you want,
+** You can modify the helicopter class names to any helicopter model you want,
 ** whether it's official or user-made.
 */
-_VehicleArray = switch (playerSide) do
+heliClass = switch (playerSide) do
 {
     case west:
-    {   // return the player faction and spawn a helicopter based on it
+    {
         switch (faction player) do
         {
-            case "USMC"   : { [_SpawnPos, _VectorDirection, "UH1Y",                   WEST] call BIS_fnc_spawnVehicle; };
-            case "CDF"    : { [_SpawnPos, _VectorDirection, "Mi17_CDF",               WEST] call BIS_fnc_spawnVehicle; };
-            case "BIS_US" : { [_SpawnPos, _VectorDirection, "UH60M_EP1",              WEST] call BIS_fnc_spawnVehicle; };
-            case "BIS_CZ" : { [_SpawnPos, _VectorDirection, "Mi171Sh_rockets_CZ_EP1", WEST] call BIS_fnc_spawnVehicle; };
-            case "BIS_GER": { [_SpawnPos, _VectorDirection, "MH6J_EP1",               WEST] call BIS_fnc_spawnVehicle; };
-            case "BIS_BAF": { [_SpawnPos, _VectorDirection, "AW159_Lynx_BAF",         WEST] call BIS_fnc_spawnVehicle; };
+            case "BLU_F"                : { [spawnPos, vecDir, "B_Heli_Transport_01_F",           WEST] call BIS_fnc_spawnVehicle; }; // NATO (Default)
+            case "BLU_T_F"              : { [spawnPos, vecDir, "B_Heli_Transport_01_F",           WEST] call BIS_fnc_spawnVehicle; }; // NATO (Pacific)
+            case "BLU_CTRG_F"           : { [spawnPos, vecDir, "B_CTRG_Heli_Transport_01_sand_F", WEST] call BIS_fnc_spawnVehicle; }; // NATO (CTRG)
+            case "BLU_G_F"              : { [spawnPos, vecDir, "B_Heli_Light_01_F",               WEST] call BIS_fnc_spawnVehicle; }; // FIA
+            case "ACR_A3"               : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1",         WEST] call BIS_fnc_spawnVehicle; }; // ACR
+			case "ACR_A3_Des"           : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1_Des",     WEST] call BIS_fnc_spawnVehicle; }; // ACR (Desert)
+            case "rhs_faction_usarmy_d" : { [spawnPos, vecDir, "RHS_UH60M_d",                     WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - D)
+			case "rhs_faction_usarmy_wd": { [spawnPos, vecDir, "RHS_UH60M",                       WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - W)
+			case "rhs_faction_socom"    : { [spawnPos, vecDir, "RHS_MELB_MH6M",                   WEST] call BIS_fnc_spawnVehicle; }; // USA (SOCOM)
+			case "rhs_faction_usmc_d"   : { [spawnPos, vecDir, "RHS_UH1Y_d",                      WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - D)
+			case "rhs_faction_usmc_wd"  : { [spawnPos, vecDir, "RHS_UH1Y",                        WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - W)
             default
             {
-                [_SpawnPos, _VectorDirection, "UH60M_EP1", WEST] call BIS_fnc_spawnVehicle;
+                [spawnPos, vecDir, "B_Heli_Transport_01_F", WEST] call BIS_fnc_spawnVehicle;
             };
         };
     };
@@ -156,10 +147,10 @@ _VehicleArray = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "RU"        : { [_SpawnPos, _VectorDirection, "Mi17_rockets_RU", EAST] call BIS_fnc_spawnVehicle; };
-            case "INS"       : { [_SpawnPos, _VectorDirection, "Mi17_INS",        EAST] call BIS_fnc_spawnVehicle; };
-            case "BIS_TK"    : { [_SpawnPos, _VectorDirection, "Mi17_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
-            case "BIS_TK_INS": { [_SpawnPos, _VectorDirection, "UH1H_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
+            case "RU"        : { [spawnPos, vecDir, "Mi17_rockets_RU", EAST] call BIS_fnc_spawnVehicle; };
+            case "INS"       : { [spawnPos, vecDir, "Mi17_INS",        EAST] call BIS_fnc_spawnVehicle; };
+            case "BIS_TK"    : { [spawnPos, vecDir, "Mi17_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
+            case "BIS_TK_INS": { [spawnPos, vecDir, "UH1H_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
         };
     };
     
@@ -167,9 +158,9 @@ _VehicleArray = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "BIS_TK_GUE": { [_SpawnPos, _VectorDirection, "UH1H_TK_GUE_EP1", RESISTANCE] call BIS_fnc_spawnVehicle; };
-            case "BIS_UN"    : { [_SpawnPos, _VectorDirection, "Mi17_UN_CDF_EP1", RESISTANCE] call BIS_fnc_spawnVehicle; };
-            case "PMC_BAF"   : { [_SpawnPos, _VectorDirection, "Ka60_PMC",        RESISTANCE] call BIS_fnc_spawnVehicle; };
+            case "BIS_TK_GUE": { [spawnPos, vecDir, "UH1H_TK_GUE_EP1", RESISTANCE] call BIS_fnc_spawnVehicle; };
+            case "BIS_UN"    : { [spawnPos, vecDir, "Mi17_UN_CDF_EP1", RESISTANCE] call BIS_fnc_spawnVehicle; };
+            case "PMC_BAF"   : { [spawnPos, vecDir, "Ka60_PMC",        RESISTANCE] call BIS_fnc_spawnVehicle; };
         };
     };
     
@@ -177,83 +168,134 @@ _VehicleArray = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "CIV"            : { [_SpawnPos, _VectorDirection, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
-            case "CIV_RU"         : { [_SpawnPos, _VectorDirection, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
-            case "BIS_CIV_special": { [_SpawnPos, _VectorDirection, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
+            case "CIV"            : { [spawnPos, vecDir, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
+            case "CIV_RU"         : { [spawnPos, vecDir, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
+            case "BIS_CIV_special": { [spawnPos, vecDir, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
         };
     };
 };
 
-_Vehicle = _VehicleArray select 0;
-_Pilot = (_VehicleArray select 1) select 0;
+heli = heliClass select 0;
+heliPilot = (heliClass select 1) select 0;
 
 sleep 4;
 
-[PlayerSide,"HQ"] sideRadio "radio_beep_to";
-[PlayerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
+[playerSide,"HQ"] sideRadio "radio_beep_to";
+[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
 
-_Vehicle setBehaviour "CARELESS";
-_Vehicle setSpeedMode "NORMAL";
-_Vehicle setCombatMode "BLUE";
+heli setBehaviour  "CARELESS";
+heli setSpeedMode  "NORMAL";
+heli setCombatMode "GREEN";
 
-/* comment line below to disable invincibility. Note that when you request the
+/* Comment line below to disable invincibility. Note that when you request the
 ** helicopter in a hot zone, the enemy AI will shoot at it. If the helicopter
 ** gets fired at with AA missiles, it will deploy countermeasures; however, it's
 ** impossible to evade all the missiles with flares/chaffs. In case the
 ** helicopter gets destroyed, you will not be able to request another. This is
 ** NOT a bug. The script was written to function this way. Use at your own risk!
 */
-{ _x allowDamage false; } foreach [_Vehicle] + crew _Vehicle;
-//_Vehicle setCaptive true; // uncomment to make enemy AI ignore the helicopter and not shoot at it
+{ _x allowDamage false; } foreach [heli] + crew heli;
+// heli setCaptive true;
 
-// set the altitude, direction and speed of the helicopter
-_Vehicle setPosATL [getPosATL _Vehicle select 0, getPosATL _Vehicle select 1, (getPosATL _Vehicle select 2) + 40];
-_Dir = direction _Vehicle;
-_Vehicle setVelocity [sin ((_Dir) * 30), cos ((_Dir) * 30), 0];
+heli setPosATL
+[
+    (getPosATL heli select 0), 
+    (getPosATL heli select 1),
+    (getPosATL heli select 2) + 40
+];
 
-// set a waypoint to the extraction location and order the helicopter to fly to it
-_WP1 = (group _Vehicle) addWaypoint [_TargetPos, 0];
-_WP1 setWaypointType "MOVE";
-_WP1 setWaypointDescription "Extraction zone";
+heliDir = direction heli;
+heli setVelocity
+[
+    sin ((heliDir) * 30),
+    cos ((heliDir) * 30), 0
+];
 
+// Orders the helicopter to move to the extraction zone
+fn_heliMoveToLZ =
+{
+	wp_extrZone = (group heli) addWaypoint [targetPos, 0];
+	wp_extrZone setWaypointType "MOVE";
+	wp_extrZone setWaypointDescription "Extraction zone";
+};
+
+// Orders the helicopter fly back to the original spawn location
+fn_heliReturnHome =
+{
+	wp_rtb = (group heli) addWaypoint [spawnPos, 2];
+	wp_rtb setWaypointType "MOVE";
+	
+	// Delete the helicopter + crew and clean up the script for usage again
+	wp_rtb setWaypointStatements
+	[
+	    "true",
+	    "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
+	     deleteMarkerLocal 'dropoff_marker';
+	     1 setRadioMsg 'Request Extraction';
+	     player removeEventHandler ['Fired', 0];"
+	];
+};
+
+call fn_heliMoveToLZ;
 sleep 1;
 
-// deploy countermeasures in case the helicopter gets fired at with AA missiles
-_Vehicle addEventHandler ["IncomingMissile",
+// Deploy countermeasures in case the helicopter gets fired at with AA missiles
+heli addEventHandler ["IncomingMissile",
 {
-    cmflare = {
-        _dropTime = 0;
-
-        while {alive _Vehicle && _dropTime < 20} do
+    hint "incoming!";
+    fn_dropFlares =
+    {
+        flares = 0;
+        while { alive heli && flares < 6 } do
         {
-            sleep 0.4;
-            _Vehicle action ["useWeapon", _Vehicle, driver _Vehicle, 0];
-            _dropTime = _dropTime + 1;
+            if ((heli ammo "CMFlareLauncher") == 0) then
+            {
+                heli addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine", [-1], 20];
+                reload heli;
+            };
+            
+            heli action ["useWeapon", heli, driver heli, 0];
+            flares = flares + 1;
+            sleep 0.5;
         };
     };
-call cmflare;
+    call fn_dropFlares;
 }];
 
-while { ((alive _Vehicle) && !(unitReady _Vehicle)) } do
+while { ((alive heli) && !(unitReady heli)) } do
 {
     sleep 1;
 };
 
-if (alive _Vehicle) then
+if (alive heli) then
 {
-    // order the helicopter to land after reaching its designated coordinates
-    _Vehicle land "GET IN";
+    // Order the helicopter to land after reaching its designated coordinates
+    heli land "GET IN";
     
-    // precisely check if the helicopter landed and came to a complete stop    
-    waitUntil{(velocity _Vehicle select 2) > -0.2 && (getPosATL _Vehicle select 2) < 0.5};
+    // Precisely check if the helicopter landed and came to a complete stop    
+    waitUntil
+    {
+    	(velocity  heli select 2) > -0.2 &&
+    	(getPosATL heli select 2) <  0.5
+    };
     
     sleep 0.7;
     
-    // make sure that the player and all associated units have boarded the helicopter
-    waitUntil{{_x in _Vehicle} count units group player == count units group player};
+    if (typeOf heli == "B_Heli_Transport_01_F" ||
+        typeOf heli == "B_CTRG_Heli_Transport_01_sand_F") then
+    {
+        heli animateDoor ['door_R', 1]; 
+        heli animateDoor ['door_L', 1];
+    };
     
-    // lock the doors to prevent the player from ejecting and going off the script scenario
-    _Vehicle lock true; 
+    // Make sure that the player and all associated units have boarded the helicopter
+    waitUntil
+    {
+    	{ _x in heli } count units group player == count units group player
+    };
+    
+    // Lock the doors to prevent the player from ejecting and going off the script scenario
+    heli lock true; 
     
     sleep 0.3;
     
@@ -263,7 +305,7 @@ if (alive _Vehicle) then
     
     sleep 1.7;
     
-    // open the map to mark a drop off location
+    // Open the map to mark a drop off location
     openMap true;
 };
 
@@ -271,27 +313,27 @@ VT = false;
 
 sleep 0.1;
 
-// if invincibility is disabled and the helicopter gets destroyed, script ends here
-if (!alive _Vehicle || (damage _Vehicle) > 0.5) exitWith
+// If invincibility is disabled and the helicopter gets destroyed, script ends here
+if (!alive heli || (damage heli) > 0.5) exitWith
 {
     player removeEventHandler ['Fired', 0];
     deleteMarkerLocal 'extraction_marker';
     hint parsetext format ["<t align='left' color='#C10005' size='1'>The extraction helicopter has been destroyed.</t>"];
 };
 
-_Marker_2 = createMarkerLocal ["dropoff_marker", [0,0]];
+_Marker_2 = createMarkerLocal ["dropoff_marker", [0, 0]];
 
 sleep 0.3;
 
 ASM = "dropoff_marker";
 
-player onMapSingleClick "ASM setMarkerPosLocal _pos; VT=true";
+player onMapSingleClick "ASM setMarkerPosLocal _pos; VT = true";
 
 hintSilent "Click on the map to mark a drop off location";
 
-waitUntil {VT};
+waitUntil { VT };
 
-// create a marker icon on the map to identify the drop off point
+// Create a marker icon on the map to identify the drop off point
 _Marker_2 setMarkerShapelocal "ICON";
 "dropoff_marker" setMarkerTypelocal "MIL_END";
 "dropoff_marker" setMarkerColorlocal "ColorBlack";
@@ -307,67 +349,60 @@ publicVariable "pos_x_2";
 pos_y_2 = getMarkerPos "dropoff_marker" select 1;
 publicVariable "pos_y_2";
 
-SVT_2 = "HeliHEmpty" createVehicle [0,0];
-SVT_2 setPos [pos_x_2,pos_y_2];
+SVT_2 = "HeliHEmpty" createVehicle [0, 0];
+SVT_2 setPos [pos_x_2, pos_y_2];
 
 VT = false;
 
-_DropOffPos = getPosASL SVT_2;
+dropOffPos = getPosASL SVT_2;
 
 sleep 1;
 
-openMap false; // close the map after the drop off location has been marked
+// Close the map after the drop off location has been marked
+openMap false;
 
 sleep 3;
 
-// set a new waypoint for the helicopter
-_WP2 = (group _Vehicle) addWaypoint [_DropOffPos, 1];
-_WP2 setWaypointType "MOVE";
+// Set a new waypoint for the helicopter
+wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
+wp_dropZone setWaypointType "MOVE";
 
 sleep 1;
 
-// check if the helicopter has reached the drop off location
-while { ( (alive _Vehicle) && !(unitReady _Vehicle) ) } do
+// Check if the helicopter has reached the drop off location
+while { ((alive heli) && !(unitReady heli)) } do
 {
     sleep 1;
 };
 
-// order the helicopter to land
-if (alive _Vehicle) then
+// Order the helicopter to land
+if (alive heli) then
 {
-    _Vehicle land "GET OUT";
+    heli land "GET OUT";
     
-    // waitUntil{(velocity _Vehicle) select 2 > -0.2 && (getPosATL _Vehicle) select 2 < 0.5};
-    
-    waitUntil{(velocity _Vehicle select 2) > -0.2 && (getPosATL _Vehicle select 2) < 0.5};
+    waitUntil
+    {
+    	(velocity  heli select 2) > -0.2 && 
+    	(getPosATL heli select 2) <  0.5
+    };
     
     [playerSide,"HQ"] sideRadio "radio_beep_to";
     [playerSide,"HQ"] sideChat "Touchdown!";
     
-    // unlock the helicopter doors
-    _Vehicle lock false;    
+    // Unlock the helicopter doors
+    heli lock false;    
     
-    // make sure that the player and all associated units have left the helicopter
-    waitUntil{{_x in _Vehicle} count units group player == 0};
+    // Make sure that the player and all associated units have left the helicopter
+    waitUntil
+    {
+    	{ _x in heli } count units group player == 0
+    };
     
-    // lock the doors
-    _Vehicle lock true;
+    // Lock the doors
+    heli lock true;
     
     sleep 0.5;
 };
 
 sleep 3;
-
-// order the helicopter fly back to the original spawn location
-_WP3 = (group _Vehicle) addWaypoint [_SpawnPos, 2];
-_WP3 setWaypointType "MOVE";
-
-// delete the helicopter crew, the helicopter itself and clean up the script for usage again
-_WP3 setWaypointStatements
-[
-    "true",
-    "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
-     deleteMarkerLocal 'dropoff_marker';
-     1 setRadioMsg 'Request Extraction';
-     player removeEventHandler ['Fired', 0];"
-];
+call fn_heliReturnHome;

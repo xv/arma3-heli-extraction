@@ -1,7 +1,7 @@
 /*
 ** Game........: ArmA III
 ** Script Type.: Helicopter Extraction 
-** Developer...: Jad Altahan (0x141)
+** Developer...: Jad Altahan
 ** Website.....: Http://github.com/xv
 ** License.....: MIT
 */
@@ -102,7 +102,7 @@ sleep 1;
 */
 
 spawnDir = random 360; // Spawn the helicopter at a random direction
-spawnRange = 500;      // Time it will take until the helicopter arrives at the marked location
+spawnRange = 2500;     // Time it will take until the helicopter arrives at the marked location
 spawnPos =
 [
     (targetPos select 0) + (spawnRange * sin(spawnDir)), 

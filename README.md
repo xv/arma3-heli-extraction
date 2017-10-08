@@ -1,28 +1,35 @@
 Synopsis 📜
 ===========
-This is my neat little helicopter extraction script for ArmA II/OA. What makes this script different than any other extraction script ever released for the ArmA series is that it applies a bit more realism and complexity. Extraction requests are called via smoke grenade after triggering the script from the radio menu. The spawned helicopter is also dependent on the player's side and faction. Once the helicopter lands at the requested grid position, you can board it and select a drop off location by clicking on the map.
+This is my neat little helicopter extraction script for Arma III. What makes this script different than any other extraction script ever released for the Arma series is that it applies a bit more realism and complexity. Extraction requests are called via smoke grenade after triggering the script from the radio menu. The spawned helicopter is also dependent on the player's side and faction. Once the helicopter lands at the marked grid position, you can board it and select a drop off location by clicking on the map. After exiting the helicopter at the designated drop off location, the helicopter will take off and return to the point where it was spawned by the script. Then it will be deleted along with its crew.
 
-Helicopter + crew invincibility is also optional. However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed; however, you will not be able to request another one.
+The helicopter spawn position is random. It can arrive from any direction.
 
-Porting to ArmA III
+Helicopter + crew invincibility is also optional (enabled by default; can be changed by modifying the script). However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed; however, you will not be able to request another one.
+
+Porting to Arma II/OA
+---------------------
+Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is fully compatible with Arma II. All you need to do is edit the faction and vehicle class names to the ones used by Arma II and the script should run without any problems.
+
+Support for RHS Mod
 -------------------
-Well, actually, this script was originally written for ArmA III, but I decided to ditch it and move it to ArmA II. The syntax is most likely compatible with ArmA III. You would have to do minor edits to the code regarding the faction and vehicle class names to get it to work.
+Support for RHS factions is added. If you execute the script while playing as a RHS unit, the script will spawn a helicopter from the faction of the player character.
 
 Usage
 -----
-I have included a sample mission with everything set and ready for usability.<br/>The long way:
+This should be fairly easy for anyone to do.
 
-1. Copy `description.ext`, `stringtable.csv` and `0x141 folder` to your custom mission folder.
-2. Go in-game and create a new `trigger`. Set the activation to Radio Alpha. In the activation field, add this line:
+1. Copy the content of `\src\` folder to your missions folder in `\Documents\Arma 3\missions\<missionName>`
+2. Open your mission in Eden Editor and create a new `Trigger`. Set the activation preference to Radio Alpha. You can make the script repeatable if you want to. In the `On Activation` field, add this line:
 ```SQF
-script = [] execVM "0x141\Scripts\HeliExtraction.sqf"
+script = [] execVM "Core\scripts\HeliExtraction.sqf"
 ```
+3. Launch your mission and dial 0-0-1. The script will begin. Follow the its given instructions. Voila!
 
 Contact
 -------
-Your love letters &nbsp;&nbsp;&nbsp;> hello@exr.be
+Your love letters &nbsp;&nbsp;&nbsp;> xviyy@aol.ca
 <br/>
-Tweet me maybe?   > [0x141](https://twitter.com/0x141)
+Tweet me maybe?   > [xviyy](https://twitter.com/xviyy)
 
 Legal
 -----

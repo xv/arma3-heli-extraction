@@ -39,8 +39,16 @@ sleep 10;
 [PlayerSide,"HQ"] sideRadio "radio_beep_to";
 [PlayerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with red smoke, over.", name player];
 
-hint parsetext format ["<t align='left' color='#FFFFFF' size='1'>A </t><t align='left' color='#D63D48' size='1.2'>red smoke </t><t align='left' color='#FFFFFF' size='1'>grenade has been added to your inventory.</t>"];
-player addMagazine "SmokeShellRed";
+playerMags = magazines player;
+if ("SmokeShellRed" in playerMags) then
+{
+    hint parsetext format ["<t align='left' color='#FFF'>Use the <t color='#DA525C'>red smoke</t> grenade in your inventory to mark the LZ.</t>"];
+}
+else
+{
+    hint parsetext format ["<t align='left' color='#FFF'>A <t color='#DA525C'>red smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
+	player addMagazine "SmokeShellRed";
+};
 
 // create a marker where the smoke grenade lands
 CheckForSmoke = player addEventHandler ["Fired",

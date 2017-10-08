@@ -47,7 +47,7 @@ if ("SmokeShellRed" in playerMags) then
 else
 {
     hint parsetext format ["<t align='left' color='#FFF'>A <t color='#DA525C'>red smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
-	player addMagazine "SmokeShellRed";
+    player addMagazine "SmokeShellRed";
 };
 
 // create a marker where the smoke grenade lands

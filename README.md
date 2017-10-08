@@ -10,6 +10,12 @@ Porting to Arma II/OA
 ---------------------
 Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is fully compatible with Arma II. All you need to do is edit the faction and vehicle class names to the ones used by Arma II and the script should run without any problems.
 
+For class names, see:
+
+[/wiki/faction](https://community.bistudio.com/wiki/faction)<br>
+[/wiki/ArmA_2:_Vehicles](https://community.bistudio.com/wiki/ArmA_2:_Vehicles)<br>
+[/wiki/ArmA_2_OA:_Vehicles](https://community.bistudio.com/wiki/ArmA_2_OA:_Vehicles)
+
 Support for RHS Mod
 -------------------
 Support for RHS factions is added. If you execute the script while playing as a RHS unit, the script will spawn a helicopter from the faction of the player character.
@@ -33,4 +39,4 @@ Tweet me maybe?   > [xviyy](https://twitter.com/xviyy)
 
 Legal
 -----
-This project is distributed under the [MIT License](https://opensource.org/licenses/MIT)
+This project is distributed under the [MIT License](https://opensource.org/licenses/MIT).

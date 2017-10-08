@@ -105,7 +105,7 @@ spawnDir = random 360; // Spawn the helicopter at a random direction
 spawnRange = 500;      // Time it will take until the helicopter arrives at the marked location
 spawnPos =
 [
-	(targetPos select 0) + (spawnRange * sin(spawnDir)), 
+    (targetPos select 0) + (spawnRange * sin(spawnDir)), 
     (targetPos select 1) + (spawnRange * cos(spawnDir)), 
     (targetPos select 2) + 40
 ];
@@ -130,12 +130,12 @@ heliClass = switch (playerSide) do
             case "BLU_CTRG_F"           : { [spawnPos, vecDir, "B_CTRG_Heli_Transport_01_sand_F", WEST] call BIS_fnc_spawnVehicle; }; // NATO (CTRG)
             case "BLU_G_F"              : { [spawnPos, vecDir, "B_Heli_Light_01_F",               WEST] call BIS_fnc_spawnVehicle; }; // FIA
             case "ACR_A3"               : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1",         WEST] call BIS_fnc_spawnVehicle; }; // ACR
-			case "ACR_A3_Des"           : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1_Des",     WEST] call BIS_fnc_spawnVehicle; }; // ACR (Desert)
+            case "ACR_A3_Des"           : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1_Des",     WEST] call BIS_fnc_spawnVehicle; }; // ACR (Desert)
             case "rhs_faction_usarmy_d" : { [spawnPos, vecDir, "RHS_UH60M_d",                     WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - D)
-			case "rhs_faction_usarmy_wd": { [spawnPos, vecDir, "RHS_UH60M",                       WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - W)
-			case "rhs_faction_socom"    : { [spawnPos, vecDir, "RHS_MELB_MH6M",                   WEST] call BIS_fnc_spawnVehicle; }; // USA (SOCOM)
-			case "rhs_faction_usmc_d"   : { [spawnPos, vecDir, "RHS_UH1Y_d",                      WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - D)
-			case "rhs_faction_usmc_wd"  : { [spawnPos, vecDir, "RHS_UH1Y",                        WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - W)
+            case "rhs_faction_usarmy_wd": { [spawnPos, vecDir, "RHS_UH60M",                       WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - W)
+            case "rhs_faction_socom"    : { [spawnPos, vecDir, "RHS_MELB_MH6M",                   WEST] call BIS_fnc_spawnVehicle; }; // USA (SOCOM)
+            case "rhs_faction_usmc_d"   : { [spawnPos, vecDir, "RHS_UH1Y_d",                      WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - D)
+            case "rhs_faction_usmc_wd"  : { [spawnPos, vecDir, "RHS_UH1Y",                        WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - W)
             default
             {
                 [spawnPos, vecDir, "B_Heli_Transport_01_F", WEST] call BIS_fnc_spawnVehicle;
@@ -214,26 +214,26 @@ heli setVelocity
 // Orders the helicopter to move to the extraction zone
 fn_heliMoveToLZ =
 {
-	wp_extrZone = (group heli) addWaypoint [targetPos, 0];
-	wp_extrZone setWaypointType "MOVE";
-	wp_extrZone setWaypointDescription "Extraction zone";
+    wp_extrZone = (group heli) addWaypoint [targetPos, 0];
+    wp_extrZone setWaypointType "MOVE";
+    wp_extrZone setWaypointDescription "Extraction zone";
 };
 
 // Orders the helicopter fly back to the original spawn location
 fn_heliReturnHome =
 {
-	wp_rtb = (group heli) addWaypoint [spawnPos, 2];
-	wp_rtb setWaypointType "MOVE";
-	
-	// Delete the helicopter + crew and clean up the script for usage again
-	wp_rtb setWaypointStatements
-	[
-	    "true",
-	    "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
-	     deleteMarkerLocal 'dropoff_marker';
-	     1 setRadioMsg 'Request Extraction';
-	     player removeEventHandler ['Fired', 0];"
-	];
+    wp_rtb = (group heli) addWaypoint [spawnPos, 2];
+    wp_rtb setWaypointType "MOVE";
+
+    // Delete the helicopter + crew and clean up the script for usage again
+    wp_rtb setWaypointStatements
+    [
+        "true",
+        "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
+         deleteMarkerLocal 'dropoff_marker';
+         1 setRadioMsg 'Request Extraction';
+         player removeEventHandler ['Fired', 0];"
+    ];
 };
 
 call fn_heliMoveToLZ;

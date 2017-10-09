@@ -9,6 +9,9 @@
 // No transport for Gendarmerie, Horizon Islands Defence Force (RHS), 
 // USA Navy (RHS), USAF (RHS)
 if (faction player == "BLU_GEN_F"            ||
+    faction player == "IND_G_F"              ||
+    faction player == "OPF_G_F"              ||
+    faction player == "CIV_F"                ||
     faction player == "rhsgref_faction_hidf" ||
     faction player == "rhs_faction_usn"      ||
     faction player == "rhs_faction_usaf") exitWith
@@ -147,10 +150,11 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "RU"        : { [spawnPos, vecDir, "Mi17_rockets_RU", EAST] call BIS_fnc_spawnVehicle; };
-            case "INS"       : { [spawnPos, vecDir, "Mi17_INS",        EAST] call BIS_fnc_spawnVehicle; };
-            case "BIS_TK"    : { [spawnPos, vecDir, "Mi17_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
-            case "BIS_TK_INS": { [spawnPos, vecDir, "UH1H_TK_EP1",     EAST] call BIS_fnc_spawnVehicle; };
+            case "OPF_F": { [spawnPos, vecDir, "O_Heli_Light_02_F",    EAST] call BIS_fnc_spawnVehicle; }; // CSAT
+            default
+            {
+                [spawnPos, vecDir, "O_Heli_Light_02_F", WEST] call BIS_fnc_spawnVehicle;
+            };
         };
     };
     
@@ -158,9 +162,11 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "BIS_TK_GUE": { [spawnPos, vecDir, "UH1H_TK_GUE_EP1", RESISTANCE] call BIS_fnc_spawnVehicle; };
-            case "BIS_UN"    : { [spawnPos, vecDir, "Mi17_UN_CDF_EP1", RESISTANCE] call BIS_fnc_spawnVehicle; };
-            case "PMC_BAF"   : { [spawnPos, vecDir, "Ka60_PMC",        RESISTANCE] call BIS_fnc_spawnVehicle; };
+            case "IND_F": { [spawnPos, vecDir, "I_Heli_light_03_F", RESISTANCE] call BIS_fnc_spawnVehicle; }; // AAF
+            default
+            {
+                [spawnPos, vecDir, "I_Heli_light_03_F", WEST] call BIS_fnc_spawnVehicle;
+            };
         };
     };
     
@@ -168,9 +174,7 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "CIV"            : { [spawnPos, vecDir, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
-            case "CIV_RU"         : { [spawnPos, vecDir, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
-            case "BIS_CIV_special": { [spawnPos, vecDir, "Mi17_Civilian", CIVILIAN] call BIS_fnc_spawnVehicle; };
+            case "CIV_IDAP_F" : { [spawnPos, vecDir, "C_IDAP_Heli_Transport_02_F", CIVILIAN] call BIS_fnc_spawnVehicle; }; // Civilian
         };
     };
 };

@@ -6,15 +6,21 @@
 ** License.....: MIT
 */
 
-// No transport for Gendarmerie, Horizon Islands Defence Force (RHS), 
-// USA Navy (RHS), USAF (RHS)
+// No transport for Gendarmerie, FIA (GUER), FIA (OPFOR), Civilian
+// Horizon Islands Defence Force (RHS), USA Navy (RHS), USAF (RHS), RU (MSV),
+// RU (RVA), RU (TV), RU (VMF), RU (VPVO)
 if (faction player == "BLU_GEN_F"            ||
     faction player == "IND_G_F"              ||
     faction player == "OPF_G_F"              ||
     faction player == "CIV_F"                ||
     faction player == "rhsgref_faction_hidf" ||
     faction player == "rhs_faction_usn"      ||
-    faction player == "rhs_faction_usaf") exitWith
+    faction player == "rhs_faction_usaf"     ||
+    faction player == "rhs_faction_msv"      ||
+    faction player == "rhs_faction_rva"      ||
+    faction player == "rhs_faction_tv"       ||
+    faction player == "rhs_faction_vmf"      ||
+    faction player == "rhs_faction_vpvo") exitWith
 {
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };
@@ -91,7 +97,6 @@ sleep 1;
 
 /* LEGACY ARMA II CODE. NOT REQUIRED IN ARMA 3
 ** ===========================================
-**
 ** FNC_Spawn=[] spawn
 ** {
 **     if (isNil "BIS_fnc_init") then
@@ -150,7 +155,10 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "OPF_F": { [spawnPos, vecDir, "O_Heli_Light_02_F",    EAST] call BIS_fnc_spawnVehicle; }; // CSAT
+            case "OPF_F"                : { [spawnPos, vecDir, "O_Heli_Light_02_F",  EAST] call BIS_fnc_spawnVehicle; }; // CSAT
+            case "rhsgref_faction_chdkz": { [spawnPos, vecDir, "rhsgref_ins_Mi8amt", EAST] call BIS_fnc_spawnVehicle; }; // ChDKZ Insurgents
+            case "rhs_faction_vdv"      : { [spawnPos, vecDir, "rhs_Mi24V_vdv",      EAST] call BIS_fnc_spawnVehicle; }; // Russia (VDV)
+            case "rhs_faction_vv"       : { [spawnPos, vecDir, "rhs_Mi8mt_vv",       EAST] call BIS_fnc_spawnVehicle; }; // Russia (VV)
             default
             {
                 [spawnPos, vecDir, "O_Heli_Light_02_F", WEST] call BIS_fnc_spawnVehicle;

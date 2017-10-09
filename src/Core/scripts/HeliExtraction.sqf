@@ -6,21 +6,25 @@
 ** License.....: MIT
 */
 
-// No transport for Gendarmerie, FIA (GUER), FIA (OPFOR), Civilian
+// No transport for: Gendarmerie, FIA (GUER), FIA (OPFOR), Civilian
 // Horizon Islands Defence Force (RHS), USA Navy (RHS), USAF (RHS), RU (MSV),
-// RU (RVA), RU (TV), RU (VMF), RU (VPVO)
-if (faction player == "BLU_GEN_F"            ||
-    faction player == "IND_G_F"              ||
-    faction player == "OPF_G_F"              ||
-    faction player == "CIV_F"                ||
-    faction player == "rhsgref_faction_hidf" ||
-    faction player == "rhs_faction_usn"      ||
-    faction player == "rhs_faction_usaf"     ||
-    faction player == "rhs_faction_msv"      ||
-    faction player == "rhs_faction_rva"      ||
-    faction player == "rhs_faction_tv"       ||
-    faction player == "rhs_faction_vmf"      ||
-    faction player == "rhs_faction_vpvo") exitWith
+// RU (RVA), RU (TV), RU (VMF), RU (VPVO), Chernarus (National Guard), SAF (UN),
+// Nationalist Troops, SAF (UN)
+if (faction player == "BLU_GEN_F"                  ||
+    faction player == "IND_G_F"                    ||
+    faction player == "OPF_G_F"                    ||
+    faction player == "CIV_F"                      ||
+    faction player == "rhsgref_faction_hidf"       ||
+    faction player == "rhs_faction_usn"            ||
+    faction player == "rhs_faction_usaf"           ||
+    faction player == "rhs_faction_msv"            ||
+    faction player == "rhs_faction_rva"            ||
+    faction player == "rhs_faction_tv"             ||
+    faction player == "rhs_faction_vmf"            ||
+    faction player == "rhs_faction_vpvo"           ||
+    faction player =="rhsgref_faction_cdf_ng"      ||
+    faction player =="rhsgref_faction_nationalist" ||
+    faction player =="rhssaf_faction_un") exitWith
 {
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };
@@ -170,7 +174,14 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "IND_F": { [spawnPos, vecDir, "I_Heli_light_03_F", RESISTANCE] call BIS_fnc_spawnVehicle; }; // AAF
+            case "IND_F"                     : { [spawnPos, vecDir, "I_Heli_light_03_F",         RESISTANCE] call BIS_fnc_spawnVehicle; }; // AAF
+            case "IND_C_F"                   : { [spawnPos, vecDir, "I_C_Heli_Light_01_civil_F", RESISTANCE] call BIS_fnc_spawnVehicle; }; // Syndikat
+            case "rhsgref_faction_chdkz_g"   : { [spawnPos, vecDir, "rhsgref_ins_Mi8amt",        RESISTANCE] call BIS_fnc_spawnVehicle; }; // ChDKZ Insurgents
+            case "rhsgref_faction_cdf_air"   : { [spawnPos, vecDir, "rhsgref_cdf_Mi35",          RESISTANCE] call BIS_fnc_spawnVehicle; }; // Chernarus (Air Force)
+            case "rhsgref_faction_cdf_ground": { [spawnPos, vecDir, "rhsgref_cdf_reg_Mi17Sh",    RESISTANCE] call BIS_fnc_spawnVehicle; }; // Chernarus (Ground Forces)
+            case "rhsgref_faction_un"        : { [spawnPos, vecDir, "rhsgref_un_Mi8amt",         RESISTANCE] call BIS_fnc_spawnVehicle; }; // Chernarus (UN)
+            case "rhssaf_faction_army"       : { [spawnPos, vecDir, "rhssaf_airforce_ht48",      RESISTANCE] call BIS_fnc_spawnVehicle; }; // SAF (KOV)
+            case "rhssaf_faction_airforce"   : { [spawnPos, vecDir, "rhssaf_airforce_ht48",      RESISTANCE] call BIS_fnc_spawnVehicle; }; // SAF (RVIPVO)
             default
             {
                 [spawnPos, vecDir, "I_Heli_light_03_F", WEST] call BIS_fnc_spawnVehicle;
@@ -182,7 +193,7 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "CIV_IDAP_F" : { [spawnPos, vecDir, "C_IDAP_Heli_Transport_02_F", CIVILIAN] call BIS_fnc_spawnVehicle; }; // Civilian
+            case "CIV_IDAP_F": { [spawnPos, vecDir, "C_IDAP_Heli_Transport_02_F", CIVILIAN] call BIS_fnc_spawnVehicle; }; // Civilian (IDAP)
         };
     };
 };

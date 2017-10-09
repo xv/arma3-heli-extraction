@@ -18,7 +18,7 @@ For class names, see:
 
 Support for RHS Mod
 -------------------
-Support for RHS factions is added. If you execute the script while playing as a RHS unit, the script will spawn a helicopter from the faction of the player character.
+Support for RHS factions is added. If you execute the script while playing as a RHS unit, the script will spawn a helicopter from the faction of the player character. However, not all RHS factions have helicopters. If a transport is not available for the player faction, you will be notified that an extraction is unavailable.
 
 Usage
 -----

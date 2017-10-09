@@ -22,9 +22,9 @@ if (faction player == "BLU_GEN_F"                  ||
     faction player == "rhs_faction_tv"             ||
     faction player == "rhs_faction_vmf"            ||
     faction player == "rhs_faction_vpvo"           ||
-    faction player =="rhsgref_faction_cdf_ng"      ||
-    faction player =="rhsgref_faction_nationalist" ||
-    faction player =="rhssaf_faction_un") exitWith
+    faction player == "rhsgref_faction_cdf_ng"      ||
+    faction player == "rhsgref_faction_nationalist" ||
+    faction player == "rhssaf_faction_un") exitWith
 {
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };

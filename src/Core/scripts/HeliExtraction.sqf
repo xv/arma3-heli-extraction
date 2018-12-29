@@ -10,18 +10,18 @@
 // Horizon Islands Defence Force (RHS), USA Navy (RHS), USAF (RHS), RU (MSV),
 // RU (RVA), RU (TV), RU (VMF), RU (VPVO), Chernarus (National Guard), SAF (UN),
 // Nationalist Troops, SAF (UN)
-if (faction player == "BLU_GEN_F"                  ||
-    faction player == "IND_G_F"                    ||
-    faction player == "OPF_G_F"                    ||
-    faction player == "CIV_F"                      ||
-    faction player == "rhsgref_faction_hidf"       ||
-    faction player == "rhs_faction_usn"            ||
-    faction player == "rhs_faction_usaf"           ||
-    faction player == "rhs_faction_msv"            ||
-    faction player == "rhs_faction_rva"            ||
-    faction player == "rhs_faction_tv"             ||
-    faction player == "rhs_faction_vmf"            ||
-    faction player == "rhs_faction_vpvo"           ||
+if (faction player == "BLU_GEN_F"                   ||
+    faction player == "IND_G_F"                     ||
+    faction player == "OPF_G_F"                     ||
+    faction player == "CIV_F"                       ||
+    faction player == "rhsgref_faction_hidf"        ||
+    faction player == "rhs_faction_usn"             ||
+    faction player == "rhs_faction_usaf"            ||
+    faction player == "rhs_faction_msv"             ||
+    faction player == "rhs_faction_rva"             ||
+    faction player == "rhs_faction_tv"              ||
+    faction player == "rhs_faction_vmf"             ||
+    faction player == "rhs_faction_vpvo"            ||
     faction player == "rhsgref_faction_cdf_ng"      ||
     faction player == "rhsgref_faction_nationalist" ||
     faction player == "rhssaf_faction_un") exitWith
@@ -129,7 +129,7 @@ vecDir = [spawnPos, targetPos] call BIS_fnc_dirTo;
 ** correctly. This seems to be a problem with ArmA itself, not the script.
 **
 ** You can modify the helicopter class names to any helicopter model you want,
-** whether it's official or user-made.
+** whether it's vanilla or user-made.
 */
 heliClass = switch (playerSide) do
 {
@@ -137,69 +137,62 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "BLU_F"                : { [spawnPos, vecDir, "B_Heli_Transport_01_F",           WEST] call BIS_fnc_spawnVehicle; }; // NATO (Default)
-            case "BLU_T_F"              : { [spawnPos, vecDir, "B_Heli_Transport_01_F",           WEST] call BIS_fnc_spawnVehicle; }; // NATO (Pacific)
-            case "BLU_CTRG_F"           : { [spawnPos, vecDir, "B_CTRG_Heli_Transport_01_sand_F", WEST] call BIS_fnc_spawnVehicle; }; // NATO (CTRG)
-            case "BLU_G_F"              : { [spawnPos, vecDir, "B_Heli_Light_01_F",               WEST] call BIS_fnc_spawnVehicle; }; // FIA
-            case "ACR_A3"               : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1",         WEST] call BIS_fnc_spawnVehicle; }; // ACR
-            case "ACR_A3_Des"           : { [spawnPos, vecDir, "ACR_A3_Mi17_base_CZ_EP1_Des",     WEST] call BIS_fnc_spawnVehicle; }; // ACR (Desert)
-            case "rhs_faction_usarmy_d" : { [spawnPos, vecDir, "RHS_UH60M_d",                     WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - D)
-            case "rhs_faction_usarmy_wd": { [spawnPos, vecDir, "RHS_UH60M",                       WEST] call BIS_fnc_spawnVehicle; }; // USA (Army - W)
-            case "rhs_faction_socom"    : { [spawnPos, vecDir, "RHS_MELB_MH6M",                   WEST] call BIS_fnc_spawnVehicle; }; // USA (SOCOM)
-            case "rhs_faction_usmc_d"   : { [spawnPos, vecDir, "RHS_UH1Y_d",                      WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - D)
-            case "rhs_faction_usmc_wd"  : { [spawnPos, vecDir, "RHS_UH1Y",                        WEST] call BIS_fnc_spawnVehicle; }; // USA (USMC - W)
-            default
-            {
-                [spawnPos, vecDir, "B_Heli_Transport_01_F", WEST] call BIS_fnc_spawnVehicle;
-            };
+            case "BLU_F":                 { "B_Heli_Transport_01_F" };           // NATO (Default)
+            case "BLU_T_F":               { "B_Heli_Transport_01_F" };           // NATO (Pacific)
+            case "BLU_CTRG_F":            { "B_CTRG_Heli_Transport_01_sand_F" }; // NATO (CTRG)
+            case "BLU_G_F":               { "B_Heli_Light_01_F" };               // FIA
+            case "ACR_A3":                { "ACR_A3_Mi17_base_CZ_EP1" };         // ACR
+            case "ACR_A3_Des":            { "ACR_A3_Mi17_base_CZ_EP1_Des" };     // ACR (Desert)
+            case "rhs_faction_usarmy_d":  { "RHS_UH60M_d" };                     // USA (Army - D)
+            case "rhs_faction_usarmy_wd": { "RHS_UH60M" };                       // USA (Army - W)
+            case "rhs_faction_socom":     { "RHS_MELB_MH6M" };                   // USA (SOCOM)
+            case "rhs_faction_usmc_d":    { "RHS_UH1Y_d" };                      // USA (USMC - D)
+            case "rhs_faction_usmc_wd":   { "RHS_UH1Y" };                        // USA (USMC - W)
+            default                       { "B_Heli_Transport_01_F" };           // NATO (Default)
         };
     };
-    
+
     case east:
     {
         switch (faction player) do
         {
-            case "OPF_F"                : { [spawnPos, vecDir, "O_Heli_Light_02_F",  EAST] call BIS_fnc_spawnVehicle; }; // CSAT
-            case "rhsgref_faction_chdkz": { [spawnPos, vecDir, "rhsgref_ins_Mi8amt", EAST] call BIS_fnc_spawnVehicle; }; // ChDKZ Insurgents
-            case "rhs_faction_vdv"      : { [spawnPos, vecDir, "rhs_Mi24V_vdv",      EAST] call BIS_fnc_spawnVehicle; }; // Russia (VDV)
-            case "rhs_faction_vv"       : { [spawnPos, vecDir, "rhs_Mi8mt_vv",       EAST] call BIS_fnc_spawnVehicle; }; // Russia (VV)
-            default
-            {
-                [spawnPos, vecDir, "O_Heli_Light_02_F", WEST] call BIS_fnc_spawnVehicle;
-            };
+            case "OPF_F":                 { "O_Heli_Light_02_F" };  // CSAT (Default)
+            case "rhsgref_faction_chdkz": { "rhsgref_ins_Mi8amt" }; // ChDKZ Insurgents
+            case "rhs_faction_vdv":       { "rhs_Mi24V_vdv" };      // Russia (VDV)
+            case "rhs_faction_vv":        { "rhs_Mi8mt_vv" };       // Russia (VV)
+            default                       { "O_Heli_Light_02_F" };  // CSAT (Default)
         };
     };
-    
+
     case resistance:
     {
         switch (faction player) do
         {
-            case "IND_F"                     : { [spawnPos, vecDir, "I_Heli_light_03_F",         RESISTANCE] call BIS_fnc_spawnVehicle; }; // AAF
-            case "IND_C_F"                   : { [spawnPos, vecDir, "I_C_Heli_Light_01_civil_F", RESISTANCE] call BIS_fnc_spawnVehicle; }; // Syndikat
-            case "rhsgref_faction_chdkz_g"   : { [spawnPos, vecDir, "rhsgref_ins_Mi8amt",        RESISTANCE] call BIS_fnc_spawnVehicle; }; // ChDKZ Insurgents
-            case "rhsgref_faction_cdf_air"   : { [spawnPos, vecDir, "rhsgref_cdf_Mi35",          RESISTANCE] call BIS_fnc_spawnVehicle; }; // Chernarus (Air Force)
-            case "rhsgref_faction_cdf_ground": { [spawnPos, vecDir, "rhsgref_cdf_reg_Mi17Sh",    RESISTANCE] call BIS_fnc_spawnVehicle; }; // Chernarus (Ground Forces)
-            case "rhsgref_faction_un"        : { [spawnPos, vecDir, "rhsgref_un_Mi8amt",         RESISTANCE] call BIS_fnc_spawnVehicle; }; // Chernarus (UN)
-            case "rhssaf_faction_army"       : { [spawnPos, vecDir, "rhssaf_airforce_ht48",      RESISTANCE] call BIS_fnc_spawnVehicle; }; // SAF (KOV)
-            case "rhssaf_faction_airforce"   : { [spawnPos, vecDir, "rhssaf_airforce_ht48",      RESISTANCE] call BIS_fnc_spawnVehicle; }; // SAF (RVIPVO)
-            default
-            {
-                [spawnPos, vecDir, "I_Heli_light_03_F", WEST] call BIS_fnc_spawnVehicle;
-            };
+            case "IND_F":                      { "I_Heli_light_03_F" };         // AAF (Default)
+            case "IND_C_F":                    { "I_C_Heli_Light_01_civil_F" }; // Syndikat
+            case "rhsgref_faction_chdkz_g":    { "rhsgref_ins_Mi8amt" };        // ChDKZ Insurgents
+            case "rhsgref_faction_cdf_air":    { "rhsgref_cdf_Mi35" };          // Chernarus (Air Force)
+            case "rhsgref_faction_cdf_ground": { "rhsgref_cdf_reg_Mi17Sh" };    // Chernarus (Ground Forces)
+            case "rhsgref_faction_un":         { "rhsgref_un_Mi8amt" };         // Chernarus (UN)
+            case "rhssaf_faction_army":        { "rhssaf_airforce_ht48" };      // SAF (KOV)
+            case "rhssaf_faction_airforce":    { "rhssaf_airforce_ht48" };      // SAF (RVIPVO)
+            default                            { "I_Heli_light_03_F" };         // AAF (Default)
         };
     };
-    
+
     case civilian:
     {
         switch (faction player) do
         {
-            case "CIV_IDAP_F": { [spawnPos, vecDir, "C_IDAP_Heli_Transport_02_F", CIVILIAN] call BIS_fnc_spawnVehicle; }; // Civilian (IDAP)
+            case "CIV_IDAP_F": { "C_IDAP_Heli_Transport_02_F" }; // Civilian (IDAP)
         };
     };
 };
 
-heli = heliClass select 0;
-heliPilot = (heliClass select 1) select 0;
+// Spawn the helicopter
+fncSpawnVehicle = [spawnPos, vecDir, heliClass, WEST] call BIS_fnc_spawnVehicle;
+heli = fncSpawnVehicle select 0;
+heliPilot = (fncSpawnVehicle select 1) select 0;
 
 sleep 4;
 
@@ -298,8 +291,8 @@ if (alive heli) then
     // Precisely check if the helicopter landed and came to a complete stop    
     waitUntil
     {
-    	(velocity  heli select 2) > -0.2 &&
-    	(getPosATL heli select 2) <  0.5
+        (velocity  heli select 2) > -0.2 &&
+        (getPosATL heli select 2) <  0.5
     };
     
     sleep 0.7;
@@ -314,7 +307,7 @@ if (alive heli) then
     // Make sure that the player and all associated units have boarded the helicopter
     waitUntil
     {
-    	{ _x in heli } count units group player == count units group player
+        { _x in heli } count units group player == count units group player
     };
     
     // Lock the doors to prevent the player from ejecting and going off the script scenario
@@ -405,8 +398,8 @@ if (alive heli) then
     
     waitUntil
     {
-    	(velocity  heli select 2) > -0.2 && 
-    	(getPosATL heli select 2) <  0.5
+        (velocity  heli select 2) > -0.2 && 
+        (getPosATL heli select 2) <  0.5
     };
     
     [playerSide,"HQ"] sideRadio "radio_beep_to";
@@ -418,7 +411,7 @@ if (alive heli) then
     // Make sure that the player and all associated units have left the helicopter
     waitUntil
     {
-    	{ _x in heli } count units group player == 0
+        { _x in heli } count units group player == 0
     };
     
     // Lock the doors

@@ -1,10 +1,24 @@
 /*
-** Game........: ArmA III
-** Script Type.: Helicopter Extraction 
-** Developer...: Jad Altahan
-** Website.....: Http://github.com/xv
-** License.....: MIT
-*/
+ * Copyright (c) 2018 Jad Altahan (http://github.com/xv)
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 // No transport for: Gendarmerie, FIA (GUER), FIA (OPFOR), Civilian
 // Horizon Islands Defence Force (RHS), USA Navy (RHS), USAF (RHS), RU (MSV),
@@ -100,18 +114,18 @@ targetPos = getPosASL virtual_target;
 sleep 1;
 
 /* LEGACY ARMA II CODE. NOT REQUIRED IN ARMA 3
-** ===========================================
-** FNC_Spawn=[] spawn
-** {
-**     if (isNil "BIS_fnc_init") then
-**     {
-**         _side  = createCenter sideLogic;
-**         _group = createGroup _side;
-**         _logic = _group createUnit ["FunctionsManager", [0, 0, 0], [], 0, "NONE"];
-**     };
-** };
-** waitUntil { BIS_fnc_init };
-*/
+ * ===========================================
+ * FNC_Spawn=[] spawn
+ * {
+ *     if (isNil "BIS_fnc_init") then
+ *     {
+ *         _side  = createCenter sideLogic;
+ *         _group = createGroup _side;
+ *         _logic = _group createUnit ["FunctionsManager", [0, 0, 0], [], 0, "NONE"];
+ *     };
+ * };
+ * waitUntil { BIS_fnc_init };
+ */
 
 spawnDir = random 360; // Spawn the helicopter at a random direction
 spawnRange = 2500;     // Time it will take until the helicopter arrives at the marked location
@@ -124,13 +138,11 @@ spawnPos =
 
 vecDir = [spawnPos, targetPos] call BIS_fnc_dirTo;
 
-/* Spawn a different helicopter depending on the player's faction. A civilian
-** playerSide can be added as well; however, the script will not function
-** correctly. This seems to be a problem with ArmA itself, not the script.
-**
-** You can modify the helicopter class names to any helicopter model you want,
-** whether it's vanilla or user-made.
-*/
+/* Spawn a different helicopter depending on the player's faction.
+ *
+ * You can modify the helicopter class names to any helicopter model you want,
+ * whether it's vanilla or user-made.
+ */
 heliClass = switch (playerSide) do
 {
     case west:
@@ -203,14 +215,23 @@ heli setBehaviour  "CARELESS";
 heli setSpeedMode  "NORMAL";
 heli setCombatMode "GREEN";
 
-/* Comment line below to disable invincibility. Note that when you request the
-** helicopter in a hot zone, the enemy AI will shoot at it. If the helicopter
-** gets fired at with AA missiles, it will deploy countermeasures; however, it's
-** impossible to evade all the missiles with flares/chaffs. In case the
-** helicopter gets destroyed, you will not be able to request another. This is
-** NOT a bug. The script was written to function this way. Use at your own risk!
-*/
+/* Comment line below to disable invincibility.
+ *
+ * Note that when you request the helicopter in a hot zone, the enemy AI will
+ * shoot at it. If the helicopter gets fired at with AA missiles, it will deploy
+ * countermeasures; however, it's impossible to evade all the missiles with
+ * flares/chaffs. In case the helicopter gets destroyed, you will not be able to
+ * request another. This is NOT a bug. The script was written to function this
+ * way. Use at your own risk!
+ */
 { _x allowDamage false; } foreach [heli] + crew heli;
+
+/* Uncomment the line below to make enemy AI ignore the helicopter.
+ * 
+ * if setCaptive is set to true, enemy AI will not fire anything at the helicopter
+ * as if it is one of their own. However, they may still fire at the player if
+ * spotted.
+ */
 // heli setCaptive true;
 
 heli setPosATL

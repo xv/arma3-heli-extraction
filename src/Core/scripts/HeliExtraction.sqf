@@ -60,6 +60,12 @@ sleep 10;
 [playerSide,"HQ"] sideRadio "radio_beep_to";
 [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with red smoke, over.", name player];
 
+/* Note: Some RHS units carry red smoke grenades, but they a are not vanilla
+ * grenades. its class name is 'rhs_magazine_rhs_mag_m18_red'. But for whatever
+ * reason, RHS smoke grenades are part of the CfgVehicles class rather rhan
+ * CfgMagazines. That means I cannot check if it exists in the player's
+ * inventory since it's technically not a magazine.
+ */
 playerMags = magazines player;
 if ("SmokeShellRed" in playerMags) then
 {

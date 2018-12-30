@@ -279,7 +279,7 @@ sleep 1;
 // Deploy countermeasures in case the helicopter gets fired at with AA missiles
 heli addEventHandler ["IncomingMissile",
 {
-    hint "incoming!";
+    // hint "incoming!";
     fn_dropFlares =
     {
         flares = 0;
@@ -293,7 +293,6 @@ heli addEventHandler ["IncomingMissile",
             
             heli action ["useWeapon", heli, driver heli, 0];
             flares = flares + 1;
-            sleep 0.5;
         };
     };
     call fn_dropFlares;

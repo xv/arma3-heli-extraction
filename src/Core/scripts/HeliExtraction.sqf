@@ -53,7 +53,7 @@ gridPos = mapGridPosition getPos player;
 sleep 0.3;
 
 player sideRadio "radio_beep_from";
-player sideChat format ["Valor-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, gridPos];
+player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, gridPos];
 
 sleep 10;
 

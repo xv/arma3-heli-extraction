@@ -161,11 +161,17 @@ heliClass = switch (playerSide) do
             case "BLU_G_F":               { "B_Heli_Light_01_F" };               // FIA
             case "ACR_A3":                { "ACR_A3_Mi17_base_CZ_EP1" };         // ACR
             case "ACR_A3_Des":            { "ACR_A3_Mi17_base_CZ_EP1_Des" };     // ACR (Desert)
-            case "rhs_faction_usarmy_d":  { "RHS_UH60M_d" };                     // USA (Army - D)
-            case "rhs_faction_usarmy_wd": { "RHS_UH60M" };                       // USA (Army - W)
-            case "rhs_faction_socom":     { "RHS_MELB_MH6M" };                   // USA (SOCOM)
-            case "rhs_faction_usmc_d":    { "RHS_UH1Y_d" };                      // USA (USMC - D)
-            case "rhs_faction_usmc_wd":   { "RHS_UH1Y" };                        // USA (USMC - W)
+            case "rhs_faction_usarmy_d":  { "RHS_UH60M_d" };                     // RHS USA (Army - D)
+            case "rhs_faction_usarmy_wd": { "RHS_UH60M" };                       // RHS USA (Army - W)
+            case "rhs_faction_socom":     { "RHS_MELB_MH6M" };                   // RHS USA (SOCOM)
+            case "rhs_faction_usmc_d":    { "RHS_UH1Y_d" };                      // RHS USA (USMC - D)
+            case "rhs_faction_usmc_wd":   { "RHS_UH1Y" };                        // RHS USA (USMC - W)
+            case "CUP_B_CZ":              { "CUP_B_Mi171Sh_Unarmed_ACR" };       // CUP CZ (ACR)
+            case "CUP_B_GB":              { "CUP_B_SA330_Puma_HC1_BAF" };        // CUP GB (BAF)
+            case "CUP_B_GER":             { "CUP_B_UH1D_GER_KSK" };              // CUP GER (Bundeswehr)
+            case "CUP_B_CDF":             { "CUP_B_Mi17_CDF" };                  // CUP CDF
+            case "CUP_B_US_Army":         { "CUP_B_UH60M_FFV_US" };              // CUP USA (Army - D)
+            case "CUP_B_USMC":            { "CUP_B_UH1Y_UNA_USMC" };             // CUP USA (USMC)
             default                       { "B_Heli_Transport_01_F" };           // NATO (Default)
         };
     };

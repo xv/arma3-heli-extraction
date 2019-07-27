@@ -20,28 +20,39 @@
  * SOFTWARE.
  */
 
-// No transport for: Gendarmerie, FIA (GUER), FIA (OPFOR), Civilian
-// Horizon Islands Defence Force (RHS), USA Navy (RHS), USAF (RHS), RU (MSV),
-// RU (RVA), RU (TV), RU (VMF), RU (VPVO), Chernarus (National Guard), SAF (UN),
-// Nationalist Troops, SAF (UN)
-if (faction player == "BLU_GEN_F"                   ||
-    faction player == "IND_G_F"                     ||
-    faction player == "OPF_G_F"                     ||
-    faction player == "CIV_F"                       ||
-    faction player == "rhsgref_faction_hidf"        ||
-    faction player == "rhs_faction_usn"             ||
-    faction player == "rhs_faction_usaf"            ||
-    faction player == "rhs_faction_msv"             ||
-    faction player == "rhs_faction_rva"             ||
-    faction player == "rhs_faction_tv"              ||
-    faction player == "rhs_faction_vmf"             ||
-    faction player == "rhs_faction_vpvo"            ||
-    faction player == "rhsgref_faction_cdf_ng"      ||
-    faction player == "rhsgref_faction_nationalist" ||
-    faction player == "rhssaf_faction_un"           ||
-    faction player == "CUP_O_TK_MILITIA") exitWith
+denyFaction = false;
+
+// No transport for the following excluded factions
+excludedFactions = [
+    "Gendarmerie",                 // Gendarmerie
+    "IND_G_F",                     // GUER FIA
+    "OPF_G_F",                     // OPFOR FIA
+    "CIV_F",                       // Civilian
+    "IND_L_F",                     // GUER Looters
+    "rhsgref_faction_hidf",        // RHS Horizon Islands Defence Force
+    "rhs_faction_usn",             // RHS USA Navy
+    "rhs_faction_usaf",            // RHS USAF
+    "rhs_faction_msv",             // RHS Russia (MSV)
+    "rhs_faction_rva",             // RHS Russia (RVA)
+    "rhs_faction_tv",              // RHS Russia (TV)
+    "rhs_faction_vmf",             // RHS Russia (VMF)
+    "rhs_faction_vpvo",            // RHS Russia (VPVO)
+    "rhsgref_faction_cdf_ng",      // RHS GUER Chernarus (National Guard)
+    "rhsgref_faction_nationalist", // RHS GUER Nationalist Troops
+    "rhssaf_faction_un",           // RHS SAF (UN)
+    "CUP_O_TK_MILITIA"             // CUP OPFOR Takistani Militia
+];
+{ 
+    if (_x == faction player) exitWith
+    {
+        denyFaction = true;
+    };
+} forEach excludedFactions;
+
+if (denyFaction) exitWith
 {
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
+    denyFaction = nil;
 };
 
 isSmokeDetected = false;
@@ -82,7 +93,7 @@ smokeMags = [
     { 
         hint parsetext format ["<t align='left' color='#FFF'>Use one of the smoke grenades in your inventory to mark the LZ.</t>"];
         _smokeNadeToThrow = _x;
-    }
+    };
 } forEach smokeMags;
 
 sleep 0.1;

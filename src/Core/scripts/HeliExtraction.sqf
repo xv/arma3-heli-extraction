@@ -208,19 +208,20 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "IND_F":                      { "I_Heli_light_03_F" };         // AAF (Default)
-            case "IND_C_F":                    { "I_C_Heli_Light_01_civil_F" }; // Syndikat
-            case "rhsgref_faction_chdkz_g":    { "rhsgref_ins_Mi8amt" };        // RHS ChDKZ Insurgents
-            case "rhsgref_faction_cdf_air":    { "rhsgref_cdf_Mi35" };          // RHS Chernarus (Air Force)
-            case "rhsgref_faction_cdf_ground": { "rhsgref_cdf_reg_Mi17Sh" };    // RHS Chernarus (Ground Forces)
-            case "rhsgref_faction_un":         { "rhsgref_un_Mi8amt" };         // RHS Chernarus (UN)
-            case "rhssaf_faction_army":        { "rhssaf_airforce_ht48" };      // RHS SAF (KOV)
-            case "rhssaf_faction_airforce":    { "rhssaf_airforce_ht48" };      // RHS SAF (RVIPVO)
-            case "CUP_I_PMC_ION":              { "CUP_I_MH6M_ION" };            // CUP ION PMC
-            case "CUP_I_RACS":                 { "CUP_I_UH60L_FFV_RACS" };      // CUP RACS
-            case "CUP_I_TK_GUE":               { "CUP_I_UH1H_TK_GUE" };         // CUP Takistani Locals
-            case "CUP_I_UN":                   { "CUP_I_Mi17_UN" };             // CUP United Nations
-            default                            { "I_Heli_light_03_F" };         // AAF (Default)
+            case "IND_F":                      { "I_Heli_light_03_F" };           // AAF (Default)
+            case "IND_C_F":                    { "I_C_Heli_Light_01_civil_F" };   // Syndikat
+            case "IND_E_F":                    { "I_E_Heli_light_03_unarmed_F" }; // LDF (Livonian Defense Force)
+            case "rhsgref_faction_chdkz_g":    { "rhsgref_ins_Mi8amt" };          // RHS ChDKZ Insurgents
+            case "rhsgref_faction_cdf_air":    { "rhsgref_cdf_Mi35" };            // RHS Chernarus (Air Force)
+            case "rhsgref_faction_cdf_ground": { "rhsgref_cdf_reg_Mi17Sh" };      // RHS Chernarus (Ground Forces)
+            case "rhsgref_faction_un":         { "rhsgref_un_Mi8amt" };           // RHS Chernarus (UN)
+            case "rhssaf_faction_army":        { "rhssaf_airforce_ht48" };        // RHS SAF (KOV)
+            case "rhssaf_faction_airforce":    { "rhssaf_airforce_ht48" };        // RHS SAF (RVIPVO)
+            case "CUP_I_PMC_ION":              { "CUP_I_MH6M_ION" };              // CUP ION PMC
+            case "CUP_I_RACS":                 { "CUP_I_UH60L_FFV_RACS" };        // CUP RACS
+            case "CUP_I_TK_GUE":               { "CUP_I_UH1H_TK_GUE" };           // CUP Takistani Locals
+            case "CUP_I_UN":                   { "CUP_I_Mi17_UN" };               // CUP United Nations
+            default                            { "I_Heli_light_03_F" };           // AAF (Default)
         };
     };
 

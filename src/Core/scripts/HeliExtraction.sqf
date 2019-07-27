@@ -47,7 +47,7 @@ virtual_target_state = false;
 
 sleep 0.1;
 
-_Marker = createMarkerLocal ["extraction_marker", [0, 0]];
+extractMarker = createMarkerLocal ["extraction_marker", [0, 0]];
 gridPos = mapGridPosition getPos player;
 
 sleep 0.3;
@@ -89,7 +89,7 @@ CheckForSmoke = player addEventHandler ["Fired",
         {
             smokePos = getPos _this;
             virtual_target_state = true;
-            "extraction_marker" setMarkerPosLocal smokePos;
+            extractMarker setMarkerPosLocal smokePos;
             sleep 1;
         };
     };
@@ -101,15 +101,15 @@ CheckForSmoke = player addEventHandler ["Fired",
 waitUntil { virtual_target_state };
 
 // Create a marker icon on the map to identify the extraction point
-_Marker setMarkerShapelocal "ICON";
-"extraction_marker" setMarkerTypelocal "MIL_PICKUP";
-"extraction_marker" setMarkerColorlocal "ColorBlack";
-"extraction_marker" setMarkerText "Extraction";
+extractMarker setMarkerShapelocal "ICON";
+extractMarker setMarkerTypelocal "MIL_PICKUP";
+extractMarker setMarkerColorlocal "ColorBlack";
+extractMarker setMarkerText "Extraction";
 
 sleep 0.05;
 
-pos_x = getMarkerPos "extraction_marker" select 0;
-pos_y = getMarkerPos "extraction_marker" select 1;
+pos_x = getMarkerPos extractMarker select 0;
+pos_y = getMarkerPos extractMarker select 1;
 
 virtual_target = "HeliHEmpty" createVehicle [0, 0];
 virtual_target setPos [pos_x, pos_y];
@@ -347,7 +347,7 @@ if (alive heli) then
     
     sleep 0.3;
     
-    deleteMarkerLocal "extraction_marker";
+    deleteMarkerLocal extractMarker;
     [playerSide,"HQ"] sideRadio "radio_beep_to";
     [playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
     
@@ -365,11 +365,11 @@ sleep 0.1;
 if (!alive heli || (damage heli) > 0.5) exitWith
 {
     player removeEventHandler ['Fired', 0];
-    deleteMarkerLocal 'extraction_marker';
+    deleteMarkerLocal extractMarker;
     hint parsetext format ["<t align='left' color='#C10005' size='1'>The extraction helicopter has been destroyed.</t>"];
 };
 
-_Marker_2 = createMarkerLocal ["dropoff_marker", [0, 0]];
+dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];
 
 sleep 0.3;
 
@@ -382,19 +382,19 @@ hintSilent "Click on the map to mark a drop off location";
 waitUntil { VT };
 
 // Create a marker icon on the map to identify the drop off point
-_Marker_2 setMarkerShapelocal "ICON";
-"dropoff_marker" setMarkerTypelocal "MIL_END";
-"dropoff_marker" setMarkerColorlocal "ColorBlack";
-"dropoff_marker" setMarkerText "Drop Off";
+dropOffMarker setMarkerShapelocal "ICON";
+dropOffMarker setMarkerTypelocal "MIL_END";
+dropOffMarker setMarkerColorlocal "ColorBlack";
+dropOffMarker setMarkerText "Drop Off";
 
 sleep 0.05;
 
 player onMapSingleClick "nil";
 
 hintSilent "Drop off location has been marked.";
-pos_x_2 = getMarkerPos "dropoff_marker" select 0;
+pos_x_2 = getMarkerPos dropOffMarker select 0;
 publicVariable "pos_x_2";
-pos_y_2 = getMarkerPos "dropoff_marker" select 1;
+pos_y_2 = getMarkerPos dropOffMarker select 1;
 publicVariable "pos_y_2";
 
 SVT_2 = "HeliHEmpty" createVehicle [0, 0];

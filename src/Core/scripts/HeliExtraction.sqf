@@ -91,7 +91,7 @@ smokeMags = [
 { 
     if (_x in (magazines player)) exitWith 
     { 
-        hint parsetext format ["<t align='left' color='#FFF'>Use one of the smoke grenades in your inventory to mark the LZ.</t>"];
+        hint parsetext format ["<t align='left' color='#FFF'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>"];
         _smokeNadeToThrow = _x;
     };
 } forEach smokeMags;
@@ -108,7 +108,7 @@ if (isNil "_smokeNadeToThrow") then
 // Create a marker where the smoke grenade lands
 CheckForSmoke = player addEventHandler ["Fired",
 {
-    if ((_this select 5) != _smokeNadeToThrow) exitWith {};
+    if !((_this select 5) in smokeMags) exitWith { /* hint "Wrong item." */ };
     _null = (_this select 6) spawn
     {
         smokePos = getPos _this;

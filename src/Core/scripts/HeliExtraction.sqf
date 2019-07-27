@@ -43,7 +43,7 @@ if (faction player == "BLU_GEN_F"                   ||
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };
 
-virtual_target_state = false;
+isSmokeDetected = false;
 
 sleep 0.1;
 
@@ -88,7 +88,7 @@ CheckForSmoke = player addEventHandler ["Fired",
         while { (smokePos distance (getPos _this)) > 0 } do
         {
             smokePos = getPos _this;
-            virtual_target_state = true;
+            isSmokeDetected = true;
             extractMarker setMarkerPosLocal smokePos;
             sleep 1;
         };
@@ -98,7 +98,7 @@ CheckForSmoke = player addEventHandler ["Fired",
 // "1" depends on your chosen radio slot. Check: setRadioMsg help URL
 1 setRadioMsg "NULL";
 
-waitUntil { virtual_target_state };
+waitUntil { isSmokeDetected };
 
 // Create a marker icon on the map to identify the extraction point
 extractMarker setMarkerShapelocal "ICON";
@@ -113,7 +113,7 @@ pos_y = getMarkerPos extractMarker select 1;
 
 virtual_target = "HeliHEmpty" createVehicle [0, 0];
 virtual_target setPos [pos_x, pos_y];
-virtual_target_state = false;
+isSmokeDetected = false;
 
 targetPos = getPosASL virtual_target;
 

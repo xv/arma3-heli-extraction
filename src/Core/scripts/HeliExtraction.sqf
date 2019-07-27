@@ -380,7 +380,7 @@ if (alive heli) then
     openMap true;
 };
 
-VT = false;
+getMapClick = true;
 
 sleep 0.1;
 
@@ -396,13 +396,19 @@ dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];
 
 sleep 0.3;
 
-ASM = "dropoff_marker";
+hintSilent "Mark your drop off location by clicking on the map.";
 
-player onMapSingleClick "ASM setMarkerPosLocal _pos; VT = true";
+onMapSingleClick
+{
+    dropOffMarker setMarkerPosLocal _pos;
+    getMapClick = false;
+};
 
-hintSilent "Click on the map to mark a drop off location";
+waitUntil { !getMapClick };
 
-waitUntil { VT };
+hint "Are you drunk or something? The drop off location needs to be farther away from your current position.";
+
+waitUntil { ((heli distance getMarkerPos dropOffMarker) > 1000) };
 
 // Create a marker icon on the map to identify the drop off point
 dropOffMarker setMarkerShapelocal "ICON";
@@ -418,7 +424,6 @@ hintSilent "Drop off location has been marked.";
 
 hiddenHelipad setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
 
-VT = false;
 dropOffPos = getPosASL hiddenHelipad;
 
 sleep 1;

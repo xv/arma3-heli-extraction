@@ -111,11 +111,11 @@ sleep 0.05;
 pos_x = getMarkerPos extractMarker select 0;
 pos_y = getMarkerPos extractMarker select 1;
 
-virtual_target = "HeliHEmpty" createVehicle [0, 0];
-virtual_target setPos [pos_x, pos_y];
+hiddenObj = "HeliHEmpty" createVehicle [0, 0];
+hiddenObj setPos [pos_x, pos_y];
 isSmokeDetected = false;
 
-targetPos = getPosASL virtual_target;
+targetPos = getPosASL hiddenObj;
 
 sleep 1;
 

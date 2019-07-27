@@ -389,7 +389,7 @@ if (!alive heli || (damage heli) > 0.5) exitWith
 {
     player removeEventHandler ['Fired', 0];
     deleteMarkerLocal extractMarker;
-    hint parsetext format ["<t align='left' color='#C10005' size='1'>The extraction helicopter has been destroyed.</t>"];
+    hint parsetext format ["<t align='left' color='#DC143C' size='1'>The extraction helicopter has been destroyed.</t>"];
 };
 
 dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];

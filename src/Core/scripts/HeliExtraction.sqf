@@ -109,10 +109,10 @@ extractMarker setMarkerText "Extraction";
 // Sleeping is rquired to correctly place the hidden helipad on the smoke pos
 sleep 4;
 
-hiddenObj = createVehicle ["Land_HelipadEmpty_F", smokePos, [], 0, "NONE"];
+hiddenHelipad = createVehicle ["Land_HelipadRescue_F", smokePos, [], 0, "NONE"];
 isSmokeDetected = false;
 
-targetPos = getPosASL hiddenObj;
+targetPos = getPosASL hiddenHelipad;
 
 sleep 1;
 
@@ -279,7 +279,7 @@ fn_heliReturnHome =
          deleteMarkerLocal 'dropoff_marker';
          1 setRadioMsg 'Request Extraction';
          player removeEventHandler ['Fired', 0];
-         deleteVehicle hiddenObj"
+         deleteVehicle hiddenHelipad"
     ];
 };
 
@@ -391,10 +391,10 @@ player onMapSingleClick "nil";
 
 hintSilent "Drop off location has been marked.";
 
-hiddenObj setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
+hiddenHelipad setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
 
 VT = false;
-dropOffPos = getPosASL hiddenObj;
+dropOffPos = getPosASL hiddenHelipad;
 
 sleep 1;
 

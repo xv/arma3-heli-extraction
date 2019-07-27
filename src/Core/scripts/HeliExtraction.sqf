@@ -38,7 +38,8 @@ if (faction player == "BLU_GEN_F"                   ||
     faction player == "rhs_faction_vpvo"            ||
     faction player == "rhsgref_faction_cdf_ng"      ||
     faction player == "rhsgref_faction_nationalist" ||
-    faction player == "rhssaf_faction_un") exitWith
+    faction player == "rhssaf_faction_un"           ||
+    faction player == "CUP_O_TK_MILITIA") exitWith
 {
     hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
 };
@@ -195,8 +196,10 @@ heliClass = switch (playerSide) do
         {
             case "OPF_F":                 { "O_Heli_Light_02_F" };  // CSAT (Default)
             case "rhsgref_faction_chdkz": { "rhsgref_ins_Mi8amt" }; // ChDKZ Insurgents
-            case "rhs_faction_vdv":       { "rhs_Mi24V_vdv" };      // Russia (VDV)
-            case "rhs_faction_vv":        { "rhs_Mi8mt_vv" };       // Russia (VV)
+            case "rhs_faction_vdv":       { "rhs_Mi24V_vdv" };      // RHS Russia (VDV)
+            case "rhs_faction_vv":        { "rhs_Mi8mt_vv" };       // RHS Russia (VV)
+            case "CUP_O_SLA":             { "CUP_O_UH1H_SLA" };     // CUP Sahrani Liberation Army
+            case "CUP_O_TK":              { "CUP_O_Mi17_TK" };      // CUP Takistani Army
             default                       { "O_Heli_Light_02_F" };  // CSAT (Default)
         };
     };

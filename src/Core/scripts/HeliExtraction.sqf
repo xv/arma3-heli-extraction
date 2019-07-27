@@ -235,7 +235,7 @@ heliClass = switch (playerSide) do
 };
 
 // Spawn the helicopter
-fncSpawnVehicle = [spawnPos, vecDir, heliClass, WEST] call BIS_fnc_spawnVehicle;
+fncSpawnVehicle = [spawnPos, vecDir, heliClass, side player] call BIS_fnc_spawnVehicle;
 heli = fncSpawnVehicle select 0;
 heliPilot = (fncSpawnVehicle select 1) select 0;
 

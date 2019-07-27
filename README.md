@@ -22,7 +22,7 @@ Support for RHS factions is added. If you execute the script while playing as a 
 
 ACE Compatibility
 -----------------
-Everything seems to be functioning as expected. No errors, warnings or abnormal behaviour is observed while the script was being executed.
+The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
 
 Usage
 -----

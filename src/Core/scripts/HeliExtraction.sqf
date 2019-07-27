@@ -106,13 +106,10 @@ extractMarker setMarkerTypelocal "MIL_PICKUP";
 extractMarker setMarkerColorlocal "ColorBlack";
 extractMarker setMarkerText "Extraction";
 
-sleep 0.05;
+// Sleeping is rquired to correctly place the hidden helipad on the smoke pos
+sleep 4;
 
-pos_x = getMarkerPos extractMarker select 0;
-pos_y = getMarkerPos extractMarker select 1;
-
-hiddenObj = "Land_HelipadEmpty_F" createVehicle [0, 0];
-hiddenObj setPos [pos_x, pos_y];
+hiddenObj = createVehicle ["Land_HelipadEmpty_F", smokePos, [], 0, "NONE"];
 isSmokeDetected = false;
 
 targetPos = getPosASL hiddenObj;
@@ -281,7 +278,8 @@ fn_heliReturnHome =
         "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
          deleteMarkerLocal 'dropoff_marker';
          1 setRadioMsg 'Request Extraction';
-         player removeEventHandler ['Fired', 0];"
+         player removeEventHandler ['Fired', 0];
+         deleteVehicle hiddenObj"
     ];
 };
 
@@ -392,17 +390,11 @@ sleep 0.05;
 player onMapSingleClick "nil";
 
 hintSilent "Drop off location has been marked.";
-pos_x_2 = getMarkerPos dropOffMarker select 0;
-publicVariable "pos_x_2";
-pos_y_2 = getMarkerPos dropOffMarker select 1;
-publicVariable "pos_y_2";
 
-SVT_2 = "HeliHEmpty" createVehicle [0, 0];
-SVT_2 setPos [pos_x_2, pos_y_2];
+hiddenObj setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
 
 VT = false;
-
-dropOffPos = getPosASL SVT_2;
+dropOffPos = getPosASL hiddenObj;
 
 sleep 1;
 

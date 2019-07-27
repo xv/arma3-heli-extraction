@@ -60,27 +60,43 @@ sleep 10;
 [playerSide,"HQ"] sideRadio "radio_beep_to";
 [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with red smoke, over.", name player];
 
-/* Note: Some RHS units carry red smoke grenades, but they a are not vanilla
- * grenades. its class name is 'rhs_magazine_rhs_mag_m18_red'. But for whatever
+private "_smokeNadeToThrow";
+
+/* Note: Some RHS units carry smoke grenades, but they are not vanilla
+ * grenades. Their class name is 'rhs_magazine_rhs_mag_m18_*'. But for whatever
  * reason, RHS smoke grenades are part of the CfgVehicles class rather rhan
  * CfgMagazines. That means I cannot check if it exists in the player's
  * inventory since it's technically not a magazine.
  */
-playerMags = magazines player;
-if ("SmokeShellRed" in playerMags) then
+smokeMags = [
+    "SmokeShellRed",
+    "SmokeShellGreen",
+    "SmokeShellYellow",
+    "SmokeShellPurple",
+    "SmokeShellBlue",
+    "SmokeShellOrange"
+];
+{ 
+    if (_x in (magazines player)) exitWith 
+    { 
+        hint parsetext format ["<t align='left' color='#FFF'>Use one of the smoke grenades in your inventory to mark the LZ.</t>"];
+        _smokeNadeToThrow = _x;
+    }
+} forEach smokeMags;
+
+sleep 0.1;
+
+if (isNil "_smokeNadeToThrow") then
 {
-    hint parsetext format ["<t align='left' color='#FFF'>Use the <t color='#DA525C'>red smoke</t> grenade in your inventory to mark the LZ.</t>"];
-}
-else
-{
-    hint parsetext format ["<t align='left' color='#FFF'>A <t color='#DA525C'>red smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
-    player addMagazine "SmokeShellRed";
+    hint parsetext format ["<t align='left' color='#FFF'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
+    _smokeNadeToThrow = "SmokeShellPurple";
+    player addMagazine _smokeNadeToThrow;
 };
 
 // Create a marker where the smoke grenade lands
 CheckForSmoke = player addEventHandler ["Fired",
 {
-    if ((_this select 5) != "SmokeShellRed") exitWith {};
+    if ((_this select 5) != _smokeNadeToThrow) exitWith {};
     _null = (_this select 6) spawn
     {
         smokePos = getPos _this;
@@ -279,7 +295,8 @@ fn_heliReturnHome =
          deleteMarkerLocal 'dropoff_marker';
          1 setRadioMsg 'Request Extraction';
          player removeEventHandler ['Fired', 0];
-         deleteVehicle hiddenHelipad"
+         deleteVehicle hiddenHelipad;
+         _smokeNadeToThrow = nil;"
     ];
 };
 

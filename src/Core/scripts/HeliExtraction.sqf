@@ -59,7 +59,7 @@ player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. L
 sleep 10;
 
 [playerSide,"HQ"] sideRadio "radio_beep_to";
-[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with red smoke, over.", name player];
+[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with colored smoke, over.", name player];
 
 private "_smokeNadeToThrow";
 

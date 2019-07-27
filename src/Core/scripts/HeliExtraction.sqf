@@ -109,7 +109,7 @@ extractMarker setMarkerText "Extraction";
 // Sleeping is rquired to correctly place the hidden helipad on the smoke pos
 sleep 4;
 
-hiddenHelipad = createVehicle ["Land_HelipadRescue_F", smokePos, [], 0, "NONE"];
+hiddenHelipad = createVehicle ["Land_HelipadEmpty_F", smokePos, [], 0, "NONE"];
 isSmokeDetected = false;
 
 targetPos = getPosASL hiddenHelipad;

@@ -20,6 +20,10 @@
  * SOFTWARE.
  */
 
+// For developing/testing, enable this switch if you want to see some feedback
+// messages while the script is running
+feedbackMode = false;
+
 denyFaction = false;
 
 // No transport for the following excluded factions
@@ -108,7 +112,14 @@ if (isNil "_smokeNadeToThrow") then
 // Create a marker where the smoke grenade lands
 eh_detectSmoke = player addEventHandler ["Fired",
 {
-    if !((_this select 5) in smokeMags) exitWith { /* hint "Wrong item." */ };
+    if !((_this select 5) in smokeMags) exitWith
+    {
+        if (feedbackMode) then
+        {
+            systemChat format ["Fired or thrown the wrong object (%1).", _this select 5];
+        };
+    };
+    
     _null = _this spawn
     {
         params[
@@ -146,7 +157,16 @@ extractMarker setMarkerTypelocal "MIL_PICKUP";
 extractMarker setMarkerColorlocal "ColorBlack";
 extractMarker setMarkerText "Extraction";
 
-hiddenHelipad = createVehicle ["Land_HelipadEmpty_F", smokePos, [], 0, "NONE"];
+private "_helipadClass";
+
+if (feedbackMode) then { 
+    _helipadClass = "Land_HelipadCircle_F";
+} else {
+    _helipadClass = "Land_Helipadempty_F";
+};
+
+hiddenHelipad = createVehicle [_helipadClass, smokePos, [], 0, "NONE"];
+
 isSmokeDetected = false;
 
 targetPos = getPosASL hiddenHelipad;

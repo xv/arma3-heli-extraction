@@ -106,20 +106,31 @@ if (isNil "_smokeNadeToThrow") then
 };
 
 // Create a marker where the smoke grenade lands
-CheckForSmoke = player addEventHandler ["Fired",
+eh_detectSmoke = player addEventHandler ["Fired",
 {
     if !((_this select 5) in smokeMags) exitWith { /* hint "Wrong item." */ };
-    _null = (_this select 6) spawn
+    _null = _this spawn
     {
-        smokePos = getPos _this;
-        sleep 1;
-        while { (smokePos distance (getPos _this)) > 0 } do
-        {
-            smokePos = getPos _this;
-            isSmokeDetected = true;
-            extractMarker setMarkerPosLocal smokePos;
-            sleep 1;
-        };
+        params[
+            "_unit",
+            "_weapon",
+            "_muzzle",
+            "_mode",
+            "_ammo",
+            "_magazine",
+            "_projectile",
+            "_vehicle"
+        ];
+
+        _projectile = _this select 6;
+
+        // Proceed only when the grenade has come to a stop
+        waitUntil { vectorMagnitude velocity _projectile < 0.02 };
+
+        smokePos = getPos _projectile;
+        isSmokeDetected = true;
+
+        player removeEventHandler ["Fired", 0];
     };
 }];
 
@@ -129,13 +140,11 @@ CheckForSmoke = player addEventHandler ["Fired",
 waitUntil { isSmokeDetected };
 
 // Create a marker icon on the map to identify the extraction point
+extractMarker setMarkerPosLocal smokePos;
 extractMarker setMarkerShapelocal "ICON";
 extractMarker setMarkerTypelocal "MIL_PICKUP";
 extractMarker setMarkerColorlocal "ColorBlack";
 extractMarker setMarkerText "Extraction";
-
-// Sleeping is rquired to correctly place the hidden helipad on the smoke pos
-sleep 4;
 
 hiddenHelipad = createVehicle ["Land_HelipadEmpty_F", smokePos, [], 0, "NONE"];
 isSmokeDetected = false;
@@ -398,7 +407,6 @@ sleep 0.1;
 // If invincibility is disabled and the helicopter gets destroyed, script ends here
 if (!alive heli || (damage heli) > 0.5) exitWith
 {
-    player removeEventHandler ['Fired', 0];
     deleteMarkerLocal extractMarker;
     hint parsetext format ["<t align='left' color='#DC143C' size='1'>The extraction helicopter has been destroyed.</t>"];
 };

@@ -356,27 +356,45 @@ fn_heliReturnHome =
 call fn_heliMoveToLZ;
 sleep 1;
 
-// Deploy countermeasures in case the helicopter gets fired at with AA missiles
-heli addEventHandler ["IncomingMissile",
+boardingDetected = false;
+
+fn_monitorVehicleStatus =
 {
-    // hint "incoming!";
-    fn_dropFlares =
-    {
-        flares = 0;
-        while { alive heli && flares < 6 } do
-        {
-            if ((heli ammo "CMFlareLauncher") == 0) then
-            {
-                heli addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine", [-1], 20];
-                reload heli;
-            };
-            
-            heli action ["useWeapon", heli, driver heli, 0];
-            flares = flares + 1;
-        };
+    params ["_veh"];
+
+    if (feedbackMode) then {
+        systemChat format ["Monitoring vehicle status for '%1'...", _veh];
     };
-    call fn_dropFlares;
-}];
+
+    _veh addEventHandler ["GetIn",
+    {
+        boardingDetected = true;
+    }];
+
+    // Deploy countermeasures in case the helicopter gets fired at with AA missiles
+    // Note: The AI in Arma 3 seems to be smart enough to do it themselves
+    _veh addEventHandler ["IncomingMissile",
+    {
+        fn_dropFlares =
+        {
+            flares = 0;
+            while { alive _veh && flares < 6 } do
+            {
+                if ((_veh ammo "CMFlareLauncher") == 0) then
+                {
+                    _veh addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine", [-1], 20];
+                    reload _veh;
+                };
+                
+                _veh action ["useWeapon", _veh, driver _veh, 0];
+                flares = flares + 1;
+            };
+        };
+        call fn_dropFlares;
+    }];
+};
+heli call fn_monitorVehicleStatus;
+
 
 while { ((alive heli) && !(unitReady heli)) } do
 {
@@ -405,10 +423,22 @@ if (alive heli) then
     };
 
     timeTillRtb = 85; // 1m:25s
-    while { (timeTillRtb > 0) && !(player in heli) } do
+    while { (timeTillRtb > 0) } do
     {
         hint parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
         timeTillRtb = timeTillRtb - 1;
+
+        if (boardingDetected) exitWith
+        {
+            if (feedbackMode) then {
+                systemChat "Boarding has been detected. Aborting countdown..."; 
+            };
+
+            if (count units group player > 1) then {
+                hint "All units must board the helicopter before extraction!";
+            };
+        };
+
         sleep 1;
 
         if (timeTillRtb <= 5) exitWith

@@ -166,7 +166,7 @@ private "_helipadClass";
 if (feedbackMode) then { 
     _helipadClass = "Land_HelipadCircle_F";
 } else {
-    _helipadClass = "Land_Helipadempty_F";
+    _helipadClass = "Land_HelipadEmpty_F";
 };
 
 hiddenHelipad = createVehicle [_helipadClass, smokePos, [], 0, "NONE"];

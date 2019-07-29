@@ -291,6 +291,9 @@ heli setBehaviour  "CARELESS";
 heli setSpeedMode  "NORMAL";
 heli setCombatMode "GREEN";
 
+heli enableCopilot false;
+heli lockDriver true;
+
 /* Comment line below to disable invincibility.
  *
  * Note that when you request the helicopter in a hot zone, the enemy AI will

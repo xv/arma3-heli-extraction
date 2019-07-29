@@ -460,7 +460,7 @@ if (alive heli) then
 
     waitUntil { !getMapClick };
 
-    hint "Are you drunk or something? The drop off location needs to be farther away from your current position.";
+    hint "The drop off location needs to be at least 1 kilometre from your current position.";
 
     waitUntil { ((heli distance getMarkerPos dropOffMarker) > 1000) };
 

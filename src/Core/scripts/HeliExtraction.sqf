@@ -85,6 +85,7 @@ smokeMags = [
     "SmokeShellPurple",
     "SmokeShellBlue",
     "SmokeShellOrange",
+    "rhs_mag_nspd",
     "rhs_mag_m18_red",
     "rhs_mag_m18_green",
     "rhs_mag_m18_yellow",

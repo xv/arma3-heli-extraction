@@ -398,6 +398,29 @@ if (alive heli) then
         heli animateDoor ['door_R', 1]; 
         heli animateDoor ['door_L', 1];
     };
+
+    timeTillRtb = 85; // 1m:25s
+    while {timeTillRtb > 0 && !(player in heli)} do
+    {
+        hint parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
+        timeTillRtb = timeTillRtb - 1;
+        sleep 1;
+
+        if (timeTillRtb <= 5) exitWith
+        {
+            heli lock true;
+
+            hint parseText "<t color='#DC143C'>You missed the extraction helicopter!</t>";
+
+            sleep 1.5;
+
+            [playerSide,"HQ"] sideRadio "radio_beep_to";
+            [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, over.", name player];
+
+            deleteMarkerLocal extractMarker;
+            call fn_heliReturnHome;
+        };
+    };
     
     // Make sure that the player and all associated units have boarded the helicopter
     waitUntil
@@ -406,75 +429,68 @@ if (alive heli) then
     };
     
     // Lock the doors to prevent the player from ejecting and going off the script scenario
-    heli lock true; 
+    heli lock true;
     
     sleep 0.3;
     
     deleteMarkerLocal extractMarker;
     [playerSide,"HQ"] sideRadio "radio_beep_to";
     [playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
-    
+
+    hintSilent "Mark your drop off location by clicking on the map.";
+
     sleep 1.7;
     
     // Open the map to mark a drop off location
     openMap true;
+
+    getMapClick = true;
+
+    sleep 0.1;
+
+    dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];
+
+    sleep 0.3;
+
+    onMapSingleClick
+    {
+        dropOffMarker setMarkerPosLocal _pos;
+        getMapClick = false;
+    };
+
+    waitUntil { !getMapClick };
+
+    hint "Are you drunk or something? The drop off location needs to be farther away from your current position.";
+
+    waitUntil { ((heli distance getMarkerPos dropOffMarker) > 1000) };
+
+    // Create a marker icon on the map to identify the drop off point
+    dropOffMarker setMarkerShapelocal "ICON";
+    dropOffMarker setMarkerTypelocal "MIL_END";
+    dropOffMarker setMarkerColorlocal "ColorBlack";
+    dropOffMarker setMarkerText "Drop Off";
+
+    sleep 0.05;
+
+    player onMapSingleClick "nil";
+
+    hintSilent "Drop off location has been marked.";
+
+    hiddenHelipad setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
+
+    dropOffPos = getPosASL hiddenHelipad;
+
+    sleep 1;
+
+    // Close the map after the drop off location has been marked
+    openMap false;
+
+    sleep 3;
+
+    // Set a new waypoint for the helicopter
+    wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
+    wp_dropZone setWaypointType "MOVE";
 };
-
-getMapClick = true;
-
-sleep 0.1;
-
-// If invincibility is disabled and the helicopter gets destroyed, script ends here
-if (!alive heli || (damage heli) > 0.5) exitWith
-{
-    deleteMarkerLocal extractMarker;
-    hint parsetext format ["<t align='left' color='#DC143C' size='1'>The extraction helicopter has been destroyed.</t>"];
-};
-
-dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];
-
-sleep 0.3;
-
-hintSilent "Mark your drop off location by clicking on the map.";
-
-onMapSingleClick
-{
-    dropOffMarker setMarkerPosLocal _pos;
-    getMapClick = false;
-};
-
-waitUntil { !getMapClick };
-
-hint "Are you drunk or something? The drop off location needs to be farther away from your current position.";
-
-waitUntil { ((heli distance getMarkerPos dropOffMarker) > 1000) };
-
-// Create a marker icon on the map to identify the drop off point
-dropOffMarker setMarkerShapelocal "ICON";
-dropOffMarker setMarkerTypelocal "MIL_END";
-dropOffMarker setMarkerColorlocal "ColorBlack";
-dropOffMarker setMarkerText "Drop Off";
-
-sleep 0.05;
-
-player onMapSingleClick "nil";
-
-hintSilent "Drop off location has been marked.";
-
-hiddenHelipad setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
-
-dropOffPos = getPosASL hiddenHelipad;
-
-sleep 1;
-
-// Close the map after the drop off location has been marked
-openMap false;
-
-sleep 3;
-
-// Set a new waypoint for the helicopter
-wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
-wp_dropZone setWaypointType "MOVE";
 
 sleep 1;
 

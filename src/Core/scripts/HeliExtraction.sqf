@@ -428,20 +428,30 @@ if (alive heli) then
         hint parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
         timeTillRtb = timeTillRtb - 1;
 
-        if (boardingDetected) exitWith
+        if (player distance (getMarkerPos extractMarker) <= 20) exitWith
+        {
+            if (feedbackMode) then {
+                systemChat "Your are within 20 metres from the extraction zone. Aborting countdown...";
+            };
+
+            hint "Board the helocopter.";
+        };
+
+        // This part is needed in case squad mates enter the helicopter before the player
+        if (boardingDetected && (isNull objectParent player)) exitWith
         {
             if (feedbackMode) then {
                 systemChat "Boarding has been detected. Aborting countdown..."; 
             };
 
-            if (count units group player > 1) then {
+            if (count units (group player) > 1) then {
                 hint "All units must board the helicopter before extraction!";
             };
         };
 
         sleep 1;
 
-        if (timeTillRtb <= 5) exitWith
+        if (timeTillRtb < 1) exitWith
         {
             heli lock true;
 
@@ -466,7 +476,7 @@ if (alive heli) then
     // Lock the doors to prevent the player from ejecting and going off the script scenario
     heli lock true;
     
-    sleep 0.3;
+    sleep 0.5;
     
     deleteMarkerLocal extractMarker;
     [playerSide,"HQ"] sideRadio "radio_beep_to";

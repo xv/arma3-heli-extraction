@@ -415,7 +415,7 @@ if (alive heli) then
             sleep 1.5;
 
             [playerSide,"HQ"] sideRadio "radio_beep_to";
-            [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, over.", name player];
+            [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.", name player];
 
             deleteMarkerLocal extractMarker;
             call fn_heliReturnHome;

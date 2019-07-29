@@ -88,7 +88,12 @@ smokeMags = [
     "rhs_mag_m18_red",
     "rhs_mag_m18_green",
     "rhs_mag_m18_yellow",
-    "rhs_mag_m18_purple"
+    "rhs_mag_m18_purple",
+    "rhssaf_mag_brd_m83_red",
+    "rhssaf_mag_brd_m83_green",
+    "rhssaf_mag_brd_m83_yellow",
+    "rhssaf_mag_brd_m83_blue",
+    "rhssaf_mag_brd_m83_orange"
 ];
 { 
     if (_x in (magazines player)) exitWith 

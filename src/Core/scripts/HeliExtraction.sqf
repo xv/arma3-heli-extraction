@@ -345,7 +345,6 @@ fn_heliReturnHome =
         "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
          deleteMarkerLocal 'dropoff_marker';
          1 setRadioMsg 'Request Extraction';
-         player removeEventHandler ['Fired', 0];
          deleteVehicle hiddenHelipad;
          _smokeNadeToThrow = nil;"
     ];

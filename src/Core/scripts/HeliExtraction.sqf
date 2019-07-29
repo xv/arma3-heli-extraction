@@ -78,19 +78,17 @@ sleep 10;
 
 private "_smokeNadeToThrow";
 
-/* Note: Some RHS units carry smoke grenades, but they are not vanilla
- * grenades. Their class name is 'rhs_magazine_rhs_mag_m18_*'. But for whatever
- * reason, RHS smoke grenades are part of the CfgVehicles class rather rhan
- * CfgMagazines. That means I cannot check if it exists in the player's
- * inventory since it's technically not a magazine.
- */
 smokeMags = [
     "SmokeShellRed",
     "SmokeShellGreen",
     "SmokeShellYellow",
     "SmokeShellPurple",
     "SmokeShellBlue",
-    "SmokeShellOrange"
+    "SmokeShellOrange",
+    "rhs_mag_m18_red",
+    "rhs_mag_m18_green",
+    "rhs_mag_m18_yellow",
+    "rhs_mag_m18_purple"
 ];
 { 
     if (_x in (magazines player)) exitWith 

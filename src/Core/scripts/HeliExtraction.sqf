@@ -122,7 +122,7 @@ eh_detectSmoke = player addEventHandler ["Fired",
     
     _null = _this spawn
     {
-        params[
+        params [
             "_unit",
             "_weapon",
             "_muzzle",
@@ -400,7 +400,7 @@ if (alive heli) then
     };
 
     timeTillRtb = 85; // 1m:25s
-    while {timeTillRtb > 0 && !(player in heli)} do
+    while { (timeTillRtb > 0) && !(player in heli) } do
     {
         hint parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
         timeTillRtb = timeTillRtb - 1;

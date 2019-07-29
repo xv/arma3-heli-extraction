@@ -55,7 +55,7 @@ excludedFactions = [
 
 if (denyFaction) exitWith
 {
-    hint parsetext format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
+    hint parseText format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
     denyFaction = nil;
 };
 
@@ -95,7 +95,7 @@ smokeMags = [
 { 
     if (_x in (magazines player)) exitWith 
     { 
-        hint parsetext format ["<t align='left' color='#FFF'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>"];
+        hint parseText format ["<t align='left' color='#FFF'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>"];
         _smokeNadeToThrow = _x;
     };
 } forEach smokeMags;
@@ -104,7 +104,7 @@ sleep 0.1;
 
 if (isNil "_smokeNadeToThrow") then
 {
-    hint parsetext format ["<t align='left' color='#FFF'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
+    hint parseText format ["<t align='left' color='#FFF'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
     _smokeNadeToThrow = "SmokeShellPurple";
     player addMagazine _smokeNadeToThrow;
 };

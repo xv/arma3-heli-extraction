@@ -55,7 +55,7 @@ excludedFactions = [
 
 if (denyFaction) exitWith
 {
-    hint parseText format ["<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>"];
+    hint parseText "<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>";
     denyFaction = nil;
 };
 
@@ -99,7 +99,7 @@ smokeMags = [
 { 
     if (_x in (magazines player)) exitWith 
     { 
-        hint parseText format ["<t align='left' color='#FFF'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>"];
+        hint parseText "<t align='left' color='#FFF'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
         _smokeNadeToThrow = _x;
     };
 } forEach smokeMags;

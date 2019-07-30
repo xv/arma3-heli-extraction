@@ -108,9 +108,23 @@ sleep 0.1;
 
 if (isNil "_smokeNadeToThrow") then
 {
-    hint parseText format ["<t align='left' color='#FFF'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>"];
     _smokeNadeToThrow = "SmokeShellPurple";
-    player addMagazine _smokeNadeToThrow;
+
+    if (player canAdd _smokeNadeToThrow) then
+    {
+        player addMagazine _smokeNadeToThrow;
+    }
+    else
+    {
+        hint "Free up some inventory space in order to receive a smoke grenade to mark the LZ.";
+
+        waitUntil { (player canAdd _smokeNadeToThrow) };
+        sleep 1;
+
+        player addMagazine _smokeNadeToThrow;
+    };
+
+    hint parseText "<t align='left' color='#FFF'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
 };
 
 // Create a marker where the smoke grenade lands

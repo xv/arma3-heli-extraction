@@ -99,7 +99,7 @@ smokeMags = [
 { 
     if (_x in (magazines player)) exitWith 
     { 
-        hint parseText "<t align='left' color='#FFF'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
+        hint parseText "<t align='left'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
         _smokeNadeToThrow = _x;
     };
 } forEach smokeMags;
@@ -124,7 +124,7 @@ if (isNil "_smokeNadeToThrow") then
         player addMagazine _smokeNadeToThrow;
     };
 
-    hint parseText "<t align='left' color='#FFF'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
+    hint parseText "<t align='left'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
 };
 
 // Create a marker where the smoke grenade lands

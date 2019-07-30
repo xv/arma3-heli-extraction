@@ -443,7 +443,7 @@ if (alive heli) then
         hint parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
         timeTillRtb = timeTillRtb - 1;
 
-        if (player distance (getMarkerPos extractMarker) <= 25) exitWith
+        if (player distance heli <= 25) exitWith
         {
             if (feedbackMode) then {
                 systemChat "Your are within 25 metres from the extraction zone. Aborting countdown...";

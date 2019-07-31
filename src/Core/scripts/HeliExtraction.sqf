@@ -310,10 +310,32 @@ heliClass = switch (playerSide) do
     };
 };
 
+fn_animateHeliDoors =
+{
+    params ["_isRHS", "_state"];
+
+    _doorLeftClass = "door_L";
+    _doorRightClass = "door_R";
+
+    if (_isRHS) then
+    {
+        _doorLeftClass = "doorLB";
+        _doorRightClass = "doorRB";
+    };
+
+    heli animateDoor [_doorLeftClass, _state];
+    heli animateDoor [_doorRightClass, _state];
+};
+
 // Spawn the helicopter
 fncSpawnVehicle = [spawnPos, vecDir, heliClass, side player] call BIS_fnc_spawnVehicle;
 heli = fncSpawnVehicle select 0;
 heliPilot = (fncSpawnVehicle select 1) select 0;
+
+if (typeOf heli find "RHS_UH60M" >= 0) then
+{
+    [true, 1] call fn_animateHeliDoors;
+};
 
 sleep 4;
 
@@ -453,8 +475,7 @@ if (alive heli) then
     if (typeOf heli == "B_Heli_Transport_01_F" ||
         typeOf heli == "B_CTRG_Heli_Transport_01_sand_F") then
     {
-        heli animateDoor ['door_R', 1]; 
-        heli animateDoor ['door_L', 1];
+        [false, 1] call fn_animateHeliDoors;
     };
 
     timeTillRtb = 85; // 1m:25s

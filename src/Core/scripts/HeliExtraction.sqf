@@ -59,6 +59,9 @@ if (denyFaction) exitWith
     denyFaction = nil;
 };
 
+// "1" depends on your chosen radio slot. Check: setRadioMsg help URL
+1 setRadioMsg "NULL";
+
 isSmokeDetected = false;
 
 sleep 0.1;
@@ -187,9 +190,6 @@ eh_detectSmoke = player addEventHandler ["Fired",
         player removeEventHandler ["Fired", 0];
     };
 }];
-
-// "1" depends on your chosen radio slot. Check: setRadioMsg help URL
-1 setRadioMsg "NULL";
 
 waitUntil { isSmokeDetected };
 

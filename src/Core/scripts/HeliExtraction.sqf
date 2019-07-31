@@ -127,6 +127,24 @@ if (isNil "_smokeNadeToThrow") then
     hint parseText "<t align='left'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
 };
 
+fn_findLandingPos =
+{
+    params ["_object", "_minDist", "_maxDist", "_vehicle"];
+
+    _returnPos = (getPos _object) findEmptyPosition [_minDist, _maxDist, _vehicle];
+
+    if (_returnPos isEqualTo []) then
+    {
+        if (feedbackMode) then {
+            systemChat "Failed to find an empty position. Using the default one...";
+        };
+
+        _returnPos = getPos _object;
+    };
+
+    _returnPos
+};
+
 // Create a marker where the smoke grenade lands
 eh_detectSmoke = player addEventHandler ["Fired",
 {
@@ -156,7 +174,7 @@ eh_detectSmoke = player addEventHandler ["Fired",
         // Proceed only when the grenade has come to a stop
         waitUntil { vectorMagnitude velocity _projectile < 0.02 };
 
-        smokePos = getPos _projectile;
+        smokePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
         isSmokeDetected = true;
 
         player removeEventHandler ["Fired", 0];
@@ -169,6 +187,7 @@ eh_detectSmoke = player addEventHandler ["Fired",
 waitUntil { isSmokeDetected };
 
 // Create a marker icon on the map to identify the extraction point
+// This marker shows the actual landing zone will be, not where the smoke popped
 extractMarker setMarkerPosLocal smokePos;
 extractMarker setMarkerShapelocal "ICON";
 extractMarker setMarkerTypelocal "MIL_PICKUP";

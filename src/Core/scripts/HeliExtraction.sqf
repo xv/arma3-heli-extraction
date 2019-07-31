@@ -174,6 +174,13 @@ eh_detectSmoke = player addEventHandler ["Fired",
         // Proceed only when the grenade has come to a stop
         waitUntil { vectorMagnitude velocity _projectile < 0.02 };
 
+        // Create a marker icon on the map to identify the extraction point
+        extractMarker setMarkerPosLocal _projectile;
+        extractMarker setMarkerShapelocal "ICON";
+        extractMarker setMarkerTypelocal "MIL_PICKUP";
+        extractMarker setMarkerColorlocal "ColorBlack";
+        extractMarker setMarkerText "Extraction";
+
         smokePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
         isSmokeDetected = true;
 
@@ -185,14 +192,6 @@ eh_detectSmoke = player addEventHandler ["Fired",
 1 setRadioMsg "NULL";
 
 waitUntil { isSmokeDetected };
-
-// Create a marker icon on the map to identify the extraction point
-// This marker shows the actual landing zone will be, not where the smoke popped
-extractMarker setMarkerPosLocal smokePos;
-extractMarker setMarkerShapelocal "ICON";
-extractMarker setMarkerTypelocal "MIL_PICKUP";
-extractMarker setMarkerColorlocal "ColorBlack";
-extractMarker setMarkerText "Extraction";
 
 private "_helipadClass";
 
@@ -446,6 +445,8 @@ if (alive heli) then
         (velocity  heli select 2) > -0.2 &&
         (getPosATL heli select 2) <  0.5
     };
+
+    extractMarker setMarkerPosLocal heli;
     
     sleep 0.7;
     

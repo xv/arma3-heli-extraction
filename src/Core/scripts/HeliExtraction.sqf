@@ -62,7 +62,7 @@ if (denyFaction) exitWith
 // "1" depends on your chosen radio slot. Check: setRadioMsg help URL
 1 setRadioMsg "NULL";
 
-isSmokeDetected = false;
+isMarkerDetected = false;
 
 sleep 0.1;
 
@@ -77,57 +77,96 @@ player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. L
 sleep 10;
 
 [playerSide,"HQ"] sideRadio "radio_beep_to";
-[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark LZ with colored smoke, over.", name player];
+[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark the LZ, over.", name player];
 
-private "_smokeNadeToThrow";
+private ["_grenadeToThrow", "_isSmokeGrenade"];
+throwableMag = [];
 
-smokeMags = [
-    "SmokeShellRed",
-    "SmokeShellGreen",
-    "SmokeShellYellow",
-    "SmokeShellPurple",
-    "SmokeShellBlue",
-    "SmokeShellOrange",
-    "rhs_mag_nspd",
-    "rhs_mag_m18_red",
-    "rhs_mag_m18_green",
-    "rhs_mag_m18_yellow",
-    "rhs_mag_m18_purple",
-    "rhssaf_mag_brd_m83_red",
-    "rhssaf_mag_brd_m83_green",
-    "rhssaf_mag_brd_m83_yellow",
-    "rhssaf_mag_brd_m83_blue",
-    "rhssaf_mag_brd_m83_orange"
-];
+if (sunOrMoon >= 1) then
+{
+    _isSmokeGrenade = true;
+
+    throwableMag = [
+        "SmokeShellRed",
+        "SmokeShellGreen",
+        "SmokeShellYellow",
+        "SmokeShellPurple",
+        "SmokeShellBlue",
+        "SmokeShellOrange",
+        "rhs_mag_nspd",
+        "rhs_mag_m18_red",
+        "rhs_mag_m18_green",
+        "rhs_mag_m18_yellow",
+        "rhs_mag_m18_purple",
+        "rhssaf_mag_brd_m83_red",
+        "rhssaf_mag_brd_m83_green",
+        "rhssaf_mag_brd_m83_yellow",
+        "rhssaf_mag_brd_m83_blue",
+        "rhssaf_mag_brd_m83_orange"
+    ];
+}
+else
+{
+    _isSmokeGrenade = false;
+
+    throwableMag = [
+        "B_IR_Grenade", // NATO (BLUFOR)
+        "O_IR_Grenade", // CSAT (OPFOR)
+        "I_IR_Grenade"  // AAF (GUER)
+    ];
+};
+
 { 
     if (_x in (magazines player)) exitWith 
     { 
-        hint parseText "<t align='left'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
-        _smokeNadeToThrow = _x;
+        if (_isSmokeGrenade) then {
+            hint parseText "<t align='left'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
+        } else {
+            hint parseText "<t align='left'>Use the <t underline='1'>infrared (IR)</t> grenade in your inventory to mark the LZ.</t>";
+        };
+
+        _grenadeToThrow = _x;
     };
-} forEach smokeMags;
+} forEach throwableMag;
 
 sleep 0.1;
 
-if (isNil "_smokeNadeToThrow") then
+if (isNil "_grenadeToThrow") then
 {
-    _smokeNadeToThrow = "SmokeShellPurple";
 
-    if (player canAdd _smokeNadeToThrow) then
+    if (_isSmokeGrenade) then
     {
-        player addMagazine _smokeNadeToThrow;
+        _grenadeToThrow = throwableMag select 3;
     }
     else
     {
-        hint "Free up some inventory space in order to receive a smoke grenade to mark the LZ.";
-
-        waitUntil { (player canAdd _smokeNadeToThrow) };
-        sleep 1;
-
-        player addMagazine _smokeNadeToThrow;
+        _grenadeToThrow = switch (playerSide) do
+        {
+            case west:       { throwableMag select 0 };
+            case east:       { throwableMag select 1 };
+            case resistance: { throwableMag select 2 };
+        };
     };
 
-    hint parseText "<t align='left'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
+    if (player canAdd _grenadeToThrow) then
+    {
+        player addMagazine _grenadeToThrow;
+    }
+    else
+    {
+        hint "Free up some inventory space in order to receive an item to mark the LZ.";
+
+        waitUntil { (player canAdd _grenadeToThrow) };
+        sleep 1;
+
+        player addMagazine _grenadeToThrow;
+    };
+
+    if (_isSmokeGrenade) then {
+        hint parseText "<t align='left'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
+    } else {
+        hint parseText "<t align='left'>An <t color='#DB7093'>infrared (IR)</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
+    };
 };
 
 fn_findLandingPos =
@@ -151,7 +190,7 @@ fn_findLandingPos =
 // Create a marker where the smoke grenade lands
 eh_detectSmoke = player addEventHandler ["Fired",
 {
-    if !((_this select 5) in smokeMags) exitWith
+    if !((_this select 5) in throwableMag) exitWith
     {
         if (feedbackMode) then
         {
@@ -184,14 +223,14 @@ eh_detectSmoke = player addEventHandler ["Fired",
         extractMarker setMarkerColorlocal "ColorBlack";
         extractMarker setMarkerText "Extraction";
 
-        smokePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
-        isSmokeDetected = true;
+        throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
+        isMarkerDetected = true;
 
         player removeEventHandler ["Fired", 0];
     };
 }];
 
-waitUntil { isSmokeDetected };
+waitUntil { isMarkerDetected };
 
 private "_helipadClass";
 
@@ -201,9 +240,9 @@ if (feedbackMode) then {
     _helipadClass = "Land_HelipadEmpty_F";
 };
 
-hiddenHelipad = createVehicle [_helipadClass, smokePos, [], 0, "NONE"];
+hiddenHelipad = createVehicle [_helipadClass, throwablePos, [], 0, "NONE"];
 
-isSmokeDetected = false;
+isMarkerDetected = false;
 
 targetPos = getPosASL hiddenHelipad;
 
@@ -404,7 +443,7 @@ fn_heliReturnHome =
          deleteMarkerLocal 'dropoff_marker';
          1 setRadioMsg 'Request Extraction';
          deleteVehicle hiddenHelipad;
-         _smokeNadeToThrow = nil;"
+         _grenadeToThrow = nil;"
     ];
 };
 

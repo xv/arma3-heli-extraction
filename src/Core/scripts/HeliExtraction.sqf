@@ -31,7 +31,6 @@ excludedFactions = [
     "Gendarmerie",                 // Gendarmerie
     "IND_G_F",                     // GUER FIA
     "OPF_G_F",                     // OPFOR FIA
-    "CIV_F",                       // Civilian
     "IND_L_F",                     // GUER Looters
     "rhsgref_faction_hidf",        // RHS Horizon Islands Defence Force
     "rhs_faction_usn",             // RHS USA Navy
@@ -53,7 +52,7 @@ excludedFactions = [
     };
 } forEach excludedFactions;
 
-if (denyFaction) exitWith
+if (denyFaction || playerSide == civilian) exitWith
 {
     hint parseText "<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>";
     denyFaction = nil;
@@ -337,14 +336,6 @@ heliClass = switch (playerSide) do
             case "CUP_I_TK_GUE":               { "CUP_I_UH1H_TK_GUE"           }; // CUP Takistani Locals
             case "CUP_I_UN":                   { "CUP_I_Mi17_UN"               }; // CUP United Nations
             default                            { "I_Heli_light_03_F"           }; // AAF (Default)
-        };
-    };
-
-    case civilian:
-    {
-        switch (faction player) do
-        {
-            case "CIV_IDAP_F": { "C_IDAP_Heli_Transport_02_F" }; // Civilian (IDAP)
         };
     };
 };

@@ -54,7 +54,7 @@ excludedFactions = [
 
 if (denyFaction || playerSide == civilian) exitWith
 {
-    hint parseText "<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for this faction.</t>";
+    hint parseText "<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for your faction.</t>";
     denyFaction = nil;
 };
 

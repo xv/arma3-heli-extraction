@@ -16,8 +16,12 @@ For class names, see:
 [/wiki/ArmA_2:_Vehicles](https://community.bistudio.com/wiki/ArmA_2:_Vehicles)<br>
 [/wiki/ArmA_2_OA:_Vehicles](https://community.bistudio.com/wiki/ArmA_2_OA:_Vehicles)
 
-Support for CUP & RHS
----------------------
+Multiplayer Support
+-------------------
+The script has never been tested in an online environment and will most likely not work on as-is basis since it uses a lot of local commands. Will I ever bother with trying to make it work online? No. If you run a server, go ahead and tinker with it all you want.
+
+CUP & RHS Support
+-----------------
 Support for Community Upgrade Project and Red Hammer Studios mods is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
 
 RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also supported. The script will let you use your RHS smoke grenades to mark the landing zone.
@@ -25,10 +29,6 @@ RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom ma
 ACE Compatibility
 -----------------
 The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
-
-Multiplayer Compatibility
--------------------------
-The script has never been tested in an online environment, and will most likely not work on as-is basis since it uses a lot of local commands. Will I ever bother with trying to make it work online? No. If you run a server, go ahead and tinker with it all you want.
 
 Usage
 -----

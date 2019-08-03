@@ -57,8 +57,8 @@ if (denyFaction || playerSide == civilian) exitWith
     denyFaction = nil;
 };
 
-// "1" depends on your chosen radio slot. Check: setRadioMsg help URL
-1 setRadioMsg "NULL";
+// This variable is defined in init.sqf
+trig_execScript setTriggerText "NULL";
 
 isMarkerDetected = false;
 
@@ -442,7 +442,7 @@ fn_heliReturnHome =
         "true",
         "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
          deleteMarkerLocal 'dropoff_marker';
-         1 setRadioMsg 'Request Extraction';
+         trig_execScript setTriggerText 'Request Extraction';
          deleteVehicle hiddenHelipad;
          _grenadeToThrow = nil;"
     ];

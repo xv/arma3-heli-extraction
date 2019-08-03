@@ -37,12 +37,6 @@ script = [] execVM "Core\scripts\HeliExtraction.sqf"
 ```
 3. Launch your mission and dial 0-0-1. The script will begin. Follow its given on-screen instructions. Voila!
 
-Contact
--------
-[Email me your love letters](mailto:xviyy@aol.ca)
-<br/>
-[Tweet me maybe?](https://twitter.com/xviyy)
-
 Legal
 -----
 This project is distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT).

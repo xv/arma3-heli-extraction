@@ -34,12 +34,8 @@ Usage
 -----
 This should be fairly easy for anyone to do.
 
-1. Copy the content of `\src\` folder to your missions folder in `\Documents\Arma 3\missions\<missionName>`
-2. Open your mission in Eden Editor and create a new `Trigger`. Set the activation preference to Radio Alpha. You can make the script repeatable if you want to. In the `On Activation` field, add this line:
-```SQF
-script = [] execVM "Core\scripts\Extraction.sqf";
-```
-3. Launch your mission and dial 0-0-1. The script will begin. Follow its given on-screen instructions. Voila!
+1. Copy the content of `\src\` to your missions folder at `\Documents\Arma 3\missions\<missionName>`
+2. Launch your mission and dial 0-0-1. The script will execute. Follow its given on-screen instructions. Voila!
 
 Legal
 -----

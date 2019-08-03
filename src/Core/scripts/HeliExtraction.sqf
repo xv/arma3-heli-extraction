@@ -511,7 +511,7 @@ if (alive heli) then
     timeTillRtb = 85; // 1m:25s
     while { (timeTillRtb > 0) } do
     {
-        hint parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
+        hintSilent parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
         timeTillRtb = timeTillRtb - 1;
 
         if (((getPosATL vehicle player) select 2 <= 1) && 

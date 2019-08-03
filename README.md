@@ -26,6 +26,10 @@ ACE Compatibility
 -----------------
 The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
 
+Multiplayer Compatibility
+-------------------------
+The script has never been tested in an online environment, and will most likely not work on as-is basis since it uses a lot of local commands. Will I ever bother with trying to make it work online? No. If you run a server, go ahead and tinker with it all you want.
+
 Usage
 -----
 This should be fairly easy for anyone to do.

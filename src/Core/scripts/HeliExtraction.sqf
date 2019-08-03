@@ -32,7 +32,6 @@ excludedFactions = [
     "IND_G_F",                     // GUER FIA
     "OPF_G_F",                     // OPFOR FIA
     "IND_L_F",                     // GUER Looters
-    "rhsgref_faction_hidf",        // RHS Horizon Islands Defence Force
     "rhs_faction_usn",             // RHS USA Navy
     "rhs_faction_usaf",            // RHS USAF
     "rhs_faction_msv",             // RHS Russia (MSV)
@@ -294,6 +293,7 @@ heliClass = switch (playerSide) do
             case "rhs_faction_socom":     { "RHS_MELB_MH6M"                    }; // RHS USA (SOCOM)
             case "rhs_faction_usmc_d":    { "RHS_UH1Y_d"                       }; // RHS USA (USMC - D)
             case "rhs_faction_usmc_wd":   { "RHS_UH1Y"                         }; // RHS USA (USMC - W)
+            case "rhsgref_faction_hidf":  { "rhs_uh1h_hidf_gunship"            }; // RHS Horizon Islands Defence Force
             case "CUP_B_CZ":              { "CUP_B_Mi171Sh_Unarmed_ACR"        }; // CUP CZ (ACR)
             case "CUP_B_GB":              { "CUP_B_SA330_Puma_HC1_BAF"         }; // CUP GB (BAF)
             case "CUP_B_GER":             { "CUP_B_UH1D_GER_KSK"               }; // CUP GER (Bundeswehr)

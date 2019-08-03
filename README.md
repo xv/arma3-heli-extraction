@@ -8,7 +8,7 @@ Helicopter + crew invincibility is also optional (enabled by default; can be cha
 
 Porting to Arma II/OA
 ---------------------
-Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is fully compatible with Arma II. All you need to do is edit the faction and vehicle class names to the ones used by Arma II and the script should run without any problems.
+Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it uses commands that were introduced in Arma III, such as `canAdd`, which is an important part of the scrpit scenario. However, if you can get around the new commands, it can be ported easily. All you would need to do is uncomment the legacy `BIS_fnc_init` function, edit the class names to the ones used by Arma II and the script should run without any problems.
 
 For class names, see:
 

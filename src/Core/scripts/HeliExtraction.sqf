@@ -418,6 +418,16 @@ fn_heliMoveToLZ =
     wp_extrZone = (group heli) addWaypoint [targetPos, 0];
     wp_extrZone setWaypointType "MOVE";
     wp_extrZone setWaypointDescription "Extraction zone";
+    wp_extrZone setWaypointStatements ["true", "heli land 'GET IN';"];
+};
+
+// Orders the helicopter to move to the drop off (insertion) zone
+fn_heliMoveToDropOffZone =
+{
+    wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
+    wp_dropZone setWaypointType "MOVE";
+    wp_dropZone setWaypointDescription "Drop off zone";
+    wp_dropZone setWaypointStatements ["true", "heli land 'GET OUT';"];
 };
 
 // Orders the helicopter fly back to the original spawn location
@@ -488,9 +498,6 @@ while { ((alive heli) && !(unitReady heli)) } do
 
 if (alive heli) then
 {
-    // Order the helicopter to land after reaching its designated coordinates
-    heli land "GET IN";
-    
     // Precisely check if the helicopter landed and came to a complete stop    
     waitUntil
     {
@@ -619,9 +626,7 @@ if (alive heli) then
 
     sleep 3;
 
-    // Set a new waypoint for the helicopter
-    wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
-    wp_dropZone setWaypointType "MOVE";
+    call fn_heliMoveToDropOffZone;
 };
 
 sleep 1;
@@ -635,8 +640,6 @@ while { ((alive heli) && !(unitReady heli)) } do
 // Order the helicopter to land
 if (alive heli) then
 {
-    heli land "GET OUT";
-    
     waitUntil
     {
         (velocity  heli select 2) > -0.2 && 

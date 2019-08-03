@@ -18,7 +18,7 @@ For class names, see:
 
 Support for CUP & RHS
 ---------------------
-Support for the Community Upgrade Project and Red Hammer Studios is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
+Support for Community Upgrade Project and Red Hammer Studios mods is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
 
 RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also supported. The script will let you use your RHS smoke grenades to mark the landing zone.
 

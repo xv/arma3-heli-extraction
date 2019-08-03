@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Jad Altahan (http://github.com/xv)
+ * Copyright (c) 2019 Jad Altahan (http://github.com/xv)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

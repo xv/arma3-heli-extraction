@@ -37,6 +37,8 @@ This should be fairly easy for anyone to do.
 1. Copy the content of `\src\` to your missions folder at `\Documents\Arma 3\missions\<missionName>`
 2. Launch your mission and dial 0-0-1. The script will execute. Follow its given on-screen instructions. Voila!
 
+Note: `init.sqf` creates the Trigger object that is used to execute the script via radio slot 1 (ALPHA). If you need the slot for something else, you can change it to whatever you wish. See [/wiki/setTriggerActivation](https://community.bistudio.com/wiki/setTriggerActivation) for other slot choices.
+
 Legal
 -----
 This project is distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT).

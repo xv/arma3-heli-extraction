@@ -8,7 +8,7 @@ Helicopter + crew invincibility is also optional (enabled by default; can be cha
 
 Porting to Arma II/OA
 ---------------------
-Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it uses commands that were introduced in Arma III, such as `canAdd`, which is an important part of the scrpit scenario. However, if you can get around the new commands, it can be ported easily. All you would need to do is uncomment the legacy `BIS_fnc_init` function, edit the class names to the ones used by Arma II and the script should run without any problems.
+Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it uses commands that were introduced in Arma III, such as `canAdd`, which is an important part of the script scenario. However, if you can get around the new commands, it can be ported easily. All you would need to do is uncomment the legacy `BIS_fnc_init` function, edit the class names to the ones used by Arma II and the script should run without any problems.
 
 For class names, see:
 
@@ -16,9 +16,11 @@ For class names, see:
 [/wiki/ArmA_2:_Vehicles](https://community.bistudio.com/wiki/ArmA_2:_Vehicles)<br>
 [/wiki/ArmA_2_OA:_Vehicles](https://community.bistudio.com/wiki/ArmA_2_OA:_Vehicles)
 
-Support for RHS & CUP Mods
--------------------
-Support for RHS and CUP factions is included. If you execute the script while playing as a RHS or CUP unit, the script will spawn a helicopter from the faction of the player character. However, not all factions have helicopters. If a transport is not available for the player faction, you will be notified that an extraction is unavailable.
+Support for CUP & RHS
+---------------------
+Support for the Community Upgrade Project and Red Hammer Studios is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
+
+RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also supported. The script will let you use your RHS smoke grenades to mark the landing zone.
 
 ACE Compatibility
 -----------------

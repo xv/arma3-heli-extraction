@@ -417,6 +417,7 @@ fn_heliMoveToLZ =
 {
     wp_extrZone = (group heli) addWaypoint [targetPos, 0];
     wp_extrZone setWaypointType "MOVE";
+    wp_extrZone setWaypointSpeed "NORMAL";
     wp_extrZone setWaypointDescription "Extraction zone";
     wp_extrZone setWaypointStatements ["true", "heli land 'GET IN';"];
 };
@@ -426,6 +427,7 @@ fn_heliMoveToDropOffZone =
 {
     wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
     wp_dropZone setWaypointType "MOVE";
+    wp_dropZone setWaypointSpeed "NORMAL";
     wp_dropZone setWaypointDescription "Drop off zone";
     wp_dropZone setWaypointStatements ["true", "heli land 'GET OUT';"];
 };

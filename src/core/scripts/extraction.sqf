@@ -416,31 +416,31 @@ heli setVelocity
 // Orders the helicopter to move to the extraction zone
 fn_heliMoveToLZ =
 {
-    wp_extrZone = (group heli) addWaypoint [targetPos, 0];
-    wp_extrZone setWaypointType "MOVE";
-    wp_extrZone setWaypointSpeed "NORMAL";
-    wp_extrZone setWaypointDescription "Extraction zone";
-    wp_extrZone setWaypointStatements ["true", "heli land 'GET IN';"];
+    _wpExtractZone = (group heli) addWaypoint [targetPos, 0];
+    _wpExtractZone setWaypointType "MOVE";
+    _wpExtractZone setWaypointSpeed "NORMAL";
+    _wpExtractZone setWaypointDescription "Extraction zone";
+    _wpExtractZone setWaypointStatements ["true", "heli land 'GET IN';"];
 };
 
 // Orders the helicopter to move to the drop off (insertion) zone
 fn_heliMoveToDropOffZone =
 {
-    wp_dropZone = (group heli) addWaypoint [dropOffPos, 1];
-    wp_dropZone setWaypointType "MOVE";
-    wp_dropZone setWaypointSpeed "NORMAL";
-    wp_dropZone setWaypointDescription "Drop off zone";
-    wp_dropZone setWaypointStatements ["true", "heli land 'GET OUT';"];
+    _wpDropZone = (group heli) addWaypoint [dropOffPos, 1];
+    _wpDropZone setWaypointType "MOVE";
+    _wpDropZone setWaypointSpeed "NORMAL";
+    _wpDropZone setWaypointDescription "Drop off zone";
+    _wpDropZone setWaypointStatements ["true", "heli land 'GET OUT';"];
 };
 
 // Orders the helicopter fly back to the original spawn location
 fn_heliReturnHome =
 {
-    wp_rtb = (group heli) addWaypoint [spawnPos, 2];
-    wp_rtb setWaypointType "MOVE";
+    _wpRtb = (group heli) addWaypoint [spawnPos, 2];
+    _wpRtb setWaypointType "MOVE";
 
     // Delete the helicopter + crew and clean up the script for usage again
-    wp_rtb setWaypointStatements
+    _wpRtb setWaypointStatements
     [
         "true",
         "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);

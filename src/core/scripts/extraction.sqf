@@ -657,7 +657,8 @@ if (alive heli) then
     // Make sure that the player and all associated units have left the helicopter
     waitUntil
     {
-        { _x in heli } count units group player == 0
+        { _x in heli } count units group player == 0 &&
+        player distance2D heli >= 5
     };
     
     // Lock the doors

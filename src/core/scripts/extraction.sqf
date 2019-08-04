@@ -585,25 +585,24 @@ if (alive heli) then
     // Open the map to mark a drop off location
     openMap true;
 
-    getMapClick = true;
-
     sleep 0.1;
 
     dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];
+    isMapPosValid = false;
 
     sleep 0.3;
 
-    onMapSingleClick
+    player onMapSingleClick
     {
-        dropOffMarker setMarkerPosLocal _pos;
-        getMapClick = false;
+        if (heli distance _pos < 1000) then {
+            hint "The drop off location needs to be at least 1 kilometre from your current position.";
+        } else {
+            dropOffMarker setMarkerPosLocal _pos;
+            isMapPosValid = true;
+        };
     };
 
-    waitUntil { !getMapClick };
-
-    hint "The drop off location needs to be at least 1 kilometre from your current position.";
-
-    waitUntil { ((heli distance getMarkerPos dropOffMarker) > 1000) };
+    waitUntil { isMapPosValid };
 
     // Create a marker icon on the map to identify the drop off point
     dropOffMarker setMarkerShapelocal "ICON";

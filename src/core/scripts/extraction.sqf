@@ -596,7 +596,7 @@ if (alive heli) then
     player onMapSingleClick
     {
         if (heli distance _pos < 1000) then {
-            hint "The drop off location needs to be at least 1 kilometre from your current position.";
+            hint "The drop off location needs to be at least 1 kilometer from your current position.";
         } else {
             dropOffMarker setMarkerPosLocal _pos;
             isMapPosValid = true;

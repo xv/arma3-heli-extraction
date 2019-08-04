@@ -518,11 +518,11 @@ if (alive heli) then
         [false, 1] call fn_animateHeliDoors;
     };
 
-    timeTillRtb = 85; // 1m:25s
-    while { (timeTillRtb > 0) } do
+    _timeTillRtb = 85; // 1m:25s
+    while { (_timeTillRtb > 0) } do
     {
-        hintSilent parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
-        timeTillRtb = timeTillRtb - 1;
+        hintSilent parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [_timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
+        _timeTillRtb = _timeTillRtb - 1;
 
         if (((getPosATL vehicle player) select 2 <= 1) && 
             (player distance2D heli <= 25) && (isNull objectParent player)) exitWith
@@ -548,7 +548,7 @@ if (alive heli) then
 
         sleep 1;
 
-        if (timeTillRtb < 1) exitWith
+        if (_timeTillRtb < 1) exitWith
         {
             heli lock true;
 

@@ -224,6 +224,7 @@ eh_detectSmoke = player addEventHandler ["Fired",
         throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
         isMarkerDetected = true;
 
+        throwableMag = nil;
         player removeEventHandler ["Fired", 0];
     };
 }];

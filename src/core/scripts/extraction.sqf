@@ -533,8 +533,8 @@ if (alive heli) then
             hint "Board the helocopter.";
         };
 
-        // This part is needed in case squad mates enter the helicopter before the player
-        if (boardingDetected && (isNull objectParent player)) exitWith
+        // Abort timer if a squad mate enters the helicopter before the player
+        if (boardingDetected && !(player in heli)) exitWith
         {
             if (feedbackMode) then {
                 systemChat "Boarding has been detected. Aborting countdown..."; 

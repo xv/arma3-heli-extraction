@@ -444,7 +444,6 @@ fn_heliReturnHome =
     [
         "true",
         "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
-         deleteMarkerLocal 'dropoff_marker';
          trig_execScript setTriggerText 'Request Extraction';
          deleteVehicle hiddenHelipad;
          _grenadeToThrow = nil;"
@@ -665,6 +664,8 @@ if (alive heli) then
     heli lock true;
     
     sleep 0.5;
+
+    deleteMarkerLocal dropOffMarker;
 };
 
 sleep 3;

@@ -503,11 +503,11 @@ fn_markDropOffRange =
     params ["_range"];
 
     rangeMarker = createMarkerLocal ["range_marker", getPos heli];
-    rangeMarker setMarkerSize [_range, _range];
-    rangeMarker setMarkerShape "ELLIPSE";
-    rangeMarker setMarkerColor "colorRed";
-    rangeMarker setMarkerBrush "SolidBorder";
-    rangeMarker setMarkerAlpha 0.12;
+    rangeMarker setMarkerSizeLocal [_range, _range];
+    rangeMarker setMarkerShapeLocal "ELLIPSE";
+    rangeMarker setMarkerColorLocal "colorRed";
+    rangeMarker setMarkerBrushLocal "SolidBorder";
+    rangeMarker setMarkerAlphaLocal 0.12;
 };
 
 while { ((alive heli) && !(unitReady heli)) } do

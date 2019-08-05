@@ -498,6 +498,17 @@ fn_monitorVehicleStatus =
 };
 heli call fn_monitorVehicleStatus;
 
+fn_markDropOffZone =
+{
+    params ["_zone"];
+
+    dropOffMarker = createMarkerLocal ["dropoff_marker", _zone];
+    dropOffMarker setMarkerShapeLocal "ICON";
+    dropOffMarker setMarkerTypeLocal "MIL_END";
+    dropOffMarker setMarkerColorLocal "ColorBlack";
+    dropOffMarker setMarkerTextLocal "Drop Off";
+};
+
 fn_markDropOffRange =
 {
     params ["_range"];
@@ -606,7 +617,6 @@ if (alive heli) then
 
     sleep 0.1;
 
-    dropOffMarker = createMarkerLocal ["dropoff_marker", [0, 0]];
     isMapPosValid = false;
 
     sleep 0.3;
@@ -616,18 +626,12 @@ if (alive heli) then
         if (heli distance _pos < 1000) then {
             hint "The drop off location needs to be at least 1 kilometre from your current position.";
         } else {
-            dropOffMarker setMarkerPosLocal _pos;
+            [_pos] call fn_markDropOffZone;
             isMapPosValid = true;
         };
     };
 
     waitUntil { isMapPosValid };
-
-    // Create a marker icon on the map to identify the drop off point
-    dropOffMarker setMarkerShapelocal "ICON";
-    dropOffMarker setMarkerTypelocal "MIL_END";
-    dropOffMarker setMarkerColorlocal "ColorBlack";
-    dropOffMarker setMarkerText "Drop Off";
 
     sleep 0.05;
 

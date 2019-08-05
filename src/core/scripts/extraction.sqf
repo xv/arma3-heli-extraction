@@ -64,7 +64,6 @@ isMarkerDetected = false;
 
 sleep 0.1;
 
-extractMarker = createMarkerLocal ["extraction_marker", [0, 0]];
 gridPos = mapGridPosition getPos player;
 
 sleep 0.3;
@@ -167,6 +166,17 @@ if (isNil "_grenadeToThrow") then
     };
 };
 
+fn_markExtractionZone =
+{
+    params ["_zonePos"];
+
+    extractMarker = createMarkerLocal ["extraction_marker", getPos _zonePos];
+    extractMarker setMarkerShapeLocal "ICON";
+    extractMarker setMarkerTypeLocal "MIL_PICKUP";
+    extractMarker setMarkerColorLocal "ColorBlack";
+    extractMarker setMarkerTextLocal "Extraction Zone";
+};
+
 fn_findLandingPos =
 {
     params ["_object", "_minDist", "_maxDist", "_vehicle"];
@@ -215,11 +225,7 @@ eh_detectSmoke = player addEventHandler ["Fired",
         waitUntil { vectorMagnitude velocity _projectile < 0.02 };
 
         // Create a marker icon on the map to identify the extraction point
-        extractMarker setMarkerPosLocal _projectile;
-        extractMarker setMarkerShapelocal "ICON";
-        extractMarker setMarkerTypelocal "MIL_PICKUP";
-        extractMarker setMarkerColorlocal "ColorBlack";
-        extractMarker setMarkerText "Extraction";
+        [_projectile] call fn_markExtractionZone;
 
         throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
         isMarkerDetected = true;

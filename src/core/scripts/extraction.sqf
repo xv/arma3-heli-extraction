@@ -168,9 +168,9 @@ if (isNil "_grenadeToThrow") then
 
 fn_markExtractionZone =
 {
-    params ["_zonePos"];
+    params ["_zone"];
 
-    extractMarker = createMarkerLocal ["extraction_marker", getPos _zonePos];
+    extractMarker = createMarkerLocal ["extraction_marker", _zone];
     extractMarker setMarkerShapeLocal "ICON";
     extractMarker setMarkerTypeLocal "MIL_PICKUP";
     extractMarker setMarkerColorLocal "ColorBlack";
@@ -225,7 +225,7 @@ eh_detectSmoke = player addEventHandler ["Fired",
         waitUntil { vectorMagnitude velocity _projectile < 0.02 };
 
         // Create a marker icon on the map to identify the extraction point
-        [_projectile] call fn_markExtractionZone;
+        [getPos _projectile] call fn_markExtractionZone;
 
         throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
         isMarkerDetected = true;
@@ -498,6 +498,18 @@ fn_monitorVehicleStatus =
 };
 heli call fn_monitorVehicleStatus;
 
+fn_markDropOffRange =
+{
+    params ["_startingPos", "_range"];
+
+    rangeMarker = createMarkerLocal ["range_marker", _startingPos];
+    rangeMarker setMarkerSizeLocal [_range, _range];
+    rangeMarker setMarkerShapeLocal "ELLIPSE";
+    rangeMarker setMarkerColorLocal "colorRed";
+    rangeMarker setMarkerBrushLocal "SolidBorder";
+    rangeMarker setMarkerAlphaLocal 0.12;
+};
+
 fn_markDropOffZone =
 {
     params ["_zone"];
@@ -507,18 +519,6 @@ fn_markDropOffZone =
     dropOffMarker setMarkerTypeLocal "MIL_END";
     dropOffMarker setMarkerColorLocal "ColorBlack";
     dropOffMarker setMarkerTextLocal "Drop Off";
-};
-
-fn_markDropOffRange =
-{
-    params ["_range"];
-
-    rangeMarker = createMarkerLocal ["range_marker", getPos heli];
-    rangeMarker setMarkerSizeLocal [_range, _range];
-    rangeMarker setMarkerShapeLocal "ELLIPSE";
-    rangeMarker setMarkerColorLocal "colorRed";
-    rangeMarker setMarkerBrushLocal "SolidBorder";
-    rangeMarker setMarkerAlphaLocal 0.12;
 };
 
 while { ((alive heli) && !(unitReady heli)) } do
@@ -608,7 +608,7 @@ if (alive heli) then
 
     hintSilent "Mark your drop off location by clicking on the map.";
 
-    [1000] call fn_markDropOffRange;
+    [getPos heli, 1000] call fn_markDropOffRange;
 
     sleep 1.7;
     

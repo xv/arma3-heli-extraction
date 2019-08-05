@@ -249,7 +249,7 @@ hiddenHelipad = createVehicle [_helipadClass, throwablePos, [], 0, "NONE"];
 
 isMarkerDetected = false;
 
-targetPos = getPosASL hiddenHelipad;
+extractPos = getPosASL hiddenHelipad;
 
 sleep 1;
 
@@ -271,12 +271,12 @@ spawnDir = random 360; // Spawn the helicopter at a random direction
 spawnRange = 2500;     // Time it will take until the helicopter arrives at the marked location
 spawnPos =
 [
-    (targetPos select 0) + (spawnRange * sin(spawnDir)), 
-    (targetPos select 1) + (spawnRange * cos(spawnDir)), 
-    (targetPos select 2) + 40
+    (extractPos select 0) + (spawnRange * sin(spawnDir)), 
+    (extractPos select 1) + (spawnRange * cos(spawnDir)), 
+    (extractPos select 2) + 40
 ];
 
-vecDir = [spawnPos, targetPos] call BIS_fnc_dirTo;
+vecDir = [spawnPos, extractPos] call BIS_fnc_dirTo;
 
 /* Spawn a different helicopter depending on the player's faction.
  *
@@ -422,7 +422,7 @@ heli setVelocity
 // Orders the helicopter to move to the extraction zone
 fn_heliMoveToLZ =
 {
-    _wpExtractZone = (group heli) addWaypoint [targetPos, 0];
+    _wpExtractZone = (group heli) addWaypoint [extractPos, 0];
     _wpExtractZone setWaypointType "MOVE";
     _wpExtractZone setWaypointSpeed "NORMAL";
     _wpExtractZone setWaypointDescription "Extraction zone";

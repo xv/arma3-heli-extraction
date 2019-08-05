@@ -379,8 +379,8 @@ sleep 4;
 [playerSide,"HQ"] sideRadio "radio_beep_to";
 [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
 
-heli setBehaviour  "CARELESS";
-heli setSpeedMode  "NORMAL";
+heli setBehaviour "CARELESS";
+heli setSpeedMode "NORMAL";
 heli setCombatMode "GREEN";
 
 heli enableCopilot false;

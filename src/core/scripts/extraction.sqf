@@ -492,6 +492,17 @@ fn_monitorVehicleStatus =
 };
 heli call fn_monitorVehicleStatus;
 
+fn_markDropOffRange =
+{
+    params ["_range"];
+
+    rangeMarker = createMarkerLocal ["range_marker", getPos heli];
+    rangeMarker setMarkerSize [_range, _range];
+    rangeMarker setMarkerShape "ELLIPSE";
+    rangeMarker setMarkerColor "colorRed";
+    rangeMarker setMarkerBrush "SolidBorder";
+    rangeMarker setMarkerAlpha 0.12;
+};
 
 while { ((alive heli) && !(unitReady heli)) } do
 {
@@ -580,6 +591,8 @@ if (alive heli) then
 
     hintSilent "Mark your drop off location by clicking on the map.";
 
+    [1000] call fn_markDropOffRange;
+
     sleep 1.7;
     
     // Open the map to mark a drop off location
@@ -624,6 +637,8 @@ if (alive heli) then
 
     // Close the map after the drop off location has been marked
     openMap false;
+
+    deleteMarkerLocal rangeMarker;
 
     sleep 3;
 

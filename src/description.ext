@@ -1,1 +1,10 @@
-#include "core\radioConfig.hpp"
+class CfgRadio
+{
+    sounds[] =
+    {
+        radio_beep_to,
+        radio_beep_from
+    };
+    
+    #include "core\cfgRadio.hpp"
+};

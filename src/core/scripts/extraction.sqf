@@ -68,12 +68,12 @@ gridPos = mapGridPosition getPos player;
 
 sleep 0.3;
 
-player sideRadio "radio_beep_from";
+player sideRadio "RadioBeepFrom";
 player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, gridPos];
 
 sleep 10;
 
-[playerSide,"HQ"] sideRadio "radio_beep_to";
+[playerSide,"HQ"] sideRadio "RadioBeepTo";
 [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark the LZ, over.", name player];
 
 private ["_grenadeToThrow", "_isSmokeGrenade"];
@@ -376,7 +376,7 @@ if (typeOf heli find "RHS_UH60M" >= 0) then
 
 sleep 4;
 
-[playerSide,"HQ"] sideRadio "radio_beep_to";
+[playerSide,"HQ"] sideRadio "RadioBeepTo";
 [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
 
 heli setBehaviour "CARELESS";
@@ -582,7 +582,7 @@ if (alive heli) then
 
             sleep 1.5;
 
-            [playerSide,"HQ"] sideRadio "radio_beep_to";
+            [playerSide,"HQ"] sideRadio "RadioBeepTo";
             [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.", name player];
 
             deleteMarkerLocal extractMarker;
@@ -602,7 +602,7 @@ if (alive heli) then
     sleep 0.5;
     
     deleteMarkerLocal extractMarker;
-    [playerSide,"HQ"] sideRadio "radio_beep_to";
+    [playerSide,"HQ"] sideRadio "RadioBeepTo";
     [playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
 
     hintSilent "Mark your drop off location by clicking on the map.";
@@ -671,7 +671,7 @@ if (alive heli) then
         (getPosATL heli select 2) <  0.5
     };
     
-    [playerSide,"HQ"] sideRadio "radio_beep_to";
+    [playerSide,"HQ"] sideRadio "RadioBeepTo";
     [playerSide,"HQ"] sideChat "Touchdown!";
     
     // Unlock the helicopter doors

@@ -20,9 +20,7 @@
  * SOFTWARE.
  */
 
-// For developing/testing, enable this switch if you want to see some feedback
-// messages while the script is running
-feedbackMode = false;
+#include "..\component.hpp"
 
 denyFaction = false;
 
@@ -181,9 +179,9 @@ fn_findLandingPos =
 
     if (_returnPos isEqualTo []) then
     {
-        if (feedbackMode) then {
+        #ifdef FEEDBACK_MODE
             systemChat "Failed to find an empty position. Using the default one...";
-        };
+        #endif
 
         _returnPos = getPos _object;
     };
@@ -196,10 +194,9 @@ eh_detectSmoke = player addEventHandler ["Fired",
 {
     if !((_this select 5) in throwableMag) exitWith
     {
-        if (feedbackMode) then
-        {
+        #ifdef FEEDBACK_MODE
             systemChat format ["Fired or thrown the wrong object (%1).", _this select 5];
-        };
+        #endif
     };
     
     _null = _this spawn
@@ -235,11 +232,11 @@ waitUntil { isMarkerDetected };
 
 private "_helipadClass";
 
-if (feedbackMode) then { 
-    _helipadClass = "Land_HelipadCircle_F";
-} else {
+#ifndef FEEDBACK_MODE
     _helipadClass = "Land_HelipadEmpty_F";
-};
+#else
+    _helipadClass = "Land_HelipadCircle_F";
+#endif
 
 hiddenHelipad = createVehicle [_helipadClass, throwablePos, [], 0, "NONE"];
 
@@ -460,9 +457,9 @@ fn_monitorVehicleStatus =
 {
     params ["_veh"];
 
-    if (feedbackMode) then {
+    #ifdef FEEDBACK_MODE
         systemChat format ["Monitoring vehicle status for '%1'...", _veh];
-    };
+    #endif
 
     _veh addEventHandler ["GetIn",
     {
@@ -549,9 +546,9 @@ if (alive heli) then
         if (((getPosATL vehicle player) select 2 <= 1) && 
             (player distance2D heli <= 25) && (isNull objectParent player)) exitWith
         {
-            if (feedbackMode) then {
+            #ifdef FEEDBACK_MODE
                 systemChat "Your are within 25 metres from the extraction zone. Aborting countdown...";
-            };
+            #endif
 
             hint "Board the helocopter.";
         };
@@ -559,9 +556,9 @@ if (alive heli) then
         // Abort timer if a squad mate enters the helicopter before the player
         if (boardingDetected && !(player in heli)) exitWith
         {
-            if (feedbackMode) then {
+            #ifdef FEEDBACK_MODE
                 systemChat "Boarding has been detected. Aborting countdown..."; 
-            };
+            #endif
 
             if (count units (group player) > 1) then {
                 hint "All units must board the helicopter before extraction!";

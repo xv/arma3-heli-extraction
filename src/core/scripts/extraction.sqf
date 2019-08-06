@@ -245,7 +245,7 @@ if (feedbackMode) then {
     _helipadClass = "Land_HelipadEmpty_F";
 };
 
-hiddenHelipad = createVehicle [_helipadClass, throwablePos, [], 0, "NONE"];
+hiddenHelipad = createVehicleLocal [_helipadClass, throwablePos, [], 0, "NONE"];
 
 isMarkerDetected = false;
 

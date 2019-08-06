@@ -8,13 +8,21 @@ Helicopter + crew invincibility is also optional (enabled by default; can be cha
 
 Porting to Arma II/OA
 ---------------------
-Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it uses commands that were introduced in Arma III, such as `canAdd`, which is an important part of the script scenario. However, if you can get around the new commands, it can be ported easily. All you would need to do is uncomment the legacy `BIS_fnc_init` function, edit the class names to the ones used by Arma II and the script should run without any problems.
+Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it uses commands that were introduced in Arma III. However, if you can get around the new commands, it can be ported easily. All you would need to do is uncomment the legacy `BIS_fnc_init` function, edit the class names to the ones used by Arma II and the script should run without any problems.
 
 For class names, see:
 
 [/wiki/faction](https://community.bistudio.com/wiki/faction)<br>
 [/wiki/ArmA_2:_Vehicles](https://community.bistudio.com/wiki/ArmA_2:_Vehicles)<br>
 [/wiki/ArmA_2_OA:_Vehicles](https://community.bistudio.com/wiki/ArmA_2_OA:_Vehicles)
+
+Here are commands used in the script that were introduced in Arma III:
+
+| Command      | Community Wiki Page                                                |
+|:------------:|--------------------------------------------------------------------|
+| `canAdd`     | [/wiki/canAdd](https://community.bistudio.com/wiki/canAdd)         |
+| `findIf`     | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)         |
+| `distance2D` | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D) |
 
 Multiplayer Support
 -------------------

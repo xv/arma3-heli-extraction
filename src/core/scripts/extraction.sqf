@@ -62,14 +62,10 @@ trig_execScript setTriggerText "NULL";
 
 isMarkerDetected = false;
 
-sleep 0.1;
-
-gridPos = mapGridPosition getPos player;
-
 sleep 0.3;
 
 player sideRadio "RadioBeepFrom";
-player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, gridPos];
+player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, mapGridPosition player];
 
 sleep 10;
 

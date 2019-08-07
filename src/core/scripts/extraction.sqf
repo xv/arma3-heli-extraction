@@ -142,7 +142,7 @@ if (isNil "_grenadeToThrow") then
         hint "Free up some inventory space in order to receive an item to mark the LZ.";
 
         waitUntil { (player canAdd _grenadeToThrow) };
-        sleep 1;
+        sleep 0.2;
 
         player addMagazine _grenadeToThrow;
     };

@@ -419,11 +419,11 @@ fn_heliMoveToLZ =
 // Orders the helicopter to move to the drop off (insertion) zone
 fn_heliMoveToDropOffZone =
 {
-    _wpDropZone = (group heli) addWaypoint [dropOffPos, 1];
-    _wpDropZone setWaypointType "MOVE";
-    _wpDropZone setWaypointSpeed "NORMAL";
-    _wpDropZone setWaypointDescription "Drop off zone";
-    _wpDropZone setWaypointStatements ["true", "vehicle this land 'GET OUT'"];
+    _wpDropOffZone = (group heli) addWaypoint [dropOffPos, 1];
+    _wpDropOffZone setWaypointType "MOVE";
+    _wpDropOffZone setWaypointSpeed "NORMAL";
+    _wpDropOffZone setWaypointDescription "Drop off zone";
+    _wpDropOffZone setWaypointStatements ["true", "vehicle this land 'GET OUT'"];
 };
 
 // Orders the helicopter fly back to the original spawn location

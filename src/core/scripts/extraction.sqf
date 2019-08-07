@@ -101,18 +101,18 @@ else
     ];
 };
 
-{ 
-    if (_x in (magazines player)) exitWith 
-    { 
-        if (_isSmokeGrenade) then {
-            hint parseText "<t align='left'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
-        } else {
-            hint parseText "<t align='left'>Use the <t underline='1'>infrared (IR)</t> grenade in your inventory to mark the LZ.</t>";
-        };
+_magIndex = throwableMag findIf { _x in magazines player };
 
-        _grenadeToThrow = _x;
+if (_magIndex != -1) then
+{
+    if (_isSmokeGrenade) then {
+        hint parseText "<t align='left'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
+    } else {
+        hint parseText "<t align='left'>Use the <t underline='1'>infrared (IR)</t> grenade in your inventory to mark the LZ.</t>";
     };
-} forEach throwableMag;
+
+    _grenadeToThrow = _magIndex;
+};
 
 sleep 0.1;
 

@@ -164,11 +164,11 @@ fn_markExtractionZone =
 {
     params ["_zone"];
 
-    extractMarker = createMarkerLocal ["extraction_marker", _zone];
-    extractMarker setMarkerShapeLocal "ICON";
-    extractMarker setMarkerTypeLocal "MIL_PICKUP";
-    extractMarker setMarkerColorLocal "ColorBlack";
-    extractMarker setMarkerTextLocal "Extraction Zone";
+    _extractionMarker = createMarkerLocal ["extraction_marker", _zone];
+    _extractionMarker setMarkerShapeLocal "ICON";
+    _extractionMarker setMarkerTypeLocal "MIL_PICKUP";
+    _extractionMarker setMarkerColorLocal "ColorBlack";
+    _extractionMarker setMarkerTextLocal "Extraction Zone";
 };
 
 fn_findLandingPos =
@@ -494,23 +494,23 @@ fn_markDropOffRange =
 {
     params ["_startingPos", "_range"];
 
-    rangeMarker = createMarkerLocal ["range_marker", _startingPos];
-    rangeMarker setMarkerSizeLocal [_range, _range];
-    rangeMarker setMarkerShapeLocal "ELLIPSE";
-    rangeMarker setMarkerColorLocal "colorRed";
-    rangeMarker setMarkerBrushLocal "SolidBorder";
-    rangeMarker setMarkerAlphaLocal 0.12;
+    _rangeMarker = createMarkerLocal ["range_marker", _startingPos];
+    _rangeMarker setMarkerSizeLocal [_range, _range];
+    _rangeMarker setMarkerShapeLocal "ELLIPSE";
+    _rangeMarker setMarkerColorLocal "colorRed";
+    _rangeMarker setMarkerBrushLocal "SolidBorder";
+    _rangeMarker setMarkerAlphaLocal 0.12;
 };
 
 fn_markDropOffZone =
 {
     params ["_zone"];
 
-    dropOffMarker = createMarkerLocal ["dropoff_marker", _zone];
-    dropOffMarker setMarkerShapeLocal "ICON";
-    dropOffMarker setMarkerTypeLocal "MIL_END";
-    dropOffMarker setMarkerColorLocal "ColorBlack";
-    dropOffMarker setMarkerTextLocal "Drop Off";
+    _dropOffMarker = createMarkerLocal ["dropoff_marker", _zone];
+    _dropOffMarker setMarkerShapeLocal "ICON";
+    _dropOffMarker setMarkerTypeLocal "MIL_END";
+    _dropOffMarker setMarkerColorLocal "ColorBlack";
+    _dropOffMarker setMarkerTextLocal "Drop Off";
 };
 
 while { ((alive heli) && !(unitReady heli)) } do
@@ -527,7 +527,7 @@ if (alive heli) then
         (getPosATL heli select 2) <  0.5
     };
 
-    extractMarker setMarkerPosLocal heli;
+    "extraction_marker" setMarkerPosLocal heli;
     
     sleep 0.7;
     
@@ -578,7 +578,7 @@ if (alive heli) then
             [playerSide,"HQ"] sideRadio "RadioBeepTo";
             [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.", name player];
 
-            deleteMarkerLocal extractMarker;
+            deleteMarkerLocal "extraction_marker";
             call fn_heliReturnHome;
         };
     };
@@ -594,7 +594,7 @@ if (alive heli) then
     
     sleep 0.5;
     
-    deleteMarkerLocal extractMarker;
+    deleteMarkerLocal "extraction_marker";
     [playerSide,"HQ"] sideRadio "RadioBeepTo";
     [playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
 
@@ -631,7 +631,7 @@ if (alive heli) then
 
     hintSilent "Drop off location has been marked.";
 
-    hiddenHelipad setVehiclePosition [getMarkerPos dropOffMarker, [], 0, "NONE"];
+    hiddenHelipad setVehiclePosition [getMarkerPos "dropoff_marker", [], 0, "NONE"];
 
     dropOffPos = getPosASL hiddenHelipad;
 
@@ -640,7 +640,7 @@ if (alive heli) then
     // Close the map after the drop off location has been marked
     openMap false;
 
-    deleteMarkerLocal rangeMarker;
+    deleteMarkerLocal "range_marker";
 
     sleep 3;
 
@@ -682,7 +682,7 @@ if (alive heli) then
     
     sleep 0.5;
 
-    deleteMarkerLocal dropOffMarker;
+    deleteMarkerLocal "dropoff_marker";
 };
 
 sleep 3;

@@ -22,10 +22,8 @@
 
 #include "..\component.hpp"
 
-denyFaction = false;
-
 // No transport for the following excluded factions
-excludedFactions = [
+_excludedFactions = [
     "Gendarmerie",                 // Gendarmerie
     "IND_G_F",                     // GUER FIA
     "OPF_G_F",                     // OPFOR FIA
@@ -42,17 +40,13 @@ excludedFactions = [
     "rhssaf_faction_un",           // RHS SAF (UN)
     "CUP_O_TK_MILITIA"             // CUP OPFOR Takistani Militia
 ];
-{ 
-    if (_x == faction player) exitWith
-    {
-        denyFaction = true;
-    };
-} forEach excludedFactions;
 
-if (denyFaction || playerSide == civilian) exitWith
+// For-each looping is not used here since this is much faster!
+_denyFaction = _excludedFactions findIf { _x isEqualTo faction player };
+
+if (_denyFaction != -1 || playerSide == civilian) exitWith
 {
     hint parseText "<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for your faction.</t>";
-    denyFaction = nil;
 };
 
 // This variable is defined in init.sqf

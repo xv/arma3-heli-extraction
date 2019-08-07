@@ -419,7 +419,7 @@ fn_heliMoveToLZ =
     _wpExtractZone setWaypointType "MOVE";
     _wpExtractZone setWaypointSpeed "NORMAL";
     _wpExtractZone setWaypointDescription "Extraction zone";
-    _wpExtractZone setWaypointStatements ["true", "heli land 'GET IN';"];
+    _wpExtractZone setWaypointStatements ["true", "vehicle this land 'GET IN'"];
 };
 
 // Orders the helicopter to move to the drop off (insertion) zone
@@ -429,7 +429,7 @@ fn_heliMoveToDropOffZone =
     _wpDropZone setWaypointType "MOVE";
     _wpDropZone setWaypointSpeed "NORMAL";
     _wpDropZone setWaypointDescription "Drop off zone";
-    _wpDropZone setWaypointStatements ["true", "heli land 'GET OUT';"];
+    _wpDropZone setWaypointStatements ["true", "vehicle this land 'GET OUT'"];
 };
 
 // Orders the helicopter fly back to the original spawn location

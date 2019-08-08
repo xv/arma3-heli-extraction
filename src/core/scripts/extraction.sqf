@@ -353,6 +353,8 @@ fn_animateHeliDoors =
 
 // Spawn the helicopter
 fncSpawnVehicle = [spawnPos, azimuth, heliClass, side player] call BIS_fnc_spawnVehicle;
+sleep 0.1;
+
 heli = fncSpawnVehicle select 0;
 heliPilot = (fncSpawnVehicle select 1) select 0;
 

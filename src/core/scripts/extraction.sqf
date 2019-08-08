@@ -399,11 +399,13 @@ heli setPosATL
     (getPosATL heli select 2) + 40
 ];
 
-heliDir = direction heli;
+_heliVelocity = velocity heli;
+_heliDir = direction heli;
 heli setVelocity
 [
-    sin ((heliDir) * 30),
-    cos ((heliDir) * 30), 0
+    (_heliVelocity select 0) + (sin _heliDir * 30), 
+    (_heliVelocity select 1) + (cos _heliDir * 30), 
+    (_heliVelocity select 2)
 ];
 
 // Orders the helicopter to move to the extraction zone

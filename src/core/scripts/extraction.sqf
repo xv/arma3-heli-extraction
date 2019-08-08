@@ -154,35 +154,6 @@ if (isNil "_grenadeToThrow") then
     };
 };
 
-fn_markExtractionZone =
-{
-    params ["_zone"];
-
-    _extractionMarker = createMarkerLocal ["extraction_marker", _zone];
-    _extractionMarker setMarkerShapeLocal "ICON";
-    _extractionMarker setMarkerTypeLocal "MIL_PICKUP";
-    _extractionMarker setMarkerColorLocal "ColorBlack";
-    _extractionMarker setMarkerTextLocal "Extraction Zone";
-};
-
-fn_findLandingPos =
-{
-    params ["_object", "_minDist", "_maxDist", "_vehicle"];
-
-    _returnPos = (getPos _object) findEmptyPosition [_minDist, _maxDist, _vehicle];
-
-    if (_returnPos isEqualTo []) then
-    {
-        #ifdef FEEDBACK_MODE
-            systemChat "Failed to find an empty position. Using the default one...";
-        #endif
-
-        _returnPos = getPos _object;
-    };
-
-    _returnPos
-};
-
 // Create a marker where the smoke grenade lands
 eh_detectSmoke = player addEventHandler ["Fired",
 {
@@ -212,9 +183,9 @@ eh_detectSmoke = player addEventHandler ["Fired",
         waitUntil { vectorMagnitude velocity _projectile < 0.02 };
 
         // Create a marker icon on the map to identify the extraction point
-        [getPos _projectile] call fn_markExtractionZone;
+        [getPos _projectile] call xv_fnc_markExtractionZone;
 
-        throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call fn_findLandingPos;
+        throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call xv_fnc_findLandingPos;
         isMarkerDetected = true;
 
         throwableMag = nil;
@@ -334,23 +305,6 @@ heliClass = switch (playerSide) do
     };
 };
 
-fn_animateHeliDoors =
-{
-    params ["_isRHS", "_state"];
-
-    _doorLeftClass = "door_L";
-    _doorRightClass = "door_R";
-
-    if (_isRHS) then
-    {
-        _doorLeftClass = "doorLB";
-        _doorRightClass = "doorRB";
-    };
-
-    heli animateDoor [_doorLeftClass, _state];
-    heli animateDoor [_doorRightClass, _state];
-};
-
 // Spawn the helicopter
 fncSpawnVehicle = [spawnPos, azimuth, heliClass, side player] call BIS_fnc_spawnVehicle;
 sleep 0.1;
@@ -361,11 +315,11 @@ heliPilot = (fncSpawnVehicle select 1) select 0;
 /* For a touch of realism, open the Black Hawk doors.
  *
  * TODO: RHS automatically closes the cargo doors after getting in. Find way
- * (if there's any?) to keep the cargo doors open
+ * (if there's any?) to keep the cargo doors open.
  */
 if (typeOf heli find "RHS_UH60M" >= 0) then
 {
-    [true, 1] call fn_animateHeliDoors;
+    [heli, true, 1] call xv_fnc_animateCargoDoors;
 };
 
 sleep 4;
@@ -415,26 +369,6 @@ heli setVelocity
     (_heliVelocity select 2)
 ];
 
-// Orders the helicopter to move to the extraction zone
-fn_heliMoveToLZ =
-{
-    _wpExtractZone = (group heli) addWaypoint [extractPos, 0];
-    _wpExtractZone setWaypointType "MOVE";
-    _wpExtractZone setWaypointSpeed "NORMAL";
-    _wpExtractZone setWaypointDescription "Extraction zone";
-    _wpExtractZone setWaypointStatements ["true", "vehicle this land 'GET IN'"];
-};
-
-// Orders the helicopter to move to the drop off (insertion) zone
-fn_heliMoveToDropOffZone =
-{
-    _wpDropOffZone = (group heli) addWaypoint [dropOffPos, 1];
-    _wpDropOffZone setWaypointType "MOVE";
-    _wpDropOffZone setWaypointSpeed "NORMAL";
-    _wpDropOffZone setWaypointDescription "Drop off zone";
-    _wpDropOffZone setWaypointStatements ["true", "vehicle this land 'GET OUT'"];
-};
-
 // Orders the helicopter fly back to the original spawn location
 fn_heliReturnHome =
 {
@@ -451,7 +385,8 @@ fn_heliReturnHome =
     ];
 };
 
-call fn_heliMoveToLZ;
+// Move to LZ
+[heli, extractPos] call xv_fnc_moveToExtractionZone;
 sleep 1;
 
 boardingDetected = false;
@@ -493,29 +428,6 @@ fn_monitorVehicleStatus =
 };
 heli call fn_monitorVehicleStatus;
 
-fn_markDropOffRange =
-{
-    params ["_startingPos", "_range"];
-
-    _rangeMarker = createMarkerLocal ["range_marker", _startingPos];
-    _rangeMarker setMarkerSizeLocal [_range, _range];
-    _rangeMarker setMarkerShapeLocal "ELLIPSE";
-    _rangeMarker setMarkerColorLocal "colorRed";
-    _rangeMarker setMarkerBrushLocal "SolidBorder";
-    _rangeMarker setMarkerAlphaLocal 0.12;
-};
-
-fn_markDropOffZone =
-{
-    params ["_zone"];
-
-    _dropOffMarker = createMarkerLocal ["dropoff_marker", _zone];
-    _dropOffMarker setMarkerShapeLocal "ICON";
-    _dropOffMarker setMarkerTypeLocal "MIL_END";
-    _dropOffMarker setMarkerColorLocal "ColorBlack";
-    _dropOffMarker setMarkerTextLocal "Drop Off";
-};
-
 while { ((alive heli) && !(unitReady heli)) } do
 {
     sleep 1;
@@ -537,7 +449,7 @@ if (alive heli) then
     if (typeOf heli == "B_Heli_Transport_01_F" ||
         typeOf heli == "B_CTRG_Heli_Transport_01_sand_F") then
     {
-        [false, 1] call fn_animateHeliDoors;
+        [heli, false, 1] call xv_fnc_animateCargoDoors;
     };
 
     _timeTillRtb = 85; // 1m:25s
@@ -582,7 +494,7 @@ if (alive heli) then
             [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.", name player];
 
             deleteMarkerLocal "extraction_marker";
-            call fn_heliReturnHome;
+            [heli, spawnPos] call xv_fnc_returnToBase;
         };
     };
     
@@ -603,7 +515,7 @@ if (alive heli) then
 
     hintSilent "Mark your drop off location by clicking on the map.";
 
-    [getPos heli, 1000] call fn_markDropOffRange;
+    [getPos heli, 1000] call xv_fnc_markDropOffRange;
 
     sleep 1.7;
     
@@ -621,7 +533,7 @@ if (alive heli) then
         if (heli distance _pos < 1000) then {
             hint "The drop off location needs to be at least 1 kilometre from your current position.";
         } else {
-            [_pos] call fn_markDropOffZone;
+            [_pos] call xv_fnc_markDropOffZone;
             isMapPosValid = true;
         };
     };
@@ -647,7 +559,8 @@ if (alive heli) then
 
     sleep 3;
 
-    call fn_heliMoveToDropOffZone;
+    // Move to the drop off (insertion) zone
+    [heli, dropOffPos] call xv_fnc_moveToDropOffZone;
 };
 
 sleep 1;
@@ -689,4 +602,6 @@ if (alive heli) then
 };
 
 sleep 3;
-call fn_heliReturnHome;
+
+// Make the helicopter return to where it came form and delete it
+[heli, spawnPos] call xv_fnc_returnToBase;

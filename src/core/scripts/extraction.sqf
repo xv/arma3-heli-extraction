@@ -155,7 +155,7 @@ if (isNil "_grenadeToThrow") then
 };
 
 // Create a marker where the smoke grenade lands
-eh_detectSmoke = player addEventHandler ["Fired",
+player addEventHandler ["Fired",
 {
     if !((_this select 5) in throwableMag) exitWith
     {

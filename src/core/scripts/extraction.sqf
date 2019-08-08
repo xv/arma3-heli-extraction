@@ -358,6 +358,11 @@ sleep 0.1;
 heli = fncSpawnVehicle select 0;
 heliPilot = (fncSpawnVehicle select 1) select 0;
 
+/* For a touch of realism, open the Black Hawk doors.
+ *
+ * TODO: RHS automatically closes the cargo doors after getting in. Find way
+ * (if there's any?) to keep the cargo doors open
+ */
 if (typeOf heli find "RHS_UH60M" >= 0) then
 {
     [true, 1] call fn_animateHeliDoors;

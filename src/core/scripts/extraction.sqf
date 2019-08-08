@@ -263,7 +263,7 @@ spawnPos =
     (extractPos select 2) + 40
 ];
 
-vecDir = [spawnPos, extractPos] call BIS_fnc_dirTo;
+azimuth = spawnPos getDir extractPos;
 
 /* Spawn a different helicopter depending on the player's faction.
  *
@@ -352,7 +352,7 @@ fn_animateHeliDoors =
 };
 
 // Spawn the helicopter
-fncSpawnVehicle = [spawnPos, vecDir, heliClass, side player] call BIS_fnc_spawnVehicle;
+fncSpawnVehicle = [spawnPos, azimuth, heliClass, side player] call BIS_fnc_spawnVehicle;
 heli = fncSpawnVehicle select 0;
 heliPilot = (fncSpawnVehicle select 1) select 0;
 

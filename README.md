@@ -22,6 +22,7 @@ Here are commands used in the script that were introduced in Arma III:
 |:------------:|--------------------------------------------------------------------|
 | `canAdd`     | [/wiki/canAdd](https://community.bistudio.com/wiki/canAdd)         |
 | `findIf`     | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)         |
+| `append`     | [/wiki/append](https://community.bistudio.com/wiki/append)         |
 | `distance2D` | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D) |
 
 Multiplayer Support

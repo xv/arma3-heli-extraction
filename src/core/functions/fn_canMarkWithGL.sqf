@@ -114,13 +114,13 @@ if (_launcher in _launcherTypes) then
         case "GL_3GL_F":    { _smokeMags append _3RndMags };
         case "M320_GL":     { _smokeMags append (_3RndMags + _rhsMags) };
 
-        case "UGL";         { };
-        case "EGLM";        { };
-        case "M203_GL";     { };
-        case "VHS_BG";      { };
+        case "UGL";
+        case "EGLM";
+        case "M203_GL";
+        case "VHS_BG";
         case "AG36Muzzle":  { _smokeMags append _rhsMags };
 
-        case "PBG40Muzzle"; { };
+        case "PBG40Muzzle";
         case "GP25Muzzle":  { _smokeMags = _rhsMagsSpec };
     };
 

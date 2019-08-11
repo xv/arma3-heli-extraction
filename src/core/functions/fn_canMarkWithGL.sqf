@@ -9,13 +9,25 @@
  *     weapon with available smoke rounds that can be used to mark the LZ.
  *
  * Parameter(s):
- *     Nothing.
+ *     0: BOOL - (Optional, default false) set to true if you want the function
+ *               to return a magazine array rather than a boolean value.
  *
  * Returns:
  *     BOOL - true if a grenade launcher can be used to mark LZ, false otherwise.
+ *            It will also return false if the player doesn't have a primary
+ *            weapon equipped or the primary weapon doesn't have a grenade
+ *            launcher.
+ *
+ *     ARRAY - if the optional parameter is set to "true", the function will
+ *             return an array of 40mm smoke magazines in the player's inventory.
+ *             If there are no magazines, an empty array will be returned.
  */
 
-_return = false;
+private ["_returnMags"];
+
+_returnMags = _this param [0, false];
+
+_result = false;
 
 _primaryWeapon = primaryWeapon player;
 
@@ -113,9 +125,16 @@ if (_launcher in _launcherTypes) then
 
     _mags = magazines player;
     _primaryMags = primaryWeaponMagazine player;
-    _magIndex = _smokeMags findIf { _x in _primaryMags or _x in _mags };
 
-    _return = (_magIndex != -1);
+    if (_returnMags) then
+    {
+        _result = _smokeMags select { _x in _primaryMags or _x in _mags };
+    }
+    else
+    {
+        _magIndex = _smokeMags findIf { _x in _primaryMags or _x in _mags };
+        _result = (_magIndex != -1);
+    };
 };
 
-_return
+_result

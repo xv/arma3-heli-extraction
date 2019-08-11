@@ -22,7 +22,7 @@ Here is a list of commands used in the script that were introduced in Arma III:
 
 Multiplayer Support
 -------------------
-The script has never been tested in an online environment and will most likely not work on as-is basis since it uses a lot of local commands. Will I ever bother with trying to make it work online? No. If you run a server, go ahead and tinker with it all you want.
+The script has never been tested in an online environment and will most likely not work on as-is basis since it was not designed with multiplayer in mind. I also do not play Arma online, so I will not be working on this personally. If you run a server and/or know what you're doing, go ahead and tinker with the script all you want. Feel free to contribute your code to this project.
 
 CUP & RHS Support
 -----------------

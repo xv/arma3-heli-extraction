@@ -19,6 +19,8 @@ _return = false;
 
 _primaryWeapon = primaryWeapon player;
 
+if (_primaryWeapon == "") exitWith { false };
+
 /* - The "muzzles" array is always in the format of ["this","blah","blah","etc"].
  *
  * - Vanilla weapons with grenade launchers will return ["this", "gl_classname"].

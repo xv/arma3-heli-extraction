@@ -12,13 +12,14 @@ Well, actually, this script was written for Arma II, but it had been moved to Ar
 
 Here is a list of commands used in the script that were introduced in Arma III:
 
-| Command      | Community Wiki Page                                                |
-|:------------:|--------------------------------------------------------------------|
-| `canAdd`     | [/wiki/canAdd](https://community.bistudio.com/wiki/canAdd)         |
-| `findIf`     | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)         |
-| `append`     | [/wiki/append](https://community.bistudio.com/wiki/append)         |
-| `isEqualTo`  | [/wiki/isEqualTo](https://community.bistudio.com/wiki/isEqualTo)   |
-| `distance2D` | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D) |
+| Command                 | Community Wiki Page                                                                      |
+|:-----------------------:|------------------------------------------------------------------------------------------|
+| `canAdd`                | [/wiki/canAdd](https://community.bistudio.com/wiki/canAdd)                               |
+| `findIf`                | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)                               |
+| `append`                | [/wiki/append](https://community.bistudio.com/wiki/append)                               |
+| `isEqualTo`             | [/wiki/isEqualTo](https://community.bistudio.com/wiki/isEqualTo)                         |
+| `distance2D`            | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D)                       |
+| `primaryWeaponMagazine` | [/wiki/primaryWeaponMagazine](https://community.bistudio.com/wiki/primaryWeaponMagazine) |
 
 Multiplayer Support
 -------------------

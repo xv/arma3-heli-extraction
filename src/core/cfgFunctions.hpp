@@ -10,6 +10,7 @@ class Hunnu
         class animateCargoDoors;
 
         // [] call canMarkWithGL
+        // [_returnMags] canMarkWithGL
         class canMarkWithGL;
 
         // [_object, _minDist, _maxDist, _vehicle] call findLandingPos

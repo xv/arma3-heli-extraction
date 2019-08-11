@@ -19,8 +19,9 @@
  *            launcher.
  *
  *     ARRAY - if the optional parameter is set to "true", the function will
- *             return an array of 40mm smoke magazines in the player's inventory.
- *             If there are no magazines, an empty array will be returned.
+ *             return an array of launcher-compatible 40mm smoke magazines in
+ *             the player's inventory. If there are no compatible magazines, an
+ *             empty array will be returned.
  */
 
 private ["_returnMags"];

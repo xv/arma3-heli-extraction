@@ -6,6 +6,20 @@ The helicopter spawn position is random. It can arrive from any direction.
 
 Helicopter + crew invincibility is also optional (enabled by default; can be changed by modifying the script). However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
 
+Multiplayer Support
+-------------------
+The script has never been tested in an online environment and will most likely not work on as-is basis since it was not designed with multiplayer in mind. I also do not play Arma online, so I will not be working on this personally. If you run a server and/or know what you're doing, go ahead and tinker with the script all you want. Feel free to contribute your code to this project.
+
+CUP & RHS Support
+-----------------
+Support for Community Upgrade Project and Red Hammer Studios mods is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
+
+RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also included. The script will let you use your RHS smoke grenades to mark the landing zone.
+
+ACE Compatibility
+-----------------
+The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
+
 Porting to Arma II/OA
 ---------------------
 Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it makes use of commands that were introduced in Arma III. However, if you can get around the new commands, it can be ported easily.
@@ -20,20 +34,6 @@ Here is a list of commands used in the script that were introduced in Arma III:
 | `isEqualTo`             | [/wiki/isEqualTo](https://community.bistudio.com/wiki/isEqualTo)                         |
 | `distance2D`            | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D)                       |
 | `primaryWeaponMagazine` | [/wiki/primaryWeaponMagazine](https://community.bistudio.com/wiki/primaryWeaponMagazine) |
-
-Multiplayer Support
--------------------
-The script has never been tested in an online environment and will most likely not work on as-is basis since it was not designed with multiplayer in mind. I also do not play Arma online, so I will not be working on this personally. If you run a server and/or know what you're doing, go ahead and tinker with the script all you want. Feel free to contribute your code to this project.
-
-CUP & RHS Support
------------------
-Support for Community Upgrade Project and Red Hammer Studios mods is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
-
-RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also included. The script will let you use your RHS smoke grenades to mark the landing zone.
-
-ACE Compatibility
------------------
-The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
 
 Usage
 -----

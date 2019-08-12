@@ -9,12 +9,11 @@ class Hunnu
         // [_vehicle, _isRHS, _state] call animateCargoDoors
         class animateCargoDoors;
 
-        // [] call canMarkWithGL
-        // [_returnMags] canMarkWithGL
-        class canMarkWithGL;
-
         // [_object, _minDist, _maxDist, _vehicle] call findLandingPos
         class findLandingPos;
+
+        // call getCompatGLMags
+        class getCompatGLMags;
 
         // [_startingPos, _range] call fn_markDropOffRange
         class markDropOffRange;

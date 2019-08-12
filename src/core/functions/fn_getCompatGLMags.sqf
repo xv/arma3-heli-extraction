@@ -5,34 +5,26 @@
  *     Jad Altahan (https://github.com/xv)
  *
  * Description:
- *     Checks if the player has a grenade launcher attachment for their primary
- *     weapon with available smoke rounds that can be used to mark the LZ.
+ *     Iterates through hardcoded vanilla and RHS 40mm smoke magazines that are
+ *     compatible with the player's current primary weapon and returns them.
  *
  * Parameter(s):
- *     0: BOOL - (Optional, default false) set to true if you want the function
- *               to return a magazine array rather than a boolean value.
+ *     Nothing.
  *
  * Returns:
- *     BOOL - true if a grenade launcher can be used to mark LZ, false otherwise.
- *            It will also return false if the player doesn't have a primary
- *            weapon equipped or the primary weapon doesn't have a grenade
- *            launcher.
- *
- *     ARRAY - if the optional parameter is set to "true", the function will
- *             return an array of launcher-compatible 40mm smoke magazines in
- *             the player's inventory. If there are no compatible magazines, an
- *             empty array will be returned.
+ *     ARRAY - if the player's primary weapon has an underbarrel grenade
+ *     launcher, the function will return an array containing the muzzle class
+ *     name for the launcher along with its compatible magazines. If there are
+ *     no compatible magazines or the weapon does not have a launcher or the
+ *     player does not have a primary weapon equipped, an empty array will be
+ *     returned.
  */
 
-private ["_returnMags"];
-
-_returnMags = _this param [0, false];
-
-_result = false;
+private ["_result"];
 
 _primaryWeapon = primaryWeapon player;
 
-if (_primaryWeapon == "") exitWith { false };
+if (_primaryWeapon == "") exitWith { [] };
 
 /* - The "muzzles" array is always in the format of ["this","blah","blah","etc"].
  *
@@ -46,19 +38,14 @@ if (_primaryWeapon == "") exitWith { false };
  *   they are primary GLs to begin with.
  */
 _primaryMuzz = getArray (configFile >> "CfgWeapons" >> _primaryWeapon >> "muzzles");
-
-#ifdef FEEDBACK_MODE
-    systemChat format ["The selected muzzle for '%1' is '%2'.", 
-                       _primaryWeapon, _primaryMuzz];
-#endif
-
 _launcher = _primaryMuzz select 1;
 
 // Player isn't using a rifle with a grenade launcher
-if (isNil "_launcher") exitWith { false };
+if (isNil "_launcher" || _launcher isEqualTo "SAFE") exitWith { [] };
 
 // Vanilla and RHS GL muzzles that are returned by _launcher
-_launcherTypes = [
+_launcherTypes =
+[
     "UGL",
     "EGLM",
     "GL_3GL_F",
@@ -73,7 +60,8 @@ _launcherTypes = [
 if (_launcher in _launcherTypes) then
 {
     // Standard mags that all vanilla GLs can use
-    _smokeMags = [
+    _smokeMags =
+    [
         "1Rnd_SmokeRed_Grenade_shell",
         "1Rnd_SmokeGreen_Grenade_shell",
         "1Rnd_SmokeYellow_Grenade_shell",
@@ -84,7 +72,8 @@ if (_launcher in _launcherTypes) then
 
     // These ones are exclusive to the vanilla MX rifle (arifle_MX_GL_*)
     // and RHS M320
-    _3RndMags = [
+    _3RndMags =
+    [
         "3Rnd_SmokeRed_Grenade_shell",
         "3Rnd_SmokeGreen_Grenade_shell",
         "3Rnd_SmokeYellow_Grenade_shell",
@@ -93,16 +82,18 @@ if (_launcher in _launcherTypes) then
         "3Rnd_SmokeOrange_Grenade_shell"
     ];
 
-    // Mags Used in EGLM, UGL, RHS M203, RHS M320, RHS AG36, RHS M79
-    _rhsMags = [
+    // Mags used in EGLM, UGL, RHS M203, RHS M320, RHS AG36, RHS M79
+    _rhsMags =
+    [
         "rhs_mag_m713_Red",
         "rhs_mag_m715_Green",
         "rhs_mag_m716_yellow"
     ];
 
-    // Special mags only used with RHS GP25 and RHS PBG40. Their
+    // Special mags only used with RHS GP25 and RHS PBG40 launchers. Their
     // corresponding muzzles only accept these as well
-    _rhsMagsSpec = [
+    _rhsMagsSpec =
+    [
         "rhs_GRD40_Red",
         "rhs_GRD40_Green",
         "rhs_VG40MD_Red",
@@ -111,31 +102,20 @@ if (_launcher in _launcherTypes) then
 
     switch (_launcher) do
     {
-        case "GL_3GL_F":    { _smokeMags append _3RndMags };
-        case "M320_GL":     { _smokeMags append (_3RndMags + _rhsMags) };
+        case "GL_3GL_F": { _smokeMags append _3RndMags };
+        case "M320_GL":  { _smokeMags append (_3RndMags + _rhsMags) };
 
         case "UGL";
         case "EGLM";
         case "M203_GL";
         case "VHS_BG";
-        case "AG36Muzzle":  { _smokeMags append _rhsMags };
+        case "AG36Muzzle": { _smokeMags append _rhsMags };
 
         case "PBG40Muzzle";
-        case "GP25Muzzle":  { _smokeMags = _rhsMagsSpec };
+        case "GP25Muzzle": { _smokeMags = _rhsMagsSpec };
     };
 
-    _mags = magazines player;
-    _primaryMags = primaryWeaponMagazine player;
-
-    if (_returnMags) then
-    {
-        _result = _smokeMags select { _x in _primaryMags or _x in _mags };
-    }
-    else
-    {
-        _magIndex = _smokeMags findIf { _x in _primaryMags or _x in _mags };
-        _result = (_magIndex != -1);
-    };
+    _result = [_launcher, _smokeMags];
 };
 
 _result

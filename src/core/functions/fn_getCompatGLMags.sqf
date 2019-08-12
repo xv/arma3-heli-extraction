@@ -1,5 +1,3 @@
-#include "..\component.hpp"
-
 /* 
  * Author(s):
  *     Jad Altahan (https://github.com/xv)

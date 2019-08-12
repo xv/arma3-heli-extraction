@@ -273,13 +273,15 @@ heliClass = switch (playerSide) do
     {
         switch (faction player) do
         {
-            case "OPF_F":                 { "O_Heli_Light_02_F"                }; // CSAT (Default)
-            case "rhsgref_faction_chdkz": { "rhsgref_ins_Mi8amt"               }; // ChDKZ Insurgents
-            case "rhs_faction_vdv":       { "rhs_Mi24V_vdv"                    }; // RHS Russia (VDV)
-            case "rhs_faction_vv":        { "rhs_Mi8mt_vv"                     }; // RHS Russia (VV)
-            case "CUP_O_SLA":             { "CUP_O_UH1H_SLA"                   }; // CUP Sahrani Liberation Army
-            case "CUP_O_TK":              { "CUP_O_Mi17_TK"                    }; // CUP Takistani Army
-            default                       { "O_Heli_Light_02_F"                }; // CSAT (Default)
+            case "OPF_F":                         { "O_Heli_Light_02_F"        }; // CSAT (Default)
+            case "rhsgref_faction_chdkz":         { "rhsgref_ins_Mi8amt"       }; // ChDKZ Insurgents
+            case "rhs_faction_vdv":               { "rhs_Mi24V_vdv"            }; // RHS Russia (VDV)
+            case "rhs_faction_vv":                { "rhs_Mi8mt_vv"             }; // RHS Russia (VV)
+            case "rhssaf_faction_army_opfor":     { "rhssaf_airforce_ht48"     }; // RHS SAF OPFOR (KOV)
+            case "rhssaf_faction_airforce_opfor": { "rhssaf_airforce_ht48"     }; // RHS SAF OPFOR (RVIPVO)
+            case "CUP_O_SLA":                     { "CUP_O_UH1H_SLA"           }; // CUP Sahrani Liberation Army
+            case "CUP_O_TK":                      { "CUP_O_Mi17_TK"            }; // CUP Takistani Army
+            default                               { "O_Heli_Light_02_F"        }; // CSAT (Default)
         };
     };
 

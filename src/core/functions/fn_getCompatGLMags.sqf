@@ -39,7 +39,8 @@ _primaryMuzz = getArray (configFile >> "CfgWeapons" >> _primaryWeapon >> "muzzle
 _launcher = _primaryMuzz select 1;
 
 // Player isn't using a rifle with a grenade launcher
-if (isNil "_launcher" || _launcher isEqualTo "SAFE") exitWith { [] };
+if (isNil "_launcher") exitWith { [] };
+if (_launcher isEqualTo "SAFE") exitWith { [] };
 
 // Vanilla and RHS GL muzzles that are returned by _launcher
 _launcherTypes =

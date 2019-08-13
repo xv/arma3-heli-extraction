@@ -9,6 +9,9 @@ class Hunnu
         // [_vehicle, _isRHS, _state] call animateCargoDoors
         class animateCargoDoors;
 
+        // [_magClass] call canUseMag
+        class canUseMag;
+
         // [_object, _minDist, _maxDist, _vehicle] call findLandingPos
         class findLandingPos;
 

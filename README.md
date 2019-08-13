@@ -33,6 +33,7 @@ Here is a list of commands used in the script that were introduced in Arma III:
 | `distance2D`            | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D)                       |
 | `findIf`                | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)                               |
 | `isEqualTo`             | [/wiki/isEqualTo](https://community.bistudio.com/wiki/isEqualTo)                         |
+| `param`                 | [/wiki/param](https://community.bistudio.com/wiki/param)                                 |
 | `primaryWeaponMagazine` | [/wiki/primaryWeaponMagazine](https://community.bistudio.com/wiki/primaryWeaponMagazine) |
 
 Usage

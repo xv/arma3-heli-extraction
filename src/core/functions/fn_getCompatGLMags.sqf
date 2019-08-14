@@ -102,16 +102,19 @@ if (_launcher in _launcherTypes) then
     switch (_launcher) do
     {
         case "GL_3GL_F";
-        case "M320_GL":  { _smokeMags append (_3RndMags + _rhsMags) };
+        case "M320_GL":
+        { _smokeMags append (_3RndMags + _rhsMags) };
 
         case "UGL";
         case "EGLM";
         case "M203_GL";
         case "VHS_BG";
-        case "AG36Muzzle": { _smokeMags append _rhsMags };
+        case "AG36Muzzle":
+        { _smokeMags append _rhsMags };
 
         case "PBG40Muzzle";
-        case "GP25Muzzle": { _smokeMags = _rhsMagsSpec };
+        case "GP25Muzzle":
+        { _smokeMags = _rhsMagsSpec };
     };
 
     _result = [_launcher, _smokeMags];

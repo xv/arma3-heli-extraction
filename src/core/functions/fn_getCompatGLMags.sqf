@@ -101,7 +101,7 @@ if (_launcher in _launcherTypes) then
 
     switch (_launcher) do
     {
-        case "GL_3GL_F": { _smokeMags append _3RndMags };
+        case "GL_3GL_F";
         case "M320_GL":  { _smokeMags append (_3RndMags + _rhsMags) };
 
         case "UGL";

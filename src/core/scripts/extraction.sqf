@@ -302,22 +302,6 @@ heli setVelocity
     (_heliVelocity select 2)
 ];
 
-// Orders the helicopter fly back to the original spawn location
-fn_heliReturnHome =
-{
-    _wpRtb = (group heli) addWaypoint [spawnPos, 2];
-    _wpRtb setWaypointType "MOVE";
-
-    // Delete the helicopter + crew and clean up the script for usage again
-    _wpRtb setWaypointStatements
-    [
-        "true",
-        "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
-         trig_execScript setTriggerText 'Request Extraction';
-         deleteVehicle hiddenHelipad;"
-    ];
-};
-
 // Move to LZ
 [heli, extractPos] call xv_fnc_moveToExtractionZone;
 sleep 1;

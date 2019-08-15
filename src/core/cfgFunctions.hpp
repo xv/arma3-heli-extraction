@@ -18,6 +18,9 @@ class Hunnu
         // call getCompatGLMags
         class getCompatGLMags;
 
+        // call getMarkerMags
+        class getMarkerMags;
+
         // [_startingPos, _range] call fn_markDropOffRange
         class markDropOffRange;
 

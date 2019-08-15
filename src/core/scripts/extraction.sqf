@@ -64,100 +64,30 @@ sleep 10;
 [playerSide,"HQ"] sideRadio "RadioBeepTo";
 [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark the LZ, over.", name player];
 
-private ["_grenadeToThrow", "_isSmokeGrenade"];
-throwableMag = [];
+markerMags = call xv_fnc_getMarkerMags;
+isMarkerDetected = false;
 
-if (sunOrMoon >= 1) then
+player addEventHandler ["Take",
 {
-    _isSmokeGrenade = true;
+    params ["_unit", "_container", "_item"];
 
-    throwableMag = [
-        "SmokeShellRed",
-        "SmokeShellGreen",
-        "SmokeShellYellow",
-        "SmokeShellPurple",
-        "SmokeShellBlue",
-        "SmokeShellOrange",
-        "rhs_mag_nspd",
-        "rhs_mag_m18_red",
-        "rhs_mag_m18_green",
-        "rhs_mag_m18_yellow",
-        "rhs_mag_m18_purple",
-        "rhssaf_mag_brd_m83_red",
-        "rhssaf_mag_brd_m83_green",
-        "rhssaf_mag_brd_m83_yellow",
-        "rhssaf_mag_brd_m83_blue",
-        "rhssaf_mag_brd_m83_orange"
-    ];
-}
-else
-{
-    _isSmokeGrenade = false;
+    _isMag = isClass (configFile >> "CfgMagazines" >> _item);
+    _canUseMag = _isMag && ([_item] call xv_fnc_canUseGLMag);
 
-    throwableMag = [
-        "B_IR_Grenade", // NATO (BLUFOR)
-        "O_IR_Grenade", // CSAT (OPFOR)
-        "I_IR_Grenade"  // AAF (GUER)
-    ];
-};
-
-_magIndex = throwableMag findIf { _x in magazines player };
-
-if (_magIndex != -1) then
-{
-    if (_isSmokeGrenade) then {
-        hint parseText "<t align='left'>Use one of the <t underline='1'>colored</t> smoke grenades in your inventory to mark the LZ.</t>";
-    } else {
-        hint parseText "<t align='left'>Use the <t underline='1'>infrared (IR)</t> grenade in your inventory to mark the LZ.</t>";
-    };
-
-    _grenadeToThrow = _magIndex;
-};
-
-sleep 0.1;
-
-if (isNil "_grenadeToThrow") then
-{
-
-    if (_isSmokeGrenade) then
+    if (_canUseMag) then
     {
-        _grenadeToThrow = throwableMag select 3;
-    }
-    else
-    {
-        _grenadeToThrow = switch (playerSide) do
-        {
-            case west:       { throwableMag select 0 };
-            case east:       { throwableMag select 1 };
-            case resistance: { throwableMag select 2 };
-        };
+        markerMags pushBackUnique _item;
+
+        #ifdef FEEDBACK_MODE
+            systemChat format ["The taken item (%1) is pushed to marker mags.", _item];
+        #endif
     };
-
-    if (player canAdd _grenadeToThrow) then
-    {
-        player addMagazine _grenadeToThrow;
-    }
-    else
-    {
-        hint "Free up some inventory space in order to receive an item to mark the LZ.";
-
-        waitUntil { (player canAdd _grenadeToThrow) };
-        sleep 0.2;
-
-        player addMagazine _grenadeToThrow;
-    };
-
-    if (_isSmokeGrenade) then {
-        hint parseText "<t align='left'>A <t color='#BA55D3'>purple smoke</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
-    } else {
-        hint parseText "<t align='left'>An <t color='#DB7093'>infrared (IR)</t> grenade has been added to your inventory. Use it to mark the LZ.</t>";
-    };
-};
+}];
 
 // Create a marker where the smoke grenade lands
 player addEventHandler ["Fired",
 {
-    if !((_this select 5) in throwableMag) exitWith
+    if !((_this select 5) in markerMags) exitWith
     {
         #ifdef FEEDBACK_MODE
             systemChat format ["Fired or thrown the wrong object (%1).", _this select 5];
@@ -180,7 +110,7 @@ player addEventHandler ["Fired",
         _projectile = _this select 6;
 
         // Proceed only when the grenade has come to a stop
-        waitUntil { vectorMagnitude velocity _projectile < 0.02 };
+        waitUntil { (vectorMagnitude velocity _projectile < 0.02) };
 
         // Create a marker icon on the map to identify the extraction point
         [getPos _projectile] call xv_fnc_markExtractionZone;
@@ -188,8 +118,9 @@ player addEventHandler ["Fired",
         throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call xv_fnc_findLandingPos;
         isMarkerDetected = true;
 
-        throwableMag = nil;
+        markerMags = nil;
         player removeEventHandler ["Fired", 0];
+        player removeEventHandler ["Take", 0];
     };
 }];
 

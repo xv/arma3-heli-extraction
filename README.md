@@ -1,5 +1,5 @@
 <div align="left">
-  <img height="320" src="extra/images/logo.svg" alt="logo">
+  <img height="400" src="extra/images/logo.svg" alt="logo">
 </div>
 
 Synopsis

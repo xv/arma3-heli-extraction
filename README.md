@@ -1,6 +1,6 @@
-<div align="left">
-  <img height="400" src="extra/images/logo.svg" alt="logo">
-</div>
+<p align="left">
+  <img height="350" src="extra/images/logo.svg" alt="logo">
+</p>
 
 Synopsis
 ========

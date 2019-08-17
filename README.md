@@ -51,4 +51,4 @@ Note: `init.sqf` creates the Trigger object that is used to execute the script v
 
 Legal
 -----
-This project is distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This project is distributed under the terms of the [MIT License](LICENSE).

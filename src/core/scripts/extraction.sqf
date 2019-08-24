@@ -62,7 +62,7 @@ player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. L
 sleep 10;
 
 [playerSide,"HQ"] sideRadio "RadioBeepTo";
-[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark the LZ, over.", name player];
+[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark the LZ.", name player];
 
 markerMags = call xv_fnc_getMarkerMags;
 isMarkerDetected = false;

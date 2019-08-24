@@ -572,4 +572,8 @@ if (canMove heli) then
 
 if (heliDestroyed) exitWith {
     hint parsetext "<t color='#C10005'>The extraction helicopter has been destroyed.</t>";
+    
+    // Ensure the map markers are deleted
+    deleteMarkerLocal "extraction_marker";
+    deleteMarkerLocal "dropoff_marker";
 };

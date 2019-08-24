@@ -238,69 +238,6 @@ heliClass = switch (playerSide) do
     };
 };
 
-// Spawn the helicopter
-fncSpawnVehicle = [spawnPos, azimuth, heliClass, side player] call BIS_fnc_spawnVehicle;
-sleep 0.1;
-
-heli = fncSpawnVehicle select 0;
-
-_heliVelocity = velocity heli;
-_heliDir = direction heli;
-heli setVelocity
-[
-    (_heliVelocity select 0) + (sin _heliDir * 30), 
-    (_heliVelocity select 1) + (cos _heliDir * 30), 
-    (_heliVelocity select 2)
-];
-
-// heliPilot = (fncSpawnVehicle select 1) select 0;
-// heliCoPilot = (fncSpawnVehicle select 1) select 1;
-
-/* For a touch of realism, open the Black Hawk doors.
- *
- * TODO: RHS automatically closes the cargo doors after getting in. Find way
- * (if there's any?) to keep the cargo doors open.
- */
-if (typeOf heli find "RHS_UH60M" >= 0) then
-{
-    [heli, true, 1] call xv_fnc_animateCargoDoors;
-};
-
-sleep 4;
-
-[playerSide,"HQ"] sideRadio "RadioBeepTo";
-[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
-
-heli setBehaviour "CARELESS";
-heli setSpeedMode "NORMAL";
-heli setCombatMode "GREEN";
-
-heli enableCopilot false;
-heli lockDriver true;
-
-/* Comment line below to disable invincibility.
- *
- * Note that when you request the helicopter in a hot zone, the enemy AI will
- * shoot at it. If the helicopter gets fired at with AA missiles, it will deploy
- * countermeasures; however, it's impossible to evade all the missiles with
- * flares/chaffs. In case the helicopter gets destroyed, you will not be able to
- * request another. This is NOT a bug. The script was written to function this
- * way. Use at your own risk!
- */
-{ _x allowDamage false; } foreach [heli] + crew heli;
-
-/* Uncomment the line below to make enemy AI ignore the helicopter.
- * 
- * if setCaptive is set to true, enemy AI will not fire anything at the helicopter
- * as if it is one of their own. However, they may still fire at the player if
- * spotted.
- */
-// heli setCaptive true;
-
-// Move to LZ
-[heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
-sleep 1;
-
 boardingDetected = false;
 heliDestroyed = false;
 
@@ -371,7 +308,67 @@ fn_monitorVehicleStatus =
         call fn_dropFlares;
     }];
 };
+
+// Spawn the helicopter
+fncSpawnVehicle = [spawnPos, azimuth, heliClass, side player] call BIS_fnc_spawnVehicle;
+sleep 0.1;
+
+heli = fncSpawnVehicle select 0;
 heli call fn_monitorVehicleStatus;
+
+_heliVelocity = velocity heli;
+_heliDir = direction heli;
+heli setVelocity
+[
+    (_heliVelocity select 0) + (sin _heliDir * 30), 
+    (_heliVelocity select 1) + (cos _heliDir * 30), 
+    (_heliVelocity select 2)
+];
+
+// heliPilot = (fncSpawnVehicle select 1) select 0;
+// heliCopilot = (fncSpawnVehicle select 1) select 1;
+
+heli setBehaviour "CARELESS";
+heli setSpeedMode "NORMAL";
+heli setCombatMode "GREEN";
+
+heli enableCopilot false;
+heli lockDriver true;
+
+/* Comment out the line of code below to disable invincibility.
+ *
+ * Note that when if the helicopter gets damaged to a point where it becomes
+ * inoperable or even destroyed, the script will detect that and will let you
+ * know that it has been destroyed. In that case, you will no longer be able to
+ * request another ride.
+ */
+{ _x allowDamage false; } foreach [heli] + crew heli;
+
+/* Uncomment the line of code below to make enemy AI ignore the helicopter.
+ * 
+ * if setCaptive is set to true, enemy AI will not fire at the helicopter as if
+ * it is one of their own. However, they may still fire at the player if spotted.
+ */
+// heli setCaptive true;
+
+/* For a touch of realism, open the Black Hawk doors.
+ *
+ * TODO: RHS automatically closes the cargo doors after getting in. Find way
+ * (if there's any?) to keep the cargo doors open.
+ */
+if (typeOf heli find "RHS_UH60M" >= 0) then
+{
+    [heli, true, 1] call xv_fnc_animateCargoDoors;
+};
+
+sleep 4;
+
+[playerSide,"HQ"] sideRadio "RadioBeepTo";
+[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
+
+// Move to LZ
+[heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
+sleep 1;
 
 while { ((canMove heli) && !(unitReady heli)) } do
 {

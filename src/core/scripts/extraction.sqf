@@ -307,6 +307,7 @@ heli setVelocity
 sleep 1;
 
 boardingDetected = false;
+heliDestroyed = false;
 
 fn_monitorVehicleStatus =
 {
@@ -315,6 +316,38 @@ fn_monitorVehicleStatus =
     #ifdef FEEDBACK_MODE
         systemChat format ["Monitoring vehicle status for '%1'...", _veh];
     #endif
+
+    // In case the helicopter is immobalized but not destroyed
+    _veh addEventHandler ["Dammaged",
+    {
+        _obj = _this select 0;
+
+        if (!canMove _obj) then
+        {
+            _obj removeEventHandler ["Dammaged", 0];
+
+            #ifdef FEEDBACK_MODE
+                systemChat "Event handler - HELICOPTER IMMOBALIZED";
+            #endif
+
+            /* If we just mark the helicopter destroyed via <heliDestroyed = true>
+             * but don't actually destroy it, the crew will exit the vehicle and
+             * do nothing for eternity. The script will end, however.
+             *
+             * Maybe one day we can revisit this code and write a more complex
+             * scenario where a rescue helicopter gets dispatched to get the
+             * stranded crew if they are not dead?
+             */
+            // heliDestroyed = true;
+            _obj setDamage 1;
+        };
+    }];
+
+    // Helicopter is blown up
+    _veh addEventHandler ["Killed",
+    {
+        heliDestroyed = true;
+    }];
 
     _veh addEventHandler ["GetIn",
     {
@@ -345,19 +378,21 @@ fn_monitorVehicleStatus =
 };
 heli call fn_monitorVehicleStatus;
 
-while { ((alive heli) && !(unitReady heli)) } do
+while { ((canMove heli) && !(unitReady heli)) } do
 {
     sleep 1;
 };
 
-if (alive heli) then
+if (canMove heli) then
 {
     // Precisely check if the helicopter landed and came to a complete stop    
     waitUntil
     {
-        (velocity  heli select 2) > -0.2 &&
-        (getPosATL heli select 2) <  0.5
+        heliDestroyed || ((velocity  heli select 2) > -0.2 &&
+                          (getPosATL heli select 2) <  0.5)
     };
+
+    if (heliDestroyed) exitWith { };
 
     "extraction_marker" setMarkerPosLocal heli;
     
@@ -370,7 +405,7 @@ if (alive heli) then
     };
 
     _timeTillRtb = 85; // 1m:25s
-    while { (_timeTillRtb > 0) } do
+    while { !heliDestroyed && (_timeTillRtb > 0) } do
     {
         hintSilent parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [_timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
         _timeTillRtb = _timeTillRtb - 1;
@@ -418,9 +453,12 @@ if (alive heli) then
     // Make sure that the player and all associated units have boarded the helicopter
     waitUntil
     {
-        { _x in heli } count units group player == count units group player
+        heliDestroyed ||
+        { _x in heli } count (units group player) == count (units group player);
     };
-    
+
+    if (heliDestroyed) exitWith { };
+
     // Lock the doors to prevent the player from ejecting and going off the script scenario
     heli lock true;
     
@@ -452,10 +490,14 @@ if (alive heli) then
         } else {
             [_pos] call xv_fnc_markDropOffZone;
             isMapPosValid = true;
+
+            deleteMarkerLocal "range_marker";
         };
     };
 
-    waitUntil { isMapPosValid };
+    waitUntil { heliDestroyed || isMapPosValid };
+
+    if (heliDestroyed) exitWith { };
 
     sleep 0.05;
 
@@ -472,8 +514,6 @@ if (alive heli) then
     // Close the map after the drop off location has been marked
     openMap false;
 
-    deleteMarkerLocal "range_marker";
-
     sleep 3;
 
     // Move to the drop off (insertion) zone
@@ -483,42 +523,53 @@ if (alive heli) then
 sleep 1;
 
 // Check if the helicopter has reached the drop off location
-while { ((alive heli) && !(unitReady heli)) } do
+while { ((canMove heli) && !(unitReady heli)) } do
 {
     sleep 1;
 };
 
 // Order the helicopter to land
-if (alive heli) then
+if (canMove heli) then
 {
     waitUntil
     {
-        (velocity  heli select 2) > -0.2 && 
-        (getPosATL heli select 2) <  0.5
+        heliDestroyed || ((velocity  heli select 2) > -0.2 && 
+                          (getPosATL heli select 2) <  0.5)
     };
+
+    if (heliDestroyed) exitWith { };
     
     [playerSide,"HQ"] sideRadio "RadioBeepTo";
     [playerSide,"HQ"] sideChat "Touchdown!";
     
     // Unlock the helicopter doors
-    heli lock false;    
+    heli lock false;
     
     // Make sure that the player and all associated units have left the helicopter
     waitUntil
     {
-        { _x in heli } count units group player == 0 &&
-        player distance2D heli >= 5
+        heliDestroyed ||
+        ({ _x in heli } count (units group player) == 0 && (player distance2D heli >= 5))
     };
     
+    if (heliDestroyed) exitWith { };
+
+    // TODO: maybe continue allowing destruction? That'll require constant checking
+    { _x allowDamage false } foreach [heli] + crew heli;
+
     // Lock the doors
     heli lock true;
     
     sleep 0.5;
 
     deleteMarkerLocal "dropoff_marker";
+
+    sleep 3;
+
+    // Make the helicopter return to where it came form and delete it
+    [heli, spawnPos] call xv_fnc_returnToBase;
 };
 
-sleep 3;
-
-// Make the helicopter return to where it came form and delete it
-[heli, spawnPos] call xv_fnc_returnToBase;
+if (heliDestroyed) exitWith {
+    hint parsetext "<t color='#C10005'>The extraction helicopter has been destroyed.</t>";
+};

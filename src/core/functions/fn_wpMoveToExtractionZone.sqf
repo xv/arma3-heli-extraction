@@ -16,6 +16,7 @@
 params ["_vehicle", "_wpPos"];
 
 _wpExtractionZone = (group _vehicle) addWaypoint [_wpPos, 0];
+_wpExtractionZone setWaypointName "wpMoveLZ";
 _wpExtractionZone setWaypointType "MOVE";
 _wpExtractionZone setWaypointSpeed "NORMAL";
 _wpExtractionZone setWaypointDescription "Extraction zone";

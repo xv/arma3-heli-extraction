@@ -18,6 +18,7 @@
 params ["_vehicle", "_wpPos"];
 
 _wpRtb = (group _vehicle) addWaypoint [_wpPos, 2];
+_wpRtb setWaypointName "wpRtb";
 _wpRtb setWaypointType "MOVE";
 
 // Delete the helicopter + crew and clean up the script for usage again

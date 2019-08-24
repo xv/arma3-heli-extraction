@@ -16,6 +16,7 @@
 params ["_vehicle", "_wpPos"];
 
 _wpDropOffZone = (group _vehicle) addWaypoint [_wpPos, 1];
+_wpDropOffZone setWaypointName "wpMoveDropOff";
 _wpDropOffZone setWaypointType "MOVE";
 _wpDropOffZone setWaypointSpeed "NORMAL";
 _wpDropOffZone setWaypointDescription "Drop off zone";

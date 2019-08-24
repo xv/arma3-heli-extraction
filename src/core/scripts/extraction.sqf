@@ -449,6 +449,9 @@ if (canMove heli) then
             [heli, spawnPos] call xv_fnc_wpReturnToBase;
         };
     };
+
+    // If the extraction is missed, exit the current scope immediately
+    if (waypointName [group heli, 2] isEqualTo "wpRtb") exitWith { };
     
     // Make sure that the player and all associated units have boarded the helicopter
     waitUntil

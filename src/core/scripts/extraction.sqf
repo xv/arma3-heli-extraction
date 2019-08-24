@@ -243,7 +243,18 @@ fncSpawnVehicle = [spawnPos, azimuth, heliClass, side player] call BIS_fnc_spawn
 sleep 0.1;
 
 heli = fncSpawnVehicle select 0;
-heliPilot = (fncSpawnVehicle select 1) select 0;
+
+_heliVelocity = velocity heli;
+_heliDir = direction heli;
+heli setVelocity
+[
+    (_heliVelocity select 0) + (sin _heliDir * 30), 
+    (_heliVelocity select 1) + (cos _heliDir * 30), 
+    (_heliVelocity select 2)
+];
+
+// heliPilot = (fncSpawnVehicle select 1) select 0;
+// heliCoPilot = (fncSpawnVehicle select 1) select 1;
 
 /* For a touch of realism, open the Black Hawk doors.
  *
@@ -285,15 +296,6 @@ heli lockDriver true;
  * spotted.
  */
 // heli setCaptive true;
-
-_heliVelocity = velocity heli;
-_heliDir = direction heli;
-heli setVelocity
-[
-    (_heliVelocity select 0) + (sin _heliDir * 30), 
-    (_heliVelocity select 1) + (cos _heliDir * 30), 
-    (_heliVelocity select 2)
-];
 
 // Move to LZ
 [heli, extractPos] call xv_fnc_wpMoveToExtractionZone;

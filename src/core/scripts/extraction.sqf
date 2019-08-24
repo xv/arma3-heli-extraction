@@ -303,7 +303,7 @@ heli setVelocity
 ];
 
 // Move to LZ
-[heli, extractPos] call xv_fnc_moveToExtractionZone;
+[heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
 sleep 1;
 
 boardingDetected = false;
@@ -446,7 +446,7 @@ if (canMove heli) then
             [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.", name player];
 
             deleteMarkerLocal "extraction_marker";
-            [heli, spawnPos] call xv_fnc_returnToBase;
+            [heli, spawnPos] call xv_fnc_wpReturnToBase;
         };
     };
     
@@ -517,7 +517,7 @@ if (canMove heli) then
     sleep 3;
 
     // Move to the drop off (insertion) zone
-    [heli, dropOffPos] call xv_fnc_moveToDropOffZone;
+    [heli, dropOffPos] call xv_fnc_wpMoveToDropOffZone;
 };
 
 sleep 1;
@@ -567,7 +567,7 @@ if (canMove heli) then
     sleep 3;
 
     // Make the helicopter return to where it came form and delete it
-    [heli, spawnPos] call xv_fnc_returnToBase;
+    [heli, spawnPos] call xv_fnc_wpReturnToBase;
 };
 
 if (heliDestroyed) exitWith {

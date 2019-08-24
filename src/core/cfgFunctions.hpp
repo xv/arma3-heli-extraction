@@ -21,22 +21,22 @@ class Hunnu
         // call getMarkerMags
         class getMarkerMags;
 
-        // [_startingPos, _range] call fn_markDropOffRange
+        // [_startingPos, _range] call markDropOffRange
         class markDropOffRange;
 
-        // [_zone] call fn_markDropOffRange
+        // [_zone] call markDropOffRange
         class markDropOffZone;
 
         // [_zone] call markExtractionZone
         class markExtractionZone;
 
-        // [_vehicle, _wpPos] call moveToDropOffZone
-        class moveToDropOffZone;
+        // [_vehicle, _wpPos] call wpMoveToDropOffZone
+        class wpMoveToDropOffZone;
 
-        // [_vehicle, _wpPos] call moveToExtractionZone
-        class moveToExtractionZone;
+        // [_vehicle, _wpPos] call wpMoveToExtractionZone
+        class wpMoveToExtractionZone;
 
-        // [_vehicle, _wpPos] call returnToBase
-        class returnToBase;
+        // [_vehicle, _wpPos] call wpReturnToBase
+        class wpReturnToBase;
     };
 };

@@ -162,7 +162,7 @@ spawnPos =
 [
     (extractPos select 0) + (spawnRange * sin(spawnDir)), 
     (extractPos select 1) + (spawnRange * cos(spawnDir)), 
-    (extractPos select 2) + 40
+    (extractPos select 2) + 80
 ];
 
 azimuth = spawnPos getDir extractPos;
@@ -285,13 +285,6 @@ heli lockDriver true;
  * spotted.
  */
 // heli setCaptive true;
-
-heli setPosATL
-[
-    (getPosATL heli select 0), 
-    (getPosATL heli select 1),
-    (getPosATL heli select 2) + 40
-];
 
 _heliVelocity = velocity heli;
 _heliDir = direction heli;

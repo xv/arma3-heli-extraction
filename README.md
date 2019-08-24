@@ -39,6 +39,7 @@ Here is a list of commands used in the script that were introduced in Arma III:
 | `isEqualTo`             | [/wiki/isEqualTo](https://community.bistudio.com/wiki/isEqualTo)                         |
 | `param`                 | [/wiki/param](https://community.bistudio.com/wiki/param)                                 |
 | `primaryWeaponMagazine` | [/wiki/primaryWeaponMagazine](https://community.bistudio.com/wiki/primaryWeaponMagazine) |
+| `setWaypointName`       | [/wiki/setWaypointName](https://community.bistudio.com/wiki/setWaypointName)             |
 
 Usage
 -----

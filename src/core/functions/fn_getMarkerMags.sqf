@@ -142,8 +142,7 @@ switch (true) do
         } else {
             hint localize "STR_HT_FREE_INV_SPACE";
 
-            waitUntil { (player canAdd _grenadeToThrow) };
-            sleep 0.5;
+            waitUntil { sleep 0.3; (player canAdd _grenadeToThrow) };
 
             player addMagazine _grenadeToThrow;
         };

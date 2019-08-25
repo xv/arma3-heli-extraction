@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project name="arma-iii-heli-extraction">
+  <Package name="core">
+    <Container name="config">
+      <Key ID="STR_CFG_PAPABEAR">
+        <Original>Valor-20</Original>
+      </Key>
+      <Key ID="STR_CFG_FIREFLYBASE">
+         <Original>Pilot</Original>
+      </Key>
+    </Container>
+    <Container name="hints">
+      <Key ID="STR_HT_EXTRACT_UNAVAILABLE">
+        <Original>&lt;t align='left' color='#F98A02' size='1'&gt;Helicopter extraction is not available for your faction.&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_INFRARED_UNDERLINE">
+        <Original>an &lt;t underline='1'&gt;infrared (IR)&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_SMOKE_UNDERLINE">
+        <Original>a &lt;t underline='1'&gt;colored smoke&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_USE_GRENADE">
+        <Original>&lt;t align='left'&gt;Use %1 grenade in your inventory to mark the LZ.&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_USE_GL">
+        <Original>&lt;t align='left'&gt;Use your weapon's &lt;t underline='1'&gt;grenade launcher&lt;/t&gt; to mark the LZ with smoke.&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_USE_GRENADE_OR_GL">
+        <Original>&lt;t align='left'&gt;Use either a &lt;t underline='1'&gt;smoke grenade&lt;/t&gt; or your weapon's &lt;t underline='1'&gt;grenade launcher&lt;/t&gt; to mark the LZ with smoke.&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_FREE_INV_SPACE">
+        <Original>Free up some inventory space in order to receive an item to mark the LZ.</Original>
+      </Key>
+      <Key ID="STR_HT_INFRARED_COLORED">
+        <Original>&lt;t color='#DB7093'&gt;infrared (IR)&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_SMOKE_COLORED">
+        <Original>&lt;t color='#FF7F50'&gt;orange smoke&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_GRENADE_ADDED">
+        <Original>&lt;t align='left'&gt;An %1 grenade has been added to your inventory. Use it to mark the LZ.&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_DUSTOFF_TIMER">
+        <Original>Time until dust off: &lt;t color='#CD5C5C'&gt;%1&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_BOARD_HELI">
+        <Original>Board the helocopter.</Original>
+      </Key>
+      <Key ID="STR_HT_UNITS_BOARDING">
+        <Original>All units must board the helicopter before extraction!</Original>
+      </Key>
+      <Key ID="STR_HT_MISSED_EXTRACT">
+        <Original>&lt;t color='#DC143C'&gt;You missed the extraction helicopter!&lt;/t&gt;</Original>
+      </Key>
+      <Key ID="STR_HT_MARK_DROPOFF">
+        <Original>Mark your drop off location by clicking on the map.</Original>
+      </Key>
+      <Key ID="STR_HT_DROPOFF_RANGE">
+        <Original>The drop off location needs to be at least 1 kilometre from your current position.</Original>
+      </Key>
+      <Key ID="STR_HT_DROPOFF_MARKED">
+        <Original>Drop off location has been marked.</Original>
+      </Key>
+      <Key ID="STR_HT_HELI_DESTROYED">
+        <Original>&lt;t color='#E32636'&gt;The extraction helicopter has been destroyed.&lt;/t&gt;</Original>
+      </Key>
+    </Container>
+    <Container name="radio">
+      <Key ID="STR_RC_REQUEST_EXTRACT">
+        <Original>VALOR-20 this is %1, requesting immediate extraction. Location is at grid %2, over.</Original>
+      </Key>
+      <Key ID="STR_RC_AFFIRM_EXTRACT">
+        <Original>%1 this is VALOR-20, affirmative on the extraction. Mark the LZ.</Original>
+      </Key>
+      <Key ID="STR_RC_COORDINATES_RECEIVED">
+        <Original>%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.</Original>
+      </Key>
+      <Key ID="STR_RC_MISSED_EXTRACT">
+        <Original>%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.</Original>
+      </Key>
+      <Key ID="STR_RC_BOARDING_WELCOME">
+        <Original>Welcome aboard! Mark your drop off location on the map.</Original>
+      </Key>
+      <Key ID="STR_RC_TOUCHDOWN">
+        <Original>Touchdown!</Original>
+      </Key>
+    </Container>
+    <Container name="feedback">
+      <Key ID="STR_FB_ONLY_THROWABLE_FOUND">
+        <Original>Only a throwable grenade in the inventory can be used.</Original>
+      </Key>
+      <Key ID="STR_FB_ONLY_LAUNCHABLE_FOUND">
+        <Original>Only a launchable grenade in the inventory can be used.</Original>
+      </Key>
+      <Key ID="STR_FB_THROWABLE_LAUNCHABLE_FOUND">
+        <Original>Both throwable and launchable grenades in the inventory can be used.</Original>
+      </Key>
+      <Key ID="STR_FB_NO_THROWABLE_LAUNCHABLE_FOUND">
+        <Original>No throwable or launchable grenades in the inventory can be used. Attempting to add a usable throwable...</Original>
+      </Key>
+      <Key ID="STR_FB_TAKEN_ITEM_PUSHED">
+        <Original>The taken item (%1) is pushed to marker mags.</Original>
+      </Key>
+      <Key ID="STR_FB_FIRED_WRONG_OBJECT">
+         <Original>Fired or thrown the wrong object (%1).</Original>
+      </Key>
+      <Key ID="STR_FB_FIND_POS_FAIL">
+         <Original>Failed to find an empty position. Using the default one...</Original>
+      </Key>
+      <Key ID="STR_FB_MONITOR_VEHICLE_STATUS">
+         <Original>Monitoring vehicle status for '%1'...</Original>
+      </Key>
+      <Key ID="STR_FB_EVENT_HELI_IMMOBALIZED">
+         <Original>Event handler - HELICOPTER IMMOBALIZED</Original>
+      </Key>
+      <Key ID="STR_FB_EVENT_HELI_DESTROYED">
+         <Original>Event handler - HELICOPTER DESTROYED</Original>
+      </Key>
+      <Key ID="STR_FB_PLAYER_LZ_DISTANCE">
+         <Original>Your are within 25 metres from the extraction zone. Aborting countdown...</Original>
+      </Key>
+      <Key ID="STR_FB_BOARDING_DETECTED">
+         <Original>Boarding has been detected. Aborting countdown...</Original>
+      </Key>
+    </Container>
+  </Package>
+</Project>

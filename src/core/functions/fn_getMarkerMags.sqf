@@ -87,41 +87,41 @@ switch (true) do
     case (_playerHasThrowable && !_found40mmGrenade):
     {
         #ifdef FEEDBACK_MODE
-            systemChat "Only a throwable grenade in the inventory can be used.";
+            systemChat localize "STR_FB_ONLY_THROWABLE_FOUND";
         #endif
 
-        _strHint = ["an <t underline='1'>infrared (IR)</t>",
-                    "a <t underline='1'>colored smoke</t>"] select _isMarkingWithSmoke;
+        _strHint = [localize "STR_HT_INFRARED_UNDERLINE",
+                    localize "STR_HT_SMOKE_UNDERLINE"] select _isMarkingWithSmoke;
 
-        hint parseText format ["<t align='left'>Use %1 grenade in your inventory to mark the LZ.</t>", _strHint];
+        hint parseText format [localize "STR_HT_USE_GRENADE", _strHint];
     };
 
     case (!_playerHasThrowable && _found40mmGrenade):
     {
         #ifdef FEEDBACK_MODE
-            systemChat "Only a launchable grenade in the inventory can be used.";
+            systemChat localize "STR_FB_ONLY_LAUNCHABLE_FOUND";
         #endif
 
         _magsToUse = [_markerMag, (_markerMag select 1)] select _isMarkingWithSmoke;
         
-        hint parseText "<t align='left'>Use your weapon's <t underline='1'>grenade launcher</t> to mark the LZ with smoke.</t>";
+        hint parseText localize "STR_HT_USE_GL";
     };
 
     case (_playerHasThrowable && _found40mmGrenade):
     {
         #ifdef FEEDBACK_MODE
-            systemChat "Both throwable and launchable grenades in the inventory can be used.";
+            systemChat localize "STR_FB_THROWABLE_LAUNCHABLE_FOUND";
         #endif
 
         _magsToUse = [_markerMag, (_markerMag select 0) + (_markerMag select 1)] select _isMarkingWithSmoke;
     
-        hint parseText "<t align='left'>Use either a <t underline='1'>smoke grenade</t> or your weapon's <t underline='1'>grenade launcher</t> to mark the LZ with smoke.</t>";
+        hint parseText localize "STR_HT_USE_GRENADE_OR_GL";
     };
 
     default
     {
         #ifdef FEEDBACK_MODE
-            systemChat "No throwable or launchable grenades in the inventory can be used. Attempting to add a usable throwable...";
+            systemChat localize "STR_FB_NO_THROWABLE_LAUNCHABLE_FOUND";
         #endif
 
         // Smoke or IR
@@ -140,7 +140,7 @@ switch (true) do
         if (player canAdd _grenadeToThrow) then {
             player addMagazine _grenadeToThrow;
         } else {
-            hint "Free up some inventory space in order to receive an item to mark the LZ.";
+            hint localize "STR_HT_FREE_INV_SPACE";
 
             waitUntil { (player canAdd _grenadeToThrow) };
             sleep 0.5;
@@ -148,10 +148,10 @@ switch (true) do
             player addMagazine _grenadeToThrow;
         };
 
-        _strHint = ["<t color='#DB7093'>infrared (IR)</t>",
-                    "<t color='#FF7F50'>orange smoke</t>"] select _isMarkingWithSmoke;
+        _strHint = [localize "STR_HT_INFRARED_COLORED",
+                    localize "STR_HT_SMOKE_COLORED"] select _isMarkingWithSmoke;
         
-        hint parseText format ["<t align='left'>An %1 grenade has been added to your inventory. Use it to mark the LZ.</t>", _strHint];
+        hint parseText format [localize "STR_HT_GRENADE_ADDED", _strHint];
     };
 };
 

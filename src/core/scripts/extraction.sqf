@@ -46,7 +46,7 @@ _denyFaction = _excludedFactions findIf { _x isEqualTo faction player };
 
 if (_denyFaction != -1 || playerSide == civilian) exitWith
 {
-    hint parseText "<t align='left' color='#F98A02' size='1'>Helicopter extraction is not available for your faction.</t>";
+    hint parseText localize "STR_HT_EXTRACT_UNAVAILABLE";
 };
 
 // This variable is defined in init.sqf
@@ -57,12 +57,12 @@ isMarkerDetected = false;
 sleep 0.3;
 
 player sideRadio "RadioBeepFrom";
-player sideChat format ["VALOR-20 this is %1, requesting immediate extraction. Location is at grid %2, over.", name player, mapGridPosition player];
+player sideChat format [localize "STR_RC_REQUEST_EXTRACT", name player, mapGridPosition player];
 
 sleep 10;
 
-[playerSide,"HQ"] sideRadio "RadioBeepTo";
-[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, affirmative on the extraction. Mark the LZ.", name player];
+[playerSide, "HQ"] sideRadio "RadioBeepTo";
+[playerSide, "HQ"] sideChat format [localize "STR_RC_AFFIRM_EXTRACT", name player];
 
 markerMags = call xv_fnc_getMarkerMags;
 isMarkerDetected = false;
@@ -79,7 +79,7 @@ player addEventHandler ["Take",
         markerMags pushBackUnique _item;
 
         #ifdef FEEDBACK_MODE
-            systemChat format ["The taken item (%1) is pushed to marker mags.", _item];
+            systemChat format [localize "STR_FB_TAKEN_ITEM_PUSHED", _item];
         #endif
     };
 }];
@@ -90,7 +90,7 @@ player addEventHandler ["Fired",
     if !((_this select 5) in markerMags) exitWith
     {
         #ifdef FEEDBACK_MODE
-            systemChat format ["Fired or thrown the wrong object (%1).", _this select 5];
+            systemChat format [localize "STR_FB_FIRED_WRONG_OBJECT", _this select 5];
         #endif
     };
     
@@ -246,7 +246,7 @@ fn_monitorVehicleStatus =
     params ["_veh"];
 
     #ifdef FEEDBACK_MODE
-        systemChat format ["Monitoring vehicle status for '%1'...", _veh];
+        systemChat format [localize "STR_FB_MONITOR_VEHICLE_STATUS", _veh];
     #endif
 
     // In case the helicopter is immobalized but not destroyed
@@ -258,10 +258,6 @@ fn_monitorVehicleStatus =
         {
             _obj removeEventHandler ["Dammaged", 0];
 
-            #ifdef FEEDBACK_MODE
-                systemChat "Event handler - HELICOPTER IMMOBALIZED";
-            #endif
-
             /* If we just mark the helicopter destroyed via <heliDestroyed = true>
              * but don't actually destroy it, the crew will exit the vehicle and
              * do nothing for eternity. The script will end, however.
@@ -272,6 +268,10 @@ fn_monitorVehicleStatus =
              */
             // heliDestroyed = true;
             _obj setDamage 1;
+
+            #ifdef FEEDBACK_MODE
+                systemChat localize "STR_FB_EVENT_HELI_IMMOBALIZED";
+            #endif
         };
     }];
 
@@ -279,6 +279,10 @@ fn_monitorVehicleStatus =
     _veh addEventHandler ["Killed",
     {
         heliDestroyed = true;
+
+        #ifdef FEEDBACK_MODE
+            systemChat localize "STR_FB_EVENT_HELI_DESTROYED";
+        #endif
     }];
 
     _veh addEventHandler ["GetIn",
@@ -363,8 +367,8 @@ if (typeOf heli find "RHS_UH60M" >= 0) then
 
 sleep 4;
 
-[playerSide,"HQ"] sideRadio "RadioBeepTo";
-[playerSide,"HQ"] sideChat format["%1 this is VALOR-20, coordinates received. ETA is 1 minute. Standby.", name player];
+[playerSide, "HQ"] sideRadio "RadioBeepTo";
+[playerSide, "HQ"] sideChat format[localize "STR_RC_COORDINATES_RECEIVED", name player];
 
 // Move to LZ
 [heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
@@ -399,28 +403,33 @@ if (canMove heli) then
     _timeTillRtb = 85; // 1m:25s
     while { !heliDestroyed && (_timeTillRtb > 0) } do
     {
-        hintSilent parseText format ["Time until dust off: <t color='#CD5C5C'>%1</t>", [_timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString];
+        hintSilent parseText format
+        [
+            localize "STR_HT_DUSTOFF_TIMER",
+            [_timeTillRtb / 60 + 0.01, "HH:MM"] call BIS_fnc_timeToString
+        ];
+        
         _timeTillRtb = _timeTillRtb - 1;
 
         if (((getPosATL vehicle player) select 2 <= 1) && 
             (player distance2D heli <= 25) && (isNull objectParent player)) exitWith
         {
             #ifdef FEEDBACK_MODE
-                systemChat "Your are within 25 metres from the extraction zone. Aborting countdown...";
+                systemChat localize "STR_FB_PLAYER_LZ_DISTANCE";
             #endif
 
-            hint "Board the helocopter.";
+            hint localize "STR_HT_BOARD_HELI";
         };
 
         // Abort timer if a squad mate enters the helicopter before the player
         if (boardingDetected && !(player in heli)) exitWith
         {
             #ifdef FEEDBACK_MODE
-                systemChat "Boarding has been detected. Aborting countdown..."; 
+                systemChat localize "STR_FB_BOARDING_DETECTED"; 
             #endif
 
             if (count units (group player) > 1) then {
-                hint "All units must board the helicopter before extraction!";
+                hint localize "STR_HT_UNITS_BOARDING";
             };
         };
 
@@ -430,12 +439,12 @@ if (canMove heli) then
         {
             heli lock true;
 
-            hint parseText "<t color='#DC143C'>You missed the extraction helicopter!</t>";
+            hint parseText localize "STR_HT_MISSED_EXTRACT";
 
             sleep 1.5;
 
-            [playerSide,"HQ"] sideRadio "RadioBeepTo";
-            [playerSide,"HQ"] sideChat format["%1 this is VALOR-20, we cannot hold the extraction any longer. We are RTB, out.", name player];
+            [playerSide, "HQ"] sideRadio "RadioBeepTo";
+            [playerSide, "HQ"] sideChat format [localize "STR_RC_MISSED_EXTRACT", name player];
 
             deleteMarkerLocal "extraction_marker";
             [heli, spawnPos] call xv_fnc_wpReturnToBase;
@@ -460,10 +469,10 @@ if (canMove heli) then
     sleep 0.5;
     
     deleteMarkerLocal "extraction_marker";
-    [playerSide,"HQ"] sideRadio "RadioBeepTo";
-    [playerSide,"HQ"] sideChat "Welcome aboard! Mark your drop off location on the map.";
+    [playerSide, "HQ"] sideRadio "RadioBeepTo";
+    [playerSide, "HQ"] sideChat localize "STR_RC_BOARDING_WELCOME";
 
-    hintSilent "Mark your drop off location by clicking on the map.";
+    hintSilent localize "STR_HT_MARK_DROPOFF";
 
     [getPos heli, 1000] call xv_fnc_markDropOffRange;
 
@@ -481,7 +490,7 @@ if (canMove heli) then
     player onMapSingleClick
     {
         if (heli distance _pos < 1000) then {
-            hint "The drop off location needs to be at least 1 kilometre from your current position.";
+            hint localize "STR_HT_DROPOFF_RANGE";
         } else {
             [_pos] call xv_fnc_markDropOffZone;
             isMapPosValid = true;
@@ -498,7 +507,7 @@ if (canMove heli) then
 
     player onMapSingleClick "nil";
 
-    hintSilent "Drop off location has been marked.";
+    hintSilent localize "STR_HT_DROPOFF_MARKED";
 
     hiddenHelipad setVehiclePosition [getMarkerPos "dropoff_marker", [], 0, "NONE"];
 
@@ -566,7 +575,7 @@ if (canMove heli) then
 };
 
 if (heliDestroyed) exitWith {
-    hint parsetext "<t color='#C10005'>The extraction helicopter has been destroyed.</t>";
+    hint parsetext localize "STR_HT_HELI_DESTROYED";
     
     // Ensure the map markers are deleted
     deleteMarkerLocal "extraction_marker";

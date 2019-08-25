@@ -25,7 +25,7 @@ private _landingPos = (getPos _object) findEmptyPosition [_minDist, _maxDist, _v
 if (_landingPos isEqualTo []) then
 {
     #ifdef FEEDBACK_MODE
-        systemChat "Failed to find an empty position. Using the default one...";
+        systemChat localize "STR_FB_FIND_POS_FAIL";
     #endif
     
     _landingPos = getPos _object;

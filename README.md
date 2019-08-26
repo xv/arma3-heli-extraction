@@ -6,7 +6,7 @@ Synopsis
 ========
 This is my neat little helicopter extraction script for Arma III. What makes this script different than any other extraction script ever released for the Arma series is that it applies a bit more realism and complexity. It's unique in a sense that:
 
-* It detects if you have a compatible magazines (throwable and 40mm launchable) and will let you use them to mark the LZ. If not, the script will give you a throwable smoke grenade or IR strobe depending on whether it's day or night time.
+* It detects if you have compatible magazines (throwable and 40mm launchable) and will let you use them to mark the LZ. If not, the script will give you a throwable smoke grenade or IR strobe depending on whether it's day or night time.
 
 * The helicopter is completely dependent on the player's faction and side.
 

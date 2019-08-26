@@ -8,9 +8,11 @@ This is my neat little helicopter extraction script for Arma III. What makes thi
 
 * It detects if you have a compatible magazines (throwable and 40mm launchable) and will let you use them to mark the LZ. If not, the script will give you a throwable smoke grenade or IR strobe depending on whether it's day or night time.
 
-* The extraction helicopter is completely dependent on the player's faction and side.
+* The helicopter is completely dependent on the player's faction and side.
 
 * The spawn position of the helicopter is random. It can arrive from any direction.
+
+* After the helicopter lands at the extraction zone, it will not wait forever to be boarded. Instead, there is a countdown timer that you have to board the helicopter before it zeros out. Othwerwise, the helicopter will RTB.
 
 * Helicopter and crew invincibility is optional (enabled by default; can be changed by modifying the script). Disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
 

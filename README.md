@@ -4,11 +4,21 @@
 
 Synopsis
 ========
-This is my neat little helicopter extraction script for Arma III. What makes this script different than any other extraction script ever released for the Arma series is that it applies a bit more realism and complexity. Extraction requests are called via smoke grenade after triggering the script from the radio menu. The spawned helicopter is also dependent on the player's side and faction. Once the helicopter lands at the marked grid position, you can board it and select a drop off location by clicking on the map. After exiting the helicopter at the designated drop off location, the helicopter will take off and return to the point where it was spawned by the script. Then it will be deleted along with its crew.
+This is my neat little helicopter extraction script for Arma III. What makes this script different than any other extraction script ever released for the Arma series is that it applies a bit more realism and complexity. It's unique in a sense that:
 
-The helicopter spawn position is random. It can arrive from any direction.
+* It detects if you have a compatible magazines (throwable and 40mm launchable) and will let you use them to mark the LZ. If not, the script will give you a throwable smoke grenade or IR strobe depending on whether it's day or night time.
 
-Helicopter + crew invincibility is also optional (enabled by default; can be changed by modifying the script). However, disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
+* The extraction helicopter is completely dependent on the player's faction and side.
+
+* The spawn position of the helicopter is random. It can arrive from any direction.
+
+* Helicopter and crew invincibility is optional (enabled by default; can be changed by modifying the script). Disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
+
+Here's a quick rundown of the script:
+
+<p align="center">
+  <img src="extra/images/flowchart.svg" alt="script flowchart">
+</p>
 
 Multiplayer Support
 -------------------
@@ -18,7 +28,7 @@ CUP & RHS Support
 -----------------
 Support for Community Upgrade Project and Red Hammer Studios mods is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
 
-RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also included. The script will let you use your RHS smoke grenades to mark the landing zone.
+RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also included. The script will let you use your RHS smoke grenades, including launcher grenades such as an M203 40mm, to mark the landing zone.
 
 ACE Compatibility
 -----------------

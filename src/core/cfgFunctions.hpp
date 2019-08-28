@@ -30,6 +30,9 @@ class Hunnu
         // [_zone] call markExtractionZone
         class markExtractionZone;
 
+        // [_spawnRefPos, _spawnRange, _spawnDir, _spawnHeight] call spawnHelicopter;
+        class spawnHelicopter;
+
         // [_vehicle, _wpPos] call wpMoveToDropOffZone
         class wpMoveToDropOffZone;
 

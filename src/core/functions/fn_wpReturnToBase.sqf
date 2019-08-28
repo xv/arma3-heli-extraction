@@ -27,5 +27,6 @@ _wpRtb setWaypointStatements
     "true",
     "{deletevehicle _x} foreach (crew vehicle this + [vehicle this]);
      trig_execScript setTriggerText 'Request Extraction';
-     deleteVehicle hiddenHelipad;"
+     deleteVehicle hiddenHelipad;
+     deleteMarkerLocal 'base_marker';"
 ];

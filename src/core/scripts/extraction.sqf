@@ -136,8 +136,6 @@ private "_helipadClass";
 
 hiddenHelipad = createVehicle [_helipadClass, throwablePos, [], 0, "NONE"];
 
-isMarkerDetected = false;
-
 extractPos = getPosASL hiddenHelipad;
 
 sleep 1;

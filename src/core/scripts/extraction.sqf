@@ -52,8 +52,6 @@ if (_denyFaction != -1 || playerSide == civilian) exitWith
 // This variable is defined in init.sqf
 trig_execScript setTriggerText "NULL";
 
-isMarkerDetected = false;
-
 sleep 0.3;
 
 player sideRadio "RadioBeepFrom";
@@ -65,7 +63,6 @@ sleep 10;
 [playerSide, "HQ"] sideChat format [localize "STR_RC_AFFIRM_EXTRACT", name player];
 
 markerMags = call xv_fnc_getMarkerMags;
-isMarkerDetected = false;
 
 player addEventHandler ["Take",
 {
@@ -116,7 +113,6 @@ player addEventHandler ["Fired",
         [getPos _projectile] call xv_fnc_markExtractionZone;
 
         throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call xv_fnc_findLandingPos;
-        isMarkerDetected = true;
 
         markerMags = nil;
         player removeEventHandler ["Fired", 0];
@@ -124,7 +120,11 @@ player addEventHandler ["Fired",
     };
 }];
 
-waitUntil { isMarkerDetected };
+waitUntil
+{ 
+    sleep 1;
+    !(markerType "extraction_marker" isEqualTo "")
+};
 
 private "_helipadClass";
 
@@ -493,7 +493,8 @@ if (canMove heli) then
     [heli, markerPos "base_marker"] call xv_fnc_wpReturnToBase;
 };
 
-if (heliDestroyed) exitWith {
+if (heliDestroyed) exitWith
+{
     hint parsetext localize "STR_HT_HELI_DESTROYED";
     
     // Ensure the map markers are deleted

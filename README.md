@@ -1,5 +1,5 @@
 <p align="left">
-  <img height="350" src="extra/images/logo.svg" alt="logo">
+  <img height="300" src="extra/images/logo.svg" alt="logo">
 </p>
 
 Synopsis

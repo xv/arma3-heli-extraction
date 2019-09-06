@@ -18,4 +18,4 @@ _extractionMarker = createMarkerLocal ["extraction_marker", _zone];
 _extractionMarker setMarkerShapeLocal "ICON";
 _extractionMarker setMarkerTypeLocal "MIL_PICKUP";
 _extractionMarker setMarkerColorLocal "ColorBlack";
-_extractionMarker setMarkerTextLocal "Extraction Zone";
+_extractionMarker setMarkerTextLocal localize "STR_FB_MARKER_EXTRACTIONZONE";

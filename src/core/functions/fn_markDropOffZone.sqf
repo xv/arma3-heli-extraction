@@ -18,4 +18,4 @@ _dropOffMarker = createMarkerLocal ["dropoff_marker", _zone];
 _dropOffMarker setMarkerShapeLocal "ICON";
 _dropOffMarker setMarkerTypeLocal "MIL_END";
 _dropOffMarker setMarkerColorLocal "ColorBlack";
-_dropOffMarker setMarkerTextLocal "Drop Off";
+_dropOffMarker setMarkerTextLocal localize "STR_FB_MARKER_DROPOFF";

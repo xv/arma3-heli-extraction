@@ -108,6 +108,6 @@ _baseMarker setMarkerShapeLocal "ICON";
     _baseMarker setMarkerTypeLocal "Empty";
 #endif
 
-_baseMarker setMarkerTextLocal "Helicopter Base";
+_baseMarker setMarkerTextLocal localize "STR_FB_MARKER_HELICOPTERBASE";
 
 _spawnVehicle

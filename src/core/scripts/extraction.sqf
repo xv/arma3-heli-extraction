@@ -256,14 +256,14 @@ heli setCombatMode "GREEN";
 heli enableCopilot false;
 heli lockDriver true;
 
-/* Comment out the line of code below to disable invincibility.
- *
- * Note: if the helicopter gets damaged to a point where it becomes inoperable
+/* If the helicopter gets damaged to a point where it becomes inoperable
  * or even destroyed, the script will detect that and will let you know that it
  * has been destroyed. In that case, you will no longer be able to request
  * another ride.
  */
-{ _x allowDamage false; } foreach [heli] + crew heli;
+#ifdef EXTRACT_HELI_INVINCIBLE
+    { _x allowDamage false; } foreach [heli] + crew heli;
+#endif
 
 /* Uncomment the line of code below to make enemy AI ignore the helicopter.
  * 

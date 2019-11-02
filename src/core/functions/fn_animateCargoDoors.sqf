@@ -3,7 +3,7 @@
  *     Jad Altahan (https://github.com/xv)
  *
  * Description:
- *     Attempts to find a suitable position for the helicopter to land on.
+ *     Attempts to open the cargo doors of the specified vehicle.
  *
  * Parameter(s):
  *     0: Reference to the vehicle to animate its cargo doors.

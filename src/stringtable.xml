@@ -28,6 +28,10 @@
 				<Original>&lt;t align='left' color='#F98A02' size='1'&gt;Helicopter extraction is not available for your faction.&lt;/t&gt;</Original>
 				<German>&lt;t align='left' color='#F98A02' size='1'&gt;Die Helikopter-Extraktion ist für Ihre Fraktion nicht verfügbar.&lt;/t&gt;</German>
 			</Key>
+			<Key ID="STR_HT_PLAYER_BAD_VEHICLE">
+				<Original>&lt;t align='left' color='#F98A02'&gt;You cannot request extraction while in an air vehicle. Disembark then try again.&lt;/t&gt;</Original>
+				<!-- TODO: GERMAN LOCALIZATION -->
+			</Key>
 			<Key ID="STR_HT_INFRARED_UNDERLINE">
 				<Original>an &lt;t underline='1'&gt;infrared (IR)&lt;/t&gt;</Original>
 				<German>ein &lt;t underline='1'&gt;Infrarot (IR)&lt;/t&gt;</German>

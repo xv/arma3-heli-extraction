@@ -49,6 +49,12 @@ if (_denyFaction != -1 || playerSide == civilian) exitWith
     hint parseText localize "STR_HT_EXTRACT_UNAVAILABLE";
 };
 
+if (!(isNull objectParent player) && 
+     (objectParent player isKindOf "air")) exitWith
+{
+    hint parseText localize "STR_HT_PLAYER_BAD_VEHICLE";
+};
+
 // This variable is defined in init.sqf
 trig_execScript setTriggerText "NULL";
 

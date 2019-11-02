@@ -58,7 +58,7 @@
 			</Key>
 			<Key ID="STR_HT_SMOKE_COLORED">
 				<Original>&lt;t color='#FF7F50'&gt;orange smoke&lt;/t&gt;</Original>
-				<German>&lt;t color='#FF7F50'&gt;oranger Rauch&lt;/t&gt;&gt;</German>
+				<German>&lt;t color='#FF7F50'&gt;oranger Rauch&lt;/t&gt;</German>
 			</Key>
 			<Key ID="STR_HT_GRENADE_ADDED">
 				<Original>&lt;t align='left'&gt;An %1 grenade has been added to your inventory. Use it to mark the LZ.&lt;/t&gt;</Original>

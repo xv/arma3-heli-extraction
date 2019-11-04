@@ -113,7 +113,11 @@ player addEventHandler ["Fired",
         _projectile = _this select 6;
 
         // Proceed only when the grenade has come to a stop
-        waitUntil { (vectorMagnitude velocity _projectile < 0.02) };
+        waitUntil
+        {
+            sleep 0.6;
+            (vectorMagnitude velocity _projectile < 0.02)
+        };
 
         // Create a marker icon on the map to identify the extraction point
         [getPos _projectile] call xv_fnc_markExtractionZone;

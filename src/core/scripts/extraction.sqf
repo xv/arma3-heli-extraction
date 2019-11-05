@@ -401,7 +401,7 @@ if (canMove heli) then
 
     hintSilent localize "STR_HT_MARK_DROPOFF";
 
-    [getPos heli, 1000] call xv_fnc_markDropOffRange;
+    [getPos heli, DROPOFF_RANGE_MIN_RADIUS] call xv_fnc_markDropOffRange;
 
     sleep 1.7;
     
@@ -416,7 +416,7 @@ if (canMove heli) then
 
     player onMapSingleClick
     {
-        if (heli distance _pos < 1000) then {
+        if (heli distance _pos < DROPOFF_RANGE_MIN_RADIUS) then {
             hint localize "STR_HT_DROPOFF_RANGE";
         } else {
             [_pos] call xv_fnc_markDropOffZone;

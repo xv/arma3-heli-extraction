@@ -426,7 +426,7 @@ if (canMove heli) then
 
             /* If the player's drop off position, by some chance, happens to be
              * within 500 meters from the helicopter spawn position, move away
-             * the its spwan position a little so that the palyer doesn't see
+             * the its spawn position a little so that the player doesn't see
              * the helicopter getting magically deleted (script end).
              */
             if ((markerPos "dropoff_marker" distance markerPos "base_marker") <= 500) then

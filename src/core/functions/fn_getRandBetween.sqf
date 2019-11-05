@@ -8,11 +8,11 @@
  * Parameter(s):
  *     0: INTEGER - the first value.
  *     1: INTEGER - the second value.
- *     3: BOOLEAN - if true, the generated integer can be either positive or
+ *     2: BOOLEAN - if true, the generated integer can be either positive or
  *                  negative, otherwise, only positive.
  *
  * Returns:
- *     INTEGER - the generetaed random integer.
+ *     INTEGER - the generated random integer.
  */
 
 params ["_min", "_max", "_signed"];

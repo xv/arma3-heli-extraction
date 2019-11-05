@@ -21,6 +21,9 @@ class Hunnu
         // call getMarkerMags
         class getMarkerMags;
 
+        // call [min, max, _signed] call getRandBetween
+        class getRandBetween;
+
         // [_startingPos, _range] call markDropOffRange
         class markDropOffRange;
 

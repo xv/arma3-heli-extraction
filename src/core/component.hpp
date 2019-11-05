@@ -2,6 +2,9 @@
 // helpful feedback messages or visual cues while the script is running
 // #define FEEDBACK_MODE
 
+// This directive defines, in meters, how far the helicopter spawns from the player
+#define EXTRACT_HELI_SPAWN_DISTANCE 2500
+
 // Comment out this directive if you want to disable helicopter invincibility
 #define EXTRACT_HELI_INVINCIBLE
 

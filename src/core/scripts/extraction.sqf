@@ -240,7 +240,7 @@ fn_monitorVehicleStatus =
 };
 
 // Spawn the helicopter
-_spawnHeli = [extractPos, 2500, random 360, 80] call xv_fnc_spawnHelicopter;
+_spawnHeli = [extractPos, EXTRACT_HELI_SPAWN_DISTANCE, random 360, 80] call xv_fnc_spawnHelicopter;
 
 sleep 0.1;
 

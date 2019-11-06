@@ -8,6 +8,10 @@
 // Comment out this directive if you want to disable helicopter invincibility
 #define EXTRACT_HELI_INVINCIBLE
 
+// Defines the time, in seconds, the extraction helicopter will wait for the
+// player to board before it returns to base
+#define EXTRACT_HELI_DUSTOFF_TIMER 85
+
 // This directive sets the inaccessible inner radius when marking the drop off
 // position on the map
 #define DROPOFF_RANGE_MIN_RADIUS 1000

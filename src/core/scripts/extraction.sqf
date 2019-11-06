@@ -327,7 +327,7 @@ if (canMove heli) then
         [heli, false, 1] call xv_fnc_animateCargoDoors;
     };
 
-    _timeTillRtb = 85; // 1m:25s
+    _timeTillRtb = EXTRACT_HELI_DUSTOFF_TIMER;
     while { !heliDestroyed && (_timeTillRtb > 0) } do
     {
         hintSilent parseText format

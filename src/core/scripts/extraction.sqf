@@ -459,7 +459,7 @@ if (canMove _heli) then
 
     hiddenHelipad setVehiclePosition [getMarkerPos "dropoff_marker", [], 0, "NONE"];
 
-    dropOffPos = getPosASL hiddenHelipad;
+    _dropOffPos = getPosASL hiddenHelipad;
 
     sleep 1;
 
@@ -469,7 +469,7 @@ if (canMove _heli) then
     sleep 3;
 
     // Move to the drop off (insertion) zone
-    [_heli, dropOffPos] call xv_fnc_wpMoveToDropOffZone;
+    [_heli, _dropOffPos] call xv_fnc_wpMoveToDropOffZone;
 };
 
 sleep 1;

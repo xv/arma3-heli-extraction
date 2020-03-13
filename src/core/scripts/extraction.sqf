@@ -447,6 +447,8 @@ if (canMove _heli) then
 
     waitUntil { heliDestroyed || isMapPosValid };
 
+    isMapPosValid = nil;
+
     if (heliDestroyed) exitWith { };
 
     sleep 0.05;

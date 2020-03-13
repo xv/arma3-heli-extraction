@@ -244,12 +244,12 @@ _spawnHeli = [extractPos, EXTRACT_HELI_SPAWN_DISTANCE, random 360, 80] call xv_f
 
 sleep 0.1;
 
-heli = _spawnHeli select 0;
-heli call fn_monitorVehicleStatus;
+_heli = _spawnHeli select 0;
+_heli call fn_monitorVehicleStatus;
 
-_heliVelocity = velocity heli;
-_heliDir = direction heli;
-heli setVelocity
+_heliVelocity = velocity _heli;
+_heliDir = direction _heli;
+_heli setVelocity
 [
     (_heliVelocity select 0) + (sin _heliDir * 30), 
     (_heliVelocity select 1) + (cos _heliDir * 30), 
@@ -259,12 +259,12 @@ heli setVelocity
 // heliPilot = (_spawnHeli select 1) select 0;
 // heliCopilot = (_spawnHeli select 1) select 1;
 
-heli setBehaviour "CARELESS";
-heli setSpeedMode "NORMAL";
-heli setCombatMode "GREEN";
+_heli setBehaviour "CARELESS";
+_heli setSpeedMode "NORMAL";
+_heli setCombatMode "GREEN";
 
-heli enableCopilot false;
-heli lockDriver true;
+_heli enableCopilot false;
+_heli lockDriver true;
 
 /* If the helicopter gets damaged to a point where it becomes inoperable
  * or even destroyed, the script will detect that and will let you know that it
@@ -272,7 +272,7 @@ heli lockDriver true;
  * another ride.
  */
 #ifdef EXTRACT_HELI_INVINCIBLE
-    { _x allowDamage false; } foreach [heli] + crew heli;
+    { _x allowDamage false; } foreach [_heli] + crew _heli;
 #endif
 
 /* Uncomment the line of code below to make enemy AI ignore the helicopter.
@@ -280,16 +280,16 @@ heli lockDriver true;
  * if setCaptive is set to true, enemy AI will not fire at the helicopter as if
  * it is one of their own. However, they may still fire at the player if spotted.
  */
-// heli setCaptive true;
+// _heli setCaptive true;
 
 /* For a touch of realism, open the Black Hawk doors.
  *
  * TODO: RHS automatically closes the cargo doors after getting in. Find way
  * (if there's any?) to keep the cargo doors open.
  */
-if (typeOf heli find "RHS_UH60M" >= 0) then
+if (typeOf _heli find "RHS_UH60M" >= 0) then
 {
-    [heli, true, 1] call xv_fnc_animateCargoDoors;
+    [_heli, true, 1] call xv_fnc_animateCargoDoors;
 };
 
 sleep 4;
@@ -298,33 +298,33 @@ sleep 4;
 [playerSide, "HQ"] sideChat format[localize "STR_RC_COORDINATES_RECEIVED", name player];
 
 // Move to LZ
-[heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
+[_heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
 sleep 1;
 
-while { ((canMove heli) && !(unitReady heli)) } do
+while { ((canMove _heli) && !(unitReady _heli)) } do
 {
     sleep 1;
 };
 
-if (canMove heli) then
+if (canMove _heli) then
 {
     // Precisely check if the helicopter landed and came to a complete stop    
     waitUntil
     {
-        heliDestroyed || ((velocity  heli select 2) > -0.2 &&
-                          (getPosATL heli select 2) <  0.5)
+        heliDestroyed || ((velocity  _heli select 2) > -0.2 &&
+                          (getPosATL _heli select 2) <  0.5)
     };
 
     if (heliDestroyed) exitWith { };
 
-    "extraction_marker" setMarkerPosLocal heli;
+    "extraction_marker" setMarkerPosLocal _heli;
     
     sleep 0.7;
     
-    if (typeOf heli == "B_Heli_Transport_01_F" ||
-        typeOf heli == "B_CTRG_Heli_Transport_01_sand_F") then
+    if (typeOf _heli == "B_Heli_Transport_01_F" ||
+        typeOf _heli == "B_CTRG_Heli_Transport_01_sand_F") then
     {
-        [heli, false, 1] call xv_fnc_animateCargoDoors;
+        [_heli, false, 1] call xv_fnc_animateCargoDoors;
     };
 
     _timeTillRtb = EXTRACT_HELI_DUSTOFF_TIMER;
@@ -339,7 +339,7 @@ if (canMove heli) then
         _timeTillRtb = _timeTillRtb - 1;
 
         if (((getPosATL vehicle player) select 2 <= 1) && 
-            (player distance2D heli <= 25) && (isNull objectParent player)) exitWith
+            (player distance2D _heli <= 25) && (isNull objectParent player)) exitWith
         {
             #ifdef FEEDBACK_MODE
                 systemChat localize "STR_FB_PLAYER_LZ_DISTANCE";
@@ -349,7 +349,7 @@ if (canMove heli) then
         };
 
         // Abort timer if a squad mate enters the helicopter before the player
-        if (boardingDetected && !(player in heli)) exitWith
+        if (boardingDetected && !(player in _heli)) exitWith
         {
             #ifdef FEEDBACK_MODE
                 systemChat localize "STR_FB_BOARDING_DETECTED"; 
@@ -364,7 +364,7 @@ if (canMove heli) then
 
         if (_timeTillRtb < 1) exitWith
         {
-            heli lock true;
+            _heli lock true;
 
             hint parseText localize "STR_HT_MISSED_EXTRACT";
 
@@ -374,24 +374,24 @@ if (canMove heli) then
             [playerSide, "HQ"] sideChat format [localize "STR_RC_MISSED_EXTRACT", name player];
 
             deleteMarkerLocal "extraction_marker";
-            [heli, markerPos "base_marker"] call xv_fnc_wpReturnToBase;
+            [_heli, markerPos "base_marker"] call xv_fnc_wpReturnToBase;
         };
     };
 
     // If the extraction is missed, exit the current scope immediately
-    if (waypointName [group heli, 2] isEqualTo "wpRtb") exitWith { };
+    if (waypointName [group _heli, 2] isEqualTo "wpRtb") exitWith { };
     
     // Make sure that the player and all associated units have boarded the helicopter
     waitUntil
     {
         heliDestroyed ||
-        { _x in heli } count (units group player) == count (units group player);
+        { _x in _heli } count (units group player) == count (units group player);
     };
 
     if (heliDestroyed) exitWith { };
 
     // Lock the doors to prevent the player from ejecting and going off the script scenario
-    heli lock true;
+    _heli lock true;
     
     sleep 0.5;
     
@@ -401,7 +401,7 @@ if (canMove heli) then
 
     hintSilent localize "STR_HT_MARK_DROPOFF";
 
-    [getPos heli, DROPOFF_RANGE_MIN_RADIUS] call xv_fnc_markDropOffRange;
+    [getPos _heli, DROPOFF_RANGE_MIN_RADIUS] call xv_fnc_markDropOffRange;
 
     sleep 1.7;
     
@@ -414,13 +414,16 @@ if (canMove heli) then
 
     sleep 0.3;
 
+    heliPos = position _heli;
+
     player onMapSingleClick
     {
-        if (heli distance _pos < DROPOFF_RANGE_MIN_RADIUS) then {
+        if (heliPos distance _pos < DROPOFF_RANGE_MIN_RADIUS) then {
             hint localize "STR_HT_DROPOFF_RANGE";
         } else {
             [_pos] call xv_fnc_markDropOffZone;
             isMapPosValid = true;
+            heliPos = nil;
 
             deleteMarkerLocal "range_marker";
 
@@ -464,24 +467,24 @@ if (canMove heli) then
     sleep 3;
 
     // Move to the drop off (insertion) zone
-    [heli, dropOffPos] call xv_fnc_wpMoveToDropOffZone;
+    [_heli, dropOffPos] call xv_fnc_wpMoveToDropOffZone;
 };
 
 sleep 1;
 
 // Check if the helicopter has reached the drop off location
-while { ((canMove heli) && !(unitReady heli)) } do
+while { ((canMove _heli) && !(unitReady _heli)) } do
 {
     sleep 1;
 };
 
 // Order the helicopter to land
-if (canMove heli) then
+if (canMove _heli) then
 {
     waitUntil
     {
-        heliDestroyed || ((velocity  heli select 2) > -0.2 && 
-                          (getPosATL heli select 2) <  0.5)
+        heliDestroyed || ((velocity  _heli select 2) > -0.2 && 
+                          (getPosATL _heli select 2) <  0.5)
     };
 
     if (heliDestroyed) exitWith { };
@@ -490,22 +493,22 @@ if (canMove heli) then
     [playerSide,"HQ"] sideChat "Touchdown!";
     
     // Unlock the helicopter doors
-    heli lock false;
+    _heli lock false;
     
     // Make sure that the player and all associated units have left the helicopter
     waitUntil
     {
         heliDestroyed ||
-        ({ _x in heli } count (units group player) == 0 && (player distance2D heli >= 5))
+        ({ _x in _heli } count (units group player) == 0 && (player distance2D _heli >= 5))
     };
     
     if (heliDestroyed) exitWith { };
 
     // TODO: maybe continue allowing destruction? That'll require constant checking
-    { _x allowDamage false } foreach [heli] + crew heli;
+    { _x allowDamage false } foreach [_heli] + crew _heli;
 
     // Lock the doors
-    heli lock true;
+    _heli lock true;
     
     sleep 0.5;
 
@@ -514,7 +517,7 @@ if (canMove heli) then
     sleep 3;
 
     // Make the helicopter return to where it came form and delete it
-    [heli, markerPos "base_marker"] call xv_fnc_wpReturnToBase;
+    [_heli, markerPos "base_marker"] call xv_fnc_wpReturnToBase;
 };
 
 if (heliDestroyed) exitWith

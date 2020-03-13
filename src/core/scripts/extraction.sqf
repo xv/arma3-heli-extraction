@@ -213,6 +213,16 @@ fn_monitorVehicleStatus =
 
     _veh addEventHandler ["GetIn",
     {
+        _unit = _this select 2;
+
+        /* This fixes an issue in situations when you have a playable character
+         * besides the main player. If you, as a commander, order a playable
+         * squad mate to enter the helicopter then switch to that playable
+         * character, your main player (commander) whill order the playable
+         * character to dismount the vehicle. That can be a nuisance.
+         */
+        [_unit] orderGetIn true;
+
         boardingDetected = true;
     }];
 

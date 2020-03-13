@@ -525,6 +525,8 @@ if (canMove _heli) then
 if (heliDestroyed) exitWith
 {
     hint parsetext localize "STR_HT_HELI_DESTROYED";
+
+    deleteVehicle hiddenHelipad;
     
     // Ensure the map markers are deleted
     deleteMarkerLocal "extraction_marker";

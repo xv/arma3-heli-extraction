@@ -122,8 +122,6 @@ player addEventHandler ["Fired",
         // Create a marker icon on the map to identify the extraction point
         [getPos _projectile] call xv_fnc_markExtractionZone;
 
-        throwablePos = [_projectile, 15, 100, "I_Heli_Transport_02_F"] call xv_fnc_findLandingPos;
-
         markerMags = nil;
         player removeEventHandler ["Fired", 0];
         player removeEventHandler ["Take", 0];
@@ -144,7 +142,12 @@ private "_helipadClass";
     _helipadClass = "Land_HelipadCircle_F";
 #endif
 
-hiddenHelipad = createVehicle [_helipadClass, throwablePos, [], 0, "NONE"];
+// This is the position where the LZ-marking shell landed
+_throwablePos = [
+    getMarkerPos "extraction_marker", 15, 100,"I_Heli_Transport_02_F"
+] call xv_fnc_findLandingPos;
+
+hiddenHelipad = createVehicle [_helipadClass, _throwablePos, [], 0, "NONE"];
 
 extractPos = getPosASL hiddenHelipad;
 

@@ -38,7 +38,7 @@ The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unkno
 
 Porting to Arma II/OA
 ---------------------
-Well, actually, this script was written for Arma II, but it had been moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with Arma II since it makes use of commands that were introduced in Arma III. However, if you can get around the new commands, it can be ported easily.
+The script was originally written for Arma II, but moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with previous titles since it makes use of commands that were introduced in Arma III. However, if you can get around the new commands, it can be ported easily.
 
 Here is a list of commands used in the script that were introduced in Arma III:
 

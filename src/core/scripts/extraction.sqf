@@ -225,28 +225,6 @@ fn_monitorVehicleStatus =
 
         boardingDetected = true;
     }];
-
-    // Deploy countermeasures in case the helicopter gets fired at with AA missiles
-    // Note: The AI in Arma 3 seems to be smart enough to do it themselves
-    _veh addEventHandler ["IncomingMissile",
-    {
-        fn_dropFlares =
-        {
-            flares = 0;
-            while { alive _veh && flares < 6 } do
-            {
-                if ((_veh ammo "CMFlareLauncher") == 0) then
-                {
-                    _veh addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine", [-1], 20];
-                    reload _veh;
-                };
-                
-                _veh action ["useWeapon", _veh, driver _veh, 0];
-                flares = flares + 1;
-            };
-        };
-        call fn_dropFlares;
-    }];
 };
 
 // Spawn the helicopter

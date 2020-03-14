@@ -20,7 +20,8 @@
 
 params ["_object", "_minDist", "_maxDist", "_vehicle"];
 
-private _landingPos = (getPos _object) findEmptyPosition [_minDist, _maxDist, _vehicle];
+private _defVeh = "I_Heli_Transport_02_F";
+private _landingPos = (_object) findEmptyPosition [_minDist, _maxDist, _defVeh];
 
 if (_landingPos isEqualTo []) then
 {

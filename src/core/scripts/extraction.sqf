@@ -144,7 +144,7 @@ private "_helipadClass";
 
 // This is the position where the LZ-marking shell landed
 _throwablePos = [
-    getMarkerPos "extraction_marker", 15, 100,"I_Heli_Transport_02_F"
+    getMarkerPos "extraction_marker", 15, 100
 ] call xv_fnc_findLandingPos;
 
 hiddenHelipad = createVehicle [_helipadClass, _throwablePos, [], 0, "NONE"];

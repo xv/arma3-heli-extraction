@@ -149,7 +149,7 @@ _throwablePos = [
 
 hiddenHelipad = createVehicle [_helipadClass, _throwablePos, [], 0, "NONE"];
 
-extractPos = getPosASL hiddenHelipad;
+_extractPos = getPosASL hiddenHelipad;
 
 sleep 1;
 
@@ -231,7 +231,7 @@ fn_monitorVehicleStatus =
 };
 
 // Spawn the helicopter
-_spawnHeli = [extractPos, EXTRACT_HELI_SPAWN_DISTANCE, random 360, 80] call xv_fnc_spawnHelicopter;
+_spawnHeli = [_extractPos, EXTRACT_HELI_SPAWN_DISTANCE, random 360, 80] call xv_fnc_spawnHelicopter;
 
 sleep 0.1;
 
@@ -289,7 +289,7 @@ sleep 4;
 [playerSide, "HQ"] sideChat format[localize "STR_RC_COORDINATES_RECEIVED", name player];
 
 // Move to LZ
-[_heli, extractPos] call xv_fnc_wpMoveToExtractionZone;
+[_heli, _extractPos] call xv_fnc_wpMoveToExtractionZone;
 sleep 1;
 
 while { ((canMove _heli) && !(unitReady _heli)) } do

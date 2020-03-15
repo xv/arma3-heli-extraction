@@ -392,7 +392,7 @@ if (canMove _heli) then
 
     [playerSide, "HQ"] sideRadio "RadioBeepTo";
 
-    if (("ItemMap" in (assignedItems player))) then
+    if ("ItemMap" in (assignedItems player)) then
     {
         [playerSide, "HQ"] sideChat localize "STR_RC_BOARDING_WELCOME";
         hintSilent localize "STR_HT_MARK_DROPOFF";

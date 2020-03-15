@@ -387,17 +387,30 @@ if (canMove _heli) then
     sleep 0.5;
     
     deleteMarkerLocal "extraction_marker";
-    [playerSide, "HQ"] sideRadio "RadioBeepTo";
-    [playerSide, "HQ"] sideChat localize "STR_RC_BOARDING_WELCOME";
-
-    hintSilent localize "STR_HT_MARK_DROPOFF";
 
     [getPos _heli, DROPOFF_RANGE_MIN_RADIUS] call xv_fnc_markDropOffRange;
 
-    sleep 1.7;
-    
-    // Open the map to mark a drop off location
-    openMap true;
+    [playerSide, "HQ"] sideRadio "RadioBeepTo";
+
+    if (("ItemMap" in (assignedItems player))) then
+    {
+        [playerSide, "HQ"] sideChat localize "STR_RC_BOARDING_WELCOME";
+        hintSilent localize "STR_HT_MARK_DROPOFF";
+
+        sleep 1.7;
+        
+        // Open the map to mark a drop off location
+        openMap true;
+    }
+    else
+    {
+        _heli addItemCargo ["ItemMap", 1];
+
+        sleep 0.3;
+
+        [playerSide, "HQ"] sideChat localize "STR_RC_BOARDING_WELCOME_MAP_CARGO";
+        hintSilent localize "STR_HT_MARK_DROPOFF_MAP_CARGO";
+    };
 
     sleep 0.1;
 

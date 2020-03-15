@@ -44,7 +44,9 @@ Here is a list of commands used in the script that were introduced in Arma III:
 
 | Command                 | Community Wiki Page                                                                      |
 |:-----------------------:|------------------------------------------------------------------------------------------|
+| `addItemCargo`          | [/wiki/addItemCargo](https://community.bistudio.com/wiki/addItemCargo)                   |
 | `append`                | [/wiki/append](https://community.bistudio.com/wiki/append)                               |
+| `assignedItems`         | [/wiki/assignedItems](https://community.bistudio.com/wiki/assignedItems)                 |
 | `canAdd`                | [/wiki/canAdd](https://community.bistudio.com/wiki/canAdd)                               |
 | `distance2D`            | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D)                       |
 | `findIf`                | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)                               |

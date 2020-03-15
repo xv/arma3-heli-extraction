@@ -88,6 +88,10 @@
         <Original>Mark your drop off location by clicking on the map.</Original>
         <German>Markieren Sie Ihren Absprungort, indem Sie auf die Karte klicken.</German>
       </Key>
+      <Key ID="STR_HT_MARK_DROPOFF_MAP_CARGO">
+        <Original>Take the map in the helicopter's inventory and mark your drop off location by clicking on it.</Original>
+        <!-- TODO: GERMAN LOCALIZATION -->
+      </Key>
       <Key ID="STR_HT_DROPOFF_RANGE">
         <Original>The drop off location needs to be at least 1 kilometer from your current position.</Original>
         <German>Die Absetzposition muss mindestens 1 Kilometer von Ihrer aktuellen Position entfernt sein.</German>
@@ -121,6 +125,10 @@
       <Key ID="STR_RC_BOARDING_WELCOME">
         <Original>Welcome aboard! Mark your drop off location on the map.</Original>
         <German>Willkommen an Bord! Markieren Sie Ihren Absetzpunkt auf der Karte.</German>
+      </Key>
+      <Key ID="STR_RC_BOARDING_WELCOME_MAP_CARGO">
+        <Original>Welcome aboard! Pick up a map from the cargo storage and mark your drop off location.</Original>
+        <!-- TODO: GERMAN LOCALIZATION -->
       </Key>
       <Key ID="STR_RC_TOUCHDOWN">
         <Original>Touchdown!</Original>

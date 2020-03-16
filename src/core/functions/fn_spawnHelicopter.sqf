@@ -36,15 +36,16 @@ _heliClass = switch (side player) do
     {
         switch (faction player) do
         {
-            case "BLU_F":                        { "B_Heli_Transport_01_F"           }; // NATO (Default)
+            case "BLU_F":                        { "B_Heli_Transport_01_F"           }; // NATO
             case "BLU_T_F":                      { "B_Heli_Transport_01_F"           }; // NATO (Pacific)
             case "BLU_CTRG_F":                   { "B_CTRG_Heli_Transport_01_sand_F" }; // NATO (CTRG)
-            case "BLU_G_F":                      { "B_Heli_Light_01_F"               }; // FIA
             case "ACR_A3":                       { "ACR_A3_Mi17_base_CZ_EP1"         }; // ACR
             case "ACR_A3_Des":                   { "ACR_A3_Mi17_base_CZ_EP1_Des"     }; // ACR (Desert)
             case "rhs_faction_usarmy_d":         { "RHS_UH60M_d"                     }; // RHS USA (Army - D)
             case "rhs_faction_usarmy_wd":        { "RHS_UH60M"                       }; // RHS USA (Army - W)
+            case "rhs_faction_usn":              { "RHS_UH1Y"                        }; // RHS USA Navy
             case "rhs_faction_socom":            { "RHS_MELB_MH6M"                   }; // RHS USA (SOCOM)
+            case "rhs_faction_usaf":             { "RHS_UH60M"                       }; // RHS USA (USAF)
             case "rhs_faction_usmc_d":           { "RHS_UH1Y_d"                      }; // RHS USA (USMC - D)
             case "rhs_faction_usmc_wd":          { "RHS_UH1Y"                        }; // RHS USA (USMC - W)
             case "rhsgref_faction_hidf":         { "rhs_uh1h_hidf_gunship"           }; // RHS Horizon Islands Defence Force
@@ -65,9 +66,12 @@ _heliClass = switch (side player) do
     {
         switch (faction player) do
         {
-            case "OPF_F":                         { "O_Heli_Light_02_F"              }; // CSAT (Default)
-            case "rhsgref_faction_chdkz":         { "rhsgref_ins_Mi8amt"             }; // ChDKZ Insurgents
+            case "OPF_F":                         { "O_Heli_Light_02_F"              }; // CSAT
+            case "OPF_T_F":                       { "O_Heli_Light_02_unarmed_F"      }; // CSAT (Pacific)
+            case "rhsgref_faction_chdkz":         { "rhsgref_ins_Mi8amt"             }; // RHS ChDKZ Insurgents
+            case "rhs_faction_msv":               { "rhs_ka60_c"                     }; // RHS Russia (MSV)
             case "rhs_faction_vdv":               { "rhs_Mi24V_vdv"                  }; // RHS Russia (VDV)
+            case "rhs_faction_vmf":               { "rhs_ka60_c"                     }; // RHS Russia (VMF)
             case "rhs_faction_vv":                { "rhs_Mi8mt_vv"                   }; // RHS Russia (VV)
             case "rhssaf_faction_army_opfor":     { "rhssaf_airforce_ht48"           }; // RHS SAF OPFOR (KOV)
             case "rhssaf_faction_airforce_opfor": { "rhssaf_airforce_ht48"           }; // RHS SAF OPFOR (RVIPVO)
@@ -81,13 +85,14 @@ _heliClass = switch (side player) do
     {
         switch (faction player) do
         {
-            case "IND_F":                      { "I_Heli_light_03_F"                 }; // AAF (Default)
+            case "IND_F":                      { "I_Heli_light_03_F"                 }; // AAF
             case "IND_C_F":                    { "I_C_Heli_Light_01_civil_F"         }; // Syndikat
             case "IND_E_F":                    { "I_E_Heli_light_03_unarmed_F"       }; // LDF (Livonian Defense Force)
-            case "rhsgref_faction_chdkz_g":    { "rhsgref_ins_Mi8amt"                }; // RHS ChDKZ Insurgents
-            case "rhsgref_faction_cdf_air":    { "rhsgref_cdf_Mi35"                  }; // RHS Chernarus (Air Forces)
-            case "rhsgref_faction_cdf_ground": { "rhsgref_cdf_reg_Mi17Sh"            }; // RHS Chernarus (Ground Forces)
-            case "rhsgref_faction_un":         { "rhsgref_un_Mi8amt"                 }; // RHS Chernarus (UN)
+            case "rhsgref_faction_chdkz_g":    { "rhsgref_ins_g_Mi8amt"              }; // RHS ChDKZ Insurgents
+            case "rhsgref_faction_cdf_air":    { "rhsgref_cdf_reg_Mi8amt"            }; // RHS CDF (Air Forces)
+            case "rhsgref_faction_cdf_ground": { "rhsgref_cdf_reg_Mi8amt"            }; // RHS CDF (Ground Forces)
+            case "rhsgref_faction_cdf_ng":     { "rhsgref_cdf_reg_Mi8amt"            }; // RHS CDF (National Guard)
+            case "rhsgref_faction_un":         { "rhsgref_un_Mi8amt"                 }; // RHS CDF (UN)
             case "rhssaf_faction_army":        { "rhssaf_airforce_ht48"              }; // RHS SAF (KOV)
             case "rhssaf_faction_airforce":    { "rhssaf_airforce_ht48"              }; // RHS SAF (RVIPVO)
             case "CUP_I_PMC_ION":              { "CUP_I_MH6M_ION"                    }; // CUP ION PMC

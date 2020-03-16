@@ -24,19 +24,17 @@
 
 // No transport for the following excluded factions
 _excludedFactions = [
-    "Gendarmerie",                 // Gendarmerie
+    "BLU_GEN_F",                   // Gendarmerie
+    "BLU_G_F",                     // BLUFOR FIA
     "IND_G_F",                     // GUER FIA
     "OPF_G_F",                     // OPFOR FIA
+    "OPF_R_F",                     // Spetsnaz
     "IND_L_F",                     // GUER Looters
-    "rhs_faction_usn",             // RHS USA Navy
-    "rhs_faction_usaf",            // RHS USAF
-    "rhs_faction_msv",             // RHS Russia (MSV)
     "rhs_faction_rva",             // RHS Russia (RVA)
     "rhs_faction_tv",              // RHS Russia (TV)
-    "rhs_faction_vmf",             // RHS Russia (VMF)
     "rhs_faction_vpvo",            // RHS Russia (VPVO)
-    "rhsgref_faction_cdf_ng",      // RHS GUER Chernarus (National Guard)
-    "rhsgref_faction_nationalist", // RHS GUER Nationalist Troops
+    "rhsgref_faction_tla",         // RHS Tanoan Liberation Army
+    "rhsgref_faction_nationalist", // RHS NAPA
     "rhssaf_faction_un",           // RHS SAF (UN)
     "CUP_O_TK_MILITIA"             // CUP OPFOR Takistani Militia
 ];

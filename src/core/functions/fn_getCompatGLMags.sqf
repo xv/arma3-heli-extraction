@@ -20,6 +20,7 @@
 
 private ["_result"];
 
+_result = [];
 _primaryWeapon = primaryWeapon player;
 
 if (_primaryWeapon == "") exitWith { [] };

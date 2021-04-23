@@ -46,15 +46,15 @@ if (_launcher isEqualTo "SAFE") exitWith { [] };
 // Vanilla and RHS GL muzzles that are returned by _launcher
 _launcherTypes =
 [
-    "UGL",
-    "EGLM",
-    "GL_3GL_F",
-    "M203_GL",
-    "M320_GL",
-    "VHS_BG",
-    "GP25Muzzle",
-    "PBG40Muzzle",
-    "AG36Muzzle"
+    "UGL",         // Vanilla
+    "EGLM",        // Vanilla
+    "GL_3GL_F",    // Vanilla
+    "M203_GL",     // RHS
+    "M320_GL",     // RHS
+    "VHS_BG",      // RHS
+    "GP25Muzzle",  // RHS, CUP
+    "PBG40Muzzle", // RHS
+    "AG36Muzzle"   // RHS
 ];
 
 if (_launcher in _launcherTypes) then

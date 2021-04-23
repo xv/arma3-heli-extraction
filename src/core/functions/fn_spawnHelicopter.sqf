@@ -104,7 +104,17 @@ _heliClass = switch (side player) do
     };
 };
 
-_spawnVehicle = [_spawnPos, _azimuth, _heliClass, side player] call BIS_fnc_spawnVehicle;
+_veh = createVehicle [_heliClass, _spawnPos, [], 0, "FLY"];
+_veh setDir _azimuth;
+_veh setPos _spawnPos;
+
+createVehicleCrew _veh;
+
+_group = createGroup side player;
+_crew = crew _veh;
+_crew joinSilent _group;
+_group addVehicle _veh;
+_group selectLeader (commander _veh);
 
 _baseMarker = createMarkerLocal ["base_marker", _spawnPos];
 _baseMarker setMarkerShapeLocal "ICON";
@@ -118,4 +128,4 @@ _baseMarker setMarkerShapeLocal "ICON";
 
 _baseMarker setMarkerTextLocal localize "STR_FB_MARKER_HELICOPTERBASE";
 
-_spawnVehicle
+[_veh, _crew, _group]

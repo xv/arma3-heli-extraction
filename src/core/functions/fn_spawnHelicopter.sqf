@@ -92,7 +92,7 @@ _heliClass = switch (side player) do
             case "rhsgref_faction_cdf_air":    { "rhsgref_cdf_reg_Mi8amt"            }; // RHS CDF (Air Forces)
             case "rhsgref_faction_cdf_ground": { "rhsgref_cdf_reg_Mi8amt"            }; // RHS CDF (Ground Forces)
             case "rhsgref_faction_cdf_ng":     { "rhsgref_cdf_reg_Mi8amt"            }; // RHS CDF (National Guard)
-            case "rhsgref_faction_un":         { "rhsgref_un_Mi8amt"                 }; // RHS CDF (UN)
+            case "rhsgref_faction_un":         { "rhs_uh1h_un"                       }; // RHS CDF (UN)
             case "rhssaf_faction_army":        { "rhssaf_airforce_ht48"              }; // RHS SAF (KOV)
             case "rhssaf_faction_airforce":    { "rhssaf_airforce_ht48"              }; // RHS SAF (RVIPVO)
             case "CUP_I_PMC_ION":              { "CUP_I_MH6M_ION"                    }; // CUP ION PMC

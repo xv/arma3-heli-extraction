@@ -16,14 +16,12 @@
 
 params ["_vehicle", "_isRHS", "_state"];
 
-private _cargoDoorLeft = "door_L";
-private _cargoDoorRight = "door_R";
-
-if (_isRHS) then
-{
-    _cargoDoorLeft = "doorLB";
-    _cargoDoorRight = "doorRB";
+if (_isRHS) then {
+    _vehicle animateDoor ["doorLB", _state];
+    _vehicle animate ["doorHandler_L", _state];
+    _vehicle animateDoor ["doorRB", _state];
+    _vehicle animate ["doorHandler_R", _state];
+} else {
+    _vehicle animateDoor ["door_L", _state];
+    _vehicle animateDoor ["door_R", _state];
 };
-
-_vehicle animateDoor [_cargoDoorLeft, _state];
-_vehicle animateDoor [_cargoDoorRight, _state];

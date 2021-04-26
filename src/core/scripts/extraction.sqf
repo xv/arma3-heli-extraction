@@ -424,7 +424,9 @@ if (canMove _heli) then
         if (heliPos distance _pos < DROPOFF_RANGE_MIN_RADIUS) then {
             hint localize "STR_HT_DROPOFF_RANGE";
         } else {
-            [_pos] call xv_fnc_markDropOffZone;
+            _safePos = [_pos, 15, 100] call xv_fnc_findLandingPos;
+            [_safePos] call xv_fnc_markDropOffZone;
+
             isMapPosValid = true;
             heliPos = nil;
 
@@ -432,8 +434,8 @@ if (canMove _heli) then
 
             /* If the player's drop off position, by some chance, happens to be
              * within 500 meters from the helicopter spawn position, move away
-             * the its spawn position a little so that the player doesn't see
-             * the helicopter getting magically deleted (script end).
+             * its spawn position a little so that the player doesn't see the
+             * helicopter getting magically deleted (script end).
              */
             if ((markerPos "dropoff_marker" distance markerPos "base_marker") <= 500) then
             {

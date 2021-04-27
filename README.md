@@ -30,7 +30,7 @@ CUP & RHS Support
 -----------------
 Support for Community Upgrade Project and Red Hammer Studios mods is included. If the script detects that your player unit belongs to a CUP or RHS faction, the extraction helicopter will be part of the said faction.
 
-RHS support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive grenades is also included. The script will let you use your RHS smoke grenades, including launcher grenades such as an M203 40mm, to mark the landing zone.
+The support goes beyond non-vanilla helicopters. Since RHS units carry custom magazines, support for mod's-exclusive throwable grenades is also included. The script will also let you use your 40mm underbarrel grenade launcher, such as M203 and GP-25, from both mods to mark the landing zone.
 
 ACE Compatibility
 -----------------

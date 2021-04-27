@@ -3,8 +3,8 @@
  *     Jad Altahan (https://github.com/xv)
  *
  * Description:
- *     Iterates through hardcoded vanilla and RHS 40mm smoke magazines that are
- *     compatible with the player's current primary weapon and returns them.
+ *     Iterates through hardcoded vanilla, CUP and RHS 40mm smoke magazines that
+ *     are compatible with the player's current primary weapon and returns them.
  *
  * Parameter(s):
  *     Nothing.

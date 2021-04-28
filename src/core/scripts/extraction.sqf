@@ -271,11 +271,7 @@ _heli lockDriver true;
  */
 // _heli setCaptive true;
 
-/* For a touch of realism, open the Black Hawk doors.
- *
- * TODO: RHS automatically closes the cargo doors after getting in. Find way
- * (if there's any?) to keep the cargo doors open.
- */
+// For a touch of realism, open the Black Hawk doors
 if (typeOf _heli find "RHS_UH60M" >= 0) then
 {
     [_heli, true, 1] call xv_fnc_animateCargoDoors;

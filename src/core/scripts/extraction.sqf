@@ -276,12 +276,9 @@ _heli lockDriver true;
     { _x allowDamage false; } foreach [_heli] + crew _heli;
 #endif
 
-/* Uncomment the line of code below to make enemy AI ignore the helicopter.
- * 
- * if setCaptive is set to true, enemy AI will not fire at the helicopter as if
- * it is one of their own. However, they may still fire at the player if spotted.
- */
-// _heli setCaptive true;
+#ifdef EXTRACT_HELI_CAPTIVE
+    _heli setCaptive true;
+#endif
 
 // For a touch of realism, open the Black Hawk doors
 if (typeOf _heli find "RHS_UH60M" >= 0) then

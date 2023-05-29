@@ -12,15 +12,19 @@ This is my neat little helicopter extraction script for Arma III. What makes thi
 
 * The spawn position of the helicopter is random. It can arrive from any direction.
 
-* After the helicopter lands at the extraction zone, it will not wait forever to be boarded. Instead, there is a countdown timer that you have to board the helicopter before it zeros out. Othwerwise, the helicopter will RTB.
+* After the helicopter lands at the extraction zone, it will not wait forever to be boarded. Instead, there is a countdown timer that you have to board the helicopter before it zeros out. Otherwise, the helicopter will RTB.
 
-* Helicopter and crew invincibility is optional (enabled by default; can be changed by modifying the script). Disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
+* Helicopter and crew invincibility is optional (enabled by default; see Script Options below). Disabling invincibility can put the helicopter at risk of getting shot down. If that happens, the player will be notified that it has been destroyed. You will not be able to request another one, however.
 
 Here's a quick rundown of the script:
 
 <p align="center">
   <img src="extra/images/flowchart.svg" alt="script flowchart">
 </p>
+
+Script Options
+--------------
+You can tweak some of the script's options by modifying the directives defined in [component.hpp](src/core/component.hpp). There you can toggle helicopter invincibility or change the helicopter's spawn distance from the player, among other things.
 
 Multiplayer Support
 -------------------
@@ -34,7 +38,7 @@ The support goes beyond non-vanilla helicopters. Since RHS units carry custom ma
 
 ACE Compatibility
 -----------------
-The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
+The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 28/5/2023. This script may or may not function properly when ACE is active.
 
 Usage
 -----

@@ -36,26 +36,6 @@ ACE Compatibility
 -----------------
 The compatibility status with Advanced Combat Environment 3 (ACE 3) mod is unknown as of 27/7/2019. This script may or may not fucntion properly when ACE is active.
 
-Porting to Arma II/OA
----------------------
-The script was originally written for Arma II, but moved to Arma III as Arma II's community started fading away due to the release of a new Arma game. The syntax of this script is no logner compatible with previous titles since it makes use of commands that were introduced in Arma III. However, if you can get around the new commands, it can be ported easily.
-
-Here is a list of commands used in the script that were introduced in Arma III:
-
-| Command                 | Community Wiki Page                                                                      |
-|:-----------------------:|------------------------------------------------------------------------------------------|
-| `addItemCargo`          | [/wiki/addItemCargo](https://community.bistudio.com/wiki/addItemCargo)                   |
-| `append`                | [/wiki/append](https://community.bistudio.com/wiki/append)                               |
-| `assignedItems`         | [/wiki/assignedItems](https://community.bistudio.com/wiki/assignedItems)                 |
-| `canAdd`                | [/wiki/canAdd](https://community.bistudio.com/wiki/canAdd)                               |
-| `distance2D`            | [/wiki/distance2D](https://community.bistudio.com/wiki/distance2D)                       |
-| `findIf`                | [/wiki/findIf](https://community.bistudio.com/wiki/findIf)                               |
-| `isEqualTo`             | [/wiki/isEqualTo](https://community.bistudio.com/wiki/isEqualTo)                         |
-| `param`                 | [/wiki/param](https://community.bistudio.com/wiki/param)                                 |
-| `primaryWeaponMagazine` | [/wiki/primaryWeaponMagazine](https://community.bistudio.com/wiki/primaryWeaponMagazine) |
-| `setWaypointName`       | [/wiki/setWaypointName](https://community.bistudio.com/wiki/setWaypointName)             |
-| `vectorMagnitude`       | [/wiki/vectorMagnitude](https://community.bistudio.com/wiki/vectorMagnitude)             |
-
 Usage
 -----
 This should be fairly easy for anyone to do.

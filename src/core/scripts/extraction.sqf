@@ -225,6 +225,18 @@ fn_monitorVehicleStatus =
         [_unit] orderGetIn true;
 
         boardingDetected = true;
+
+        #ifdef EXTRACT_HELI_INVINCIBLE
+            _unit allowDamage false;
+        #endif
+    }];
+
+    _veh addEventHandler ["GetOut", {
+        _unit = _this select 2;
+
+        #ifdef EXTRACT_HELI_INVINCIBLE
+            _unit allowDamage true;
+        #endif
     }];
 };
 

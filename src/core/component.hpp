@@ -5,7 +5,10 @@
 // This directive defines, in meters, how far the helicopter spawns from the player
 #define EXTRACT_HELI_SPAWN_DISTANCE 2500
 
-// Comment out this directive if you want to disable helicopter invincibility
+// Enables the invincibility of the helicopter and the player + teammates when
+// inside the helicopter
+//
+// Comment out this directive to disable the invincibility behaviour
 #define EXTRACT_HELI_INVINCIBLE
 
 // Defines the time, in seconds, the extraction helicopter will wait for the
